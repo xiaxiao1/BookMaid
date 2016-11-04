@@ -54,7 +54,8 @@ public class BookAdapter extends BaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        holder.bookIndex.setText(position+"");
+        holder.bookIndex.setText((position+1)+"");
+        holder.bookIndex.setTextColor(Color.parseColor(Util.getRandomColor()));
         holder.bookName.setText(book.getName());
         holder.bookId.setText(book.getId());
         if (book.getType() == 1) {

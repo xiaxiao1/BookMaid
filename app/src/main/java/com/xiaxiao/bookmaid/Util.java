@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
  * Created by xiaxi on 2016/11/2.
  */
 public class Util {
+    private static String[] colorNumber={"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"};
     private static final String TAG = "xiaxiao";
     public  static void L(String message) {
         Log.i(TAG, message);
@@ -21,5 +22,16 @@ public class Util {
     public static String getTimeStr(long l) {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         return s.format(l);
+    }
+
+    public static String getRandomColor() {
+        int i;
+        StringBuffer sb = new StringBuffer();
+        sb.append("#");
+        for (int a=0;a<6;a++) {
+            i= (int) (Math.random() * 16);
+            sb.append(colorNumber[i]);
+        }
+        return sb.toString();
     }
 }
