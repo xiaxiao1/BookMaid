@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookMaid</string>
+    <string name="book_type_buy">已有</string>
+    <string name="book_type_buy_no">没买</string>
 </resources>

@@ -22,12 +22,15 @@ public class AddBookActivity extends AppCompatActivity {
     int type=0;
     String name="";
     BookManager bookManager;
+    UIDialog uiDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         initViews();
         bookManager = new BookManager(this);
+        uiDialog = new UIDialog(this);
     }
 
     public void initViews() {
@@ -61,9 +64,11 @@ public class AddBookActivity extends AppCompatActivity {
                 }
                 Util.L(edit.getText().toString()+" 有没有："+type);
                 final Book book = new Book(edit.getText().toString(), type, System.currentTimeMillis());
-                bookManager.add(book, new BookManager.OnResultListener() {
+                uiDialog.showDialog();
+                bookManager.add(book, new OnResultListener() {
                     @Override
                     public void onSuccess(String objectId) {
+                        uiDialog.dismissDialog();
                         Intent intent=new Intent();
                         Bundle b=new Bundle();
                         b.putInt("type",book.getType());
@@ -78,6 +83,7 @@ public class AddBookActivity extends AppCompatActivity {
                     @Override
                     public void onError(BmobException e) {
                         Util.toast(AddBookActivity.this,"添加失败，请重试");
+                        uiDialog.dismissDialog();
                     }
                 });
 

@@ -31,9 +31,9 @@ public class BookManager {
         bookDBHelper.delete(book);
     }
 
-    public void update(Book book) {
+    public void update(Book book,OnResultListener onResultListener) {
         Util.L("update book");
-        bookDBHelper.update(book);
+        bookServer.update(book,onResultListener);
     }
 
     public List<Book> query(Book book) {
@@ -45,15 +45,28 @@ public class BookManager {
         return bookDBHelper.queryBooks(bookName);
     }
 
-    public List<Book> getBooks(int type) {
-        List<Book> list;
-        list=bookDBHelper.getBooks(type);
-        return list;
+    public void getBooks(int type,OnResultListener onResultListener) {
+        bookServer.getBooks(type,onResultListener);
     }
 
-    interface OnResultListener{
-        public void onSuccess(String objectId);
-        public void onError(BmobException e);
-
+    public List<Book> getBooksInLocal(int type) {
+        return bookDBHelper.getBooks(type);
     }
+
+    public int clearLocal(){
+        return bookDBHelper.clearTable();
+    }
+   /*abstract class  OnResultListener  implements BookListener{
+
+        @Override
+        public void onResult(Object object) {
+
+        }
+
+       @Override
+       public abstract void onSuccess(String objectId);
+
+       @Override
+       public abstract void onError(BmobException e);
+   }*/
 }

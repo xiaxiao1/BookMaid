@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:background="#ffffff"
     >
     <EditText
         android:id="@+id/addbook_name_et"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:hint="书名..."
+        android:padding="4dp"
+        android:background="@drawable/border"
         />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,5 +43,10 @@
         android:textColor="#ffffff"
         android:background="#1296db"
         android:layout_marginTop="100dp"
+        />
+    <ImageView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/readbook"
+        android:layout_marginTop="60dp"
         />
 </LinearLayout>

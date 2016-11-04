@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     BookManager bookManager;
     BookAdapter bookAdapter;
     List<Book> books;
+    List<Book> tempBooks;
+    List<Book> havedBooks;
+    List<Book> willbuyBooks;
+    UIDialog uiDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +41,31 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         BmobIniter.init(this);
         setContentView(R.layout.activity_main);
         initViews();
-
+        tempBooks = new ArrayList<>();
+        havedBooks = new ArrayList<>();
+        willbuyBooks = new ArrayList<>();
+        uiDialog = new UIDialog(this);
+        uiDialog.showDialog();
         bookManager = new BookManager(this);
-        books = bookManager.getBooks(0);
-        bookAdapter = new BookAdapter(this, books, 0);
-        listview.setAdapter(bookAdapter);
+        bookManager.getBooks(-1, new OnResultListener() {
+            @Override
+            public void onResult(Object object) {
+                books=(List<Book>)object;
+                bookAdapter = new BookAdapter(MainActivity.this, books, 0);
+                listview.setAdapter(bookAdapter);
+                uiDialog.dismissDialog();
+            }
+            @Override
+            public void onSuccess(String objectId) {
+
+            }
+
+            @Override
+            public void onError(BmobException e) {
+
+            }
+        });
+
     }
 
     public void initViews() {
@@ -61,37 +87,28 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         int id=v.getId();
         switch (id) {
             case R.id.search_img:
-                books=bookManager.getBooks(0);
-                for (Book book:books) {
-                    book.setName(""+book.getId()+book.getName()+book.getType());
-                }
-                bookAdapter.updateDatas(books);
+                String edittedName = edit_et.getText().toString().trim();
+                tempBooks=bookManager.query(edittedName);
+                bookAdapter.updateDatas(tempBooks);
                 bookAdapter.notifyDataSetChanged();
                 break;
             case R.id.add_img:
-                /*Book b = new Book("name:" + System.currentTimeMillis());
-                b.setAddedTime(System.currentTimeMillis());
-                b.setType(0);
-                boolean result=bookManager.add(b);
-                if (result) {
-                    Toast.makeText(MainActivity.this, "add ok", Toast.LENGTH_SHORT).show();
-                }*/
-                break;
-            case R.id.have_btn:
                 Intent intent=new Intent(this,AddBookActivity.class);
                 startActivityForResult(intent,101);
                 break;
+            case R.id.have_btn:
+                have_btn.setBackgroundResource(R.color.blue);
+                buy_btn.setBackgroundResource(R.color.blue_dark);
+                havedBooks=bookManager.getBooksInLocal(1);
+                bookAdapter.updateDatas(havedBooks);
+                bookAdapter.notifyDataSetChanged();
+                break;
             case R.id.buy_btn:
-                Book book = new Book("intert book", null, 0, System.currentTimeMillis());
-                book.getObjectId();
-                book.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        if (e==null) {
-                            Util.L("add ok! "+s);
-                        }
-                    }
-                });
+                buy_btn.setBackgroundResource(R.color.blue);
+                have_btn.setBackgroundResource(R.color.blue_dark);
+                willbuyBooks=bookManager.getBooksInLocal(0);
+                bookAdapter.updateDatas(willbuyBooks);
+                bookAdapter.notifyDataSetChanged();
                 break;
             default:
                 break;

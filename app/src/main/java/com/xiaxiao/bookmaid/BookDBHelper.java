@@ -58,6 +58,12 @@ public class BookDBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public void addBooks(List<Book> list) {
+        for (Book b:list) {
+            add(b);
+        }
+    }
+
     /**
      * 从数据库删除一本书
      * @param book
@@ -73,6 +79,10 @@ public class BookDBHelper extends SQLiteOpenHelper{
             return true;
         }
         return false;
+    }
+
+    public int  clearTable() {
+        return db.delete(tableName, null, null);
     }
 
     /**

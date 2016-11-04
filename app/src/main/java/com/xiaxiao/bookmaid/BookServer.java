@@ -2,8 +2,13 @@ package com.xiaxiao.bookmaid;
 
 import android.content.Context;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by xiaxi on 2016/11/3.
@@ -14,7 +19,7 @@ public class BookServer {
     public BookServer(Context context) {
         bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, BookDBHelper.VERTION);
     }
-    public void add(final Book book, final BookManager.OnResultListener onResultListener) {
+    public void add(final Book book, final OnResultListener onResultListener) {
         book.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
@@ -26,6 +31,45 @@ public class BookServer {
                     } else {
                         onResultListener.onError(e);
                     }
+                }
+            }
+        });
+    }
+
+    public void update(final Book book, final OnResultListener onResultListener) {
+        book.update(book.getId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Util.L("update ok.");
+                    bookDBHelper.update(book);
+                    onResultListener.onSuccess(book.getId());
+                } else {
+                    Util.L("update error:"+e.getMessage());
+                    onResultListener.onError(e);
+                }
+            }
+        });
+    }
+    public void getBooks(int type,final OnResultListener onResultListener) {
+        BmobQuery<Book> query = new BmobQuery<>();
+        if (type!=-1) {
+            query.addWhereEqualTo("type", type);
+        }
+        query.findObjects(new FindListener<Book>() {
+            @Override
+            public void done(List<Book> list, BmobException e) {
+                if (e == null) {
+                    Util.L("query ok.");
+                    for (Book b:list) {
+                        b.setId(b.getObjectId());
+                    }
+                    bookDBHelper.clearTable();
+                    bookDBHelper.addBooks(list);
+                    onResultListener.onResult(list);
+                } else {
+                    Util.L("query error:"+e.getMessage());
+                    onResultListener.onError(e);
                 }
             }
         });

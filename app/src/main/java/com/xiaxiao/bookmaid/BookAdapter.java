@@ -1,9 +1,11 @@
 package com.xiaxiao.bookmaid;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ public class BookAdapter extends BaseAdapter{
     List<Book> list;
     Context context;
     int type;
+    int proirIndex=-1;
 
     public BookAdapter(Context context, List<Book> list, int type) {
         this.context = context;
@@ -51,17 +54,38 @@ public class BookAdapter extends BaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
+        holder.bookIndex.setText(position+"");
         holder.bookName.setText(book.getName());
+        holder.bookId.setText(book.getId());
+        if (book.getType() == 1) {
+            holder.bookType.setText(R.string.book_type_buy);
+            holder.bookType.setTextColor(Color.parseColor("#1296db"));
+        } else {
+            holder.bookType.setText(R.string.book_type_buy_no);
+            holder.bookType.setTextColor(Color.parseColor("#8a8a8a"));
 
+        }
 
+        if (position > proirIndex) {
+            convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));
+        } else {
+            convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_drop));
+        }
+        proirIndex=position;
         return convertView;
     }
 
     class Holder{
         TextView bookName;
+        TextView bookIndex;
+        TextView bookId;
+        TextView bookType;
 
         public Holder(View view) {
             this.bookName = (TextView) view.findViewById(R.id.item_book_name);
+            this.bookIndex = (TextView) view.findViewById(R.id.item_book_index_tv);
+            this.bookId = (TextView) view.findViewById(R.id.item_book_id);
+            this.bookType = (TextView) view.findViewById(R.id.item_book_type);
         }
     }
 }
