@@ -20,7 +20,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
     //表名
     public static final String tableName = "book";
     //建表语句
-    private String createTable = "create table "+tableName+"(id integer primary key autoincrement,name varchar(30),type int,added_time integer)";
+    private String createTable = "create table "+tableName+"(id varchar(30),name varchar(30),type int,added_time integer)";
     //执行操作的对象
     private SQLiteDatabase db;
     //must have
@@ -48,7 +48,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
      */
     public boolean add(Book book) {
         ContentValues value = new ContentValues();
-//        value.put("id",book.getId());
+        value.put("id",book.getId());
         value.put("name",book.getName());
         value.put("type",book.getType());
         value.put("added_time",book.getAddedTime());
@@ -67,7 +67,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         //删除条件
         String whereClause = "id=?";
         //删除条件参数
-        String[] whereArgs = {String.valueOf(book.getId())};
+        String[] whereArgs = {"'"+book.getId()+"'"};
         //执行删除
         if(0<db.delete(tableName,whereClause,whereArgs)){
             return true;
@@ -89,7 +89,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         //更新条件
         String whereClause = "id=?";
         //更新条件参数
-        String[] whereArgs = {String.valueOf(book.getId())};
+        String[] whereArgs = {"'"+book.getId()+"'"};
         if(0<db.update(tableName, value, whereClause, whereArgs)){
             return true;
         }
@@ -116,7 +116,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         List<Book> list=new ArrayList<>();
         while(cursor.moveToNext()) {
             Book b=new Book(cursor.getString(1));
-            b.setId(cursor.getInt(0));
+            b.setId(cursor.getString(0));
             b.setType(cursor.getInt(2));
             b.setAddedTime(cursor.getInt(3));
             list.add(b);
@@ -140,7 +140,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         List<Book> list=new ArrayList<>();
         while(cursor.moveToNext()) {
             Book b=new Book(cursor.getString(1));
-            b.setId(cursor.getInt(0));
+            b.setId(cursor.getString(0));
             b.setType(cursor.getInt(2));
             b.setAddedTime(cursor.getInt(3));
             list.add(b);

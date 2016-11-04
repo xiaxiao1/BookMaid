@@ -6,22 +6,24 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.exception.BmobException;
+
 /**
  * Created by xiaxi on 2016/11/2.
  */
 public class BookManager {
     BookDBHelper bookDBHelper;
-
+    BookServer bookServer;
 
 
     public BookManager(Context context){
-        bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, 1);
+        bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, BookDBHelper.VERTION);
+        bookServer = new BookServer(context);
     }
-    public boolean add(Book book) {
-        boolean ok=false;
+    public void add(Book book,OnResultListener onResultListener) {
+        bookServer.add(book,onResultListener);
         Util.L("add book");
-        ok=bookDBHelper.add(book);
-        return ok;
+
     }
 
     public void delete(Book book) {
@@ -47,5 +49,11 @@ public class BookManager {
         List<Book> list;
         list=bookDBHelper.getBooks(type);
         return list;
+    }
+
+    interface OnResultListener{
+        public void onSuccess(String objectId);
+        public void onError(BmobException e);
+
     }
 }

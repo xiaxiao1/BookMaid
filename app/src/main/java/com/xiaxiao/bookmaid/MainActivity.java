@@ -13,6 +13,9 @@ import android.widget.Toast;
 import java.sql.Date;
 import java.util.List;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
     ImageView searchBook_img;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BmobIniter.init(this);
         setContentView(R.layout.activity_main);
         initViews();
 
@@ -65,22 +69,46 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 bookAdapter.notifyDataSetChanged();
                 break;
             case R.id.add_img:
-                Book b = new Book("name:" + System.currentTimeMillis());
+                /*Book b = new Book("name:" + System.currentTimeMillis());
                 b.setAddedTime(System.currentTimeMillis());
                 b.setType(0);
                 boolean result=bookManager.add(b);
                 if (result) {
                     Toast.makeText(MainActivity.this, "add ok", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 break;
             case R.id.have_btn:
-                startActivity(new Intent(this,AddBookActivity.class));
+                Intent intent=new Intent(this,AddBookActivity.class);
+                startActivityForResult(intent,101);
                 break;
             case R.id.buy_btn:
+                Book book = new Book("intert book", null, 0, System.currentTimeMillis());
+                book.getObjectId();
+                book.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e==null) {
+                            Util.L("add ok! "+s);
+                        }
+                    }
+                });
                 break;
             default:
                 break;
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==RESULT_OK) {
+            Bundle b=data.getExtras();
+            Book book = new Book(b.getString("name"),b.getString("id"),b.getInt("type"),b.getLong("addtime"));
+            Util.L(book.toString());
+            books.add(book);
+            bookAdapter.notifyDataSetChanged();
+
+
+        }
     }
 }

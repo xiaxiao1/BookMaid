@@ -2,18 +2,25 @@ package com.xiaxiao.bookmaid;
 
 import java.util.Date;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by xiaxi on 2016/11/2.
  */
-public class Book {
+public class Book extends BmobObject{
     String name;
-    int id;
+    String id;
     int type;
     long addedTime;
 
-    public Book(long addedTime, int id, String name, int type) {
+    public Book( String name, String id, int type,long addedTime) {
         this.addedTime = addedTime;
         this.id = id;
+        this.name = name;
+        this.type = type;
+    }
+    public Book(String name, int type,long addedTime) {
+        this.addedTime = addedTime;
         this.name = name;
         this.type = type;
     }
@@ -26,11 +33,11 @@ public class Book {
         this.addedTime = addedTime;
     }
 
-    public int getId() {
+    public String  getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String  id) {
         this.id = id;
     }
 
@@ -52,5 +59,15 @@ public class Book {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "addedTime=" + addedTime +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                ", type=" + type +
+                '}';
     }
 }
