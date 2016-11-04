@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="#ffffff"
+    >
+    <EditText
+        android:id="@+id/addbook_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="书名..."
+        />
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        >
+        <TextView
+            android:id="@+id/addbook_have_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="还没有呢"
+            android:gravity="center"
+            />
+        <ImageView
+            android:id="@+id/addbook_have_img"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/have_off"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/addbook_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:background="#1296db"
+        android:layout_marginTop="100dp"
+        />
+</LinearLayout>
