@@ -1,6 +1,10 @@
-package com.xiaxiao.bookmaid;
+package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
+
+import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.listener.OnResultListener;
+import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
 
@@ -45,7 +49,7 @@ public class BookServer {
                     bookDBHelper.update(book);
                     onResultListener.onSuccess(book.getId());
                 } else {
-                    Util.L("update error:"+e.getMessage());
+                    Util.L("update error:"+e.getMessage()+" errorCode:"+e.getErrorCode());
                     onResultListener.onError(e);
                 }
             }
@@ -56,6 +60,7 @@ public class BookServer {
         if (type!=-1) {
             query.addWhereEqualTo("type", type);
         }
+        query.order("-createdAt");
         query.findObjects(new FindListener<Book>() {
             @Override
             public void done(List<Book> list, BmobException e) {

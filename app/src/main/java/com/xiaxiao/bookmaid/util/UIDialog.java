@@ -1,4 +1,4 @@
-package com.xiaxiao.bookmaid;
+package com.xiaxiao.bookmaid.util;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;

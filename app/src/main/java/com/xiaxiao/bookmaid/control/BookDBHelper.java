@@ -1,4 +1,4 @@
-package com.xiaxiao.bookmaid;
+package com.xiaxiao.bookmaid.control;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.util.Util;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,7 +75,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         //删除条件
         String whereClause = "id=?";
         //删除条件参数
-        String[] whereArgs = {"'"+book.getId()+"'"};
+        String[] whereArgs = {""+book.getId()+""};
         //执行删除
         if(0<db.delete(tableName,whereClause,whereArgs)){
             return true;
@@ -99,10 +101,12 @@ public class BookDBHelper extends SQLiteOpenHelper{
         //更新条件
         String whereClause = "id=?";
         //更新条件参数
-        String[] whereArgs = {"'"+book.getId()+"'"};
+        String[] whereArgs = {""+book.getId()+""};
         if(0<db.update(tableName, value, whereClause, whereArgs)){
+            Util.L("update local DB ok");
             return true;
         }
+        Util.L("update local DB error");
         return false;
     }
 

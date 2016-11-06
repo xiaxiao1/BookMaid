@@ -3,44 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiaxiao.bookmaid.MainActivity"
+    tools:context=".activity.MainActivity"
     android:focusableInTouchMode="true"
     >
 <!--title-->
     <RelativeLayout
-        android:id="@+id/title_rl"
+        android:id="@+id/app_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="2dp"
-
+        android:layout_alignParentTop="true"
+        android:background="@color/title_bg"
         >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/app_name"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:transitionName="xiaxiao"
+            />
         <ImageView
             android:id="@+id/add_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/add"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="2dp"
+        android:layout_below="@id/app_title"
+        >
+
         <ImageView
             android:id="@+id/search_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/search"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/add_img"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
             />
         <EditText
             android:id="@+id/edit_et"
             android:hint="输入书名..."
+            android:textSize="12sp"
+            android:textColorHint="@color/gray"
             android:background="@drawable/border"
             android:layout_width="match_parent"
             android:paddingLeft="6dp"
             android:paddingTop="1dp"
             android:paddingBottom="1dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:maxLines="1"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/search_img"
@@ -50,51 +73,96 @@
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="1dp"
-            android:background="@color/blue_dark"
+            android:background="@color/gray"
             />
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/bottom_ll"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#eeeeee"
+        android:background="#ffffff"
         android:orientation="horizontal"
         >
-        <Button
-            android:id="@+id/have_btn"
-            android:text="已有的"
-            android:textSize="18sp"
-            android:textColor="#ffffff"
+        <LinearLayout
+            android:id="@+id/all_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_weight="1"
-            android:background="@color/blue"
-            />
-        <View android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"/>
-        <Button
-            android:id="@+id/buy_btn"
-            android:text="待买的"
-            android:textSize="18sp"
-            android:textColor="#ffffff"
+            >
+            <ImageView
+                android:id="@+id/all_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/all_on"
+                android:padding="3dp"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:id="@+id/all_label_tv"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_horizontal"
+                android:text="all"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/have_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_weight="1"
-            android:background="@color/blue_dark"
-            />
+            >
+            <ImageView
+                android:id="@+id/have_img"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:src="@drawable/have_off2"
+                />
+            <TextView
+                android:id="@+id/have_label_tv"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_horizontal"
+                android:text="have"/>
+        </LinearLayout>
+       <LinearLayout
+           android:id="@+id/buy_ll"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:layout_weight="1"
+           >
+           <ImageView
+               android:id="@+id/buy_img"
+               android:layout_width="match_parent"
+               android:layout_height="30dp"
+               android:src="@drawable/buy_off2"
+               />
+           <TextView
+               android:id="@+id/buy_label_tv"
+               android:layout_width="match_parent"
+               android:layout_height="20dp"
+               android:gravity="center_horizontal"
+               android:text="buy"/>
+       </LinearLayout>
+
     </LinearLayout>
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/gray"
+        android:layout_above="@id/bottom_ll"
+        />-->
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_rl"
         android:layout_above="@id/bottom_ll"
-        android:paddingTop="6dp"
-        android:background="@color/listview_bg"
-        android:divider="@color/listview_bg"
-        android:dividerHeight="4dp"
+        android:background="#ffffff"
+        android:divider="@null"
         />
 
 </RelativeLayout>

@@ -1,6 +1,4 @@
-package com.xiaxiao.bookmaid;
-
-import java.util.Date;
+package com.xiaxiao.bookmaid.bean;
 
 import cn.bmob.v3.BmobObject;
 
@@ -18,6 +16,13 @@ public class Book extends BmobObject{
         this.id = id;
         this.name = name;
         this.type = type;
+    }
+
+    public Book(Book book) {
+        this.name=book.getName();
+        this.id=book.getId();
+        this.addedTime=book.getAddedTime();
+        this.type=book.getType();
     }
     public Book(String name, int type,long addedTime) {
         this.addedTime = addedTime;

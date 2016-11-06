@@ -1,13 +1,16 @@
-package com.xiaxiao.bookmaid;
+package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
 
@@ -67,11 +70,11 @@ public class BookAdapter extends BaseAdapter{
 
         }
 
-        if (position > proirIndex) {
+       /* if (position > proirIndex) {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));
         } else {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_drop));
-        }
+        }*/
         proirIndex=position;
         return convertView;
     }

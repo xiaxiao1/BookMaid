@@ -1,4 +1,4 @@
-package com.xiaxiao.bookmaid;
+package com.xiaxiao.bookmaid.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xiaxiao.bookmaid.control.BookManager;
+import com.xiaxiao.bookmaid.listener.OnResultListener;
+import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.util.UIDialog;
+import com.xiaxiao.bookmaid.util.Util;
+import com.xiaxiao.bookmaid.bean.Book;
+
 import cn.bmob.v3.exception.BmobException;
 
 public class AddBookActivity extends AppCompatActivity {
@@ -16,6 +23,7 @@ public class AddBookActivity extends AppCompatActivity {
     EditText edit;
     TextView label;
     ImageView have_img;
+    ImageView back_img;
     Button submit;
 
     boolean haved=false;
@@ -38,7 +46,13 @@ public class AddBookActivity extends AppCompatActivity {
         label = (TextView) findViewById(R.id.addbook_have_label_tv);
         have_img = (ImageView) findViewById(R.id.addbook_have_img);
         submit = (Button) findViewById(R.id.addbook_submit);
-
+        back_img = (ImageView) findViewById(R.id.back_img);
+        back_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddBookActivity.this.finish();
+            }
+        });
         have_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,12 +1,12 @@
-package com.xiaxiao.bookmaid;
+package com.xiaxiao.bookmaid.control;
 
-import android.app.Application;
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.listener.OnResultListener;
+import com.xiaxiao.bookmaid.util.Util;
 
-import cn.bmob.v3.exception.BmobException;
+import java.util.List;
 
 /**
  * Created by xiaxi on 2016/11/2.
@@ -20,7 +20,7 @@ public class BookManager {
         bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, BookDBHelper.VERTION);
         bookServer = new BookServer(context);
     }
-    public void add(Book book,OnResultListener onResultListener) {
+    public void add(Book book, OnResultListener onResultListener) {
         bookServer.add(book,onResultListener);
         Util.L("add book");
 
