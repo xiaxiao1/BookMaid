@@ -22,7 +22,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
     //表名
     public static final String tableName = "book";
     //建表语句
-    private String createTable = "create table "+tableName+"(id varchar(30),name varchar(30),type int,added_time integer)";
+    private String createTable = "create table "+tableName+"(id varchar(30),name varchar(30),type int,added_time integer,read_status int)";
     //执行操作的对象
     private SQLiteDatabase db;
     //must have
@@ -41,6 +41,8 @@ public class BookDBHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Util.L("update database");
+        db.execSQL("drop table book");
+        db.execSQL(createTable);
     }
 
     /**
@@ -54,6 +56,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         value.put("name",book.getName());
         value.put("type",book.getType());
         value.put("added_time",book.getAddedTime());
+        value.put("read_status",book.getReadStatus());
         if(-1==db.insert(tableName, null, value)){
             return false;
         }
@@ -98,6 +101,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
         value.put("name",book.getName());
         value.put("type",book.getType());
         value.put("added_time",book.getAddedTime());
+        value.put("read_status",book.getReadStatus());
         //更新条件
         String whereClause = "id=?";
         //更新条件参数
@@ -133,6 +137,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
             b.setId(cursor.getString(0));
             b.setType(cursor.getInt(2));
             b.setAddedTime(cursor.getInt(3));
+            b.setReadStatus(cursor.getInt(4));
             list.add(b);
         }
         cursor.close();
@@ -157,6 +162,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
             b.setId(cursor.getString(0));
             b.setType(cursor.getInt(2));
             b.setAddedTime(cursor.getInt(3));
+            b.setReadStatus(cursor.getInt(4));
             list.add(b);
         }
         cursor.close();

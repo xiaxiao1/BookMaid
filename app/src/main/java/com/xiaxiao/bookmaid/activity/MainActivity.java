@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     ImageView all_img;
     ImageView have_img;
     ImageView buy_img;
+    ImageView toUser_img;
     TextView allLabel_tv;
     TextView haveLabel_tv;
     TextView buyLabel_tv;
@@ -48,7 +49,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     LinearLayout buy_ll;
 
     TextView change_tv;
+    TextView readYes;
+    TextView readNo;
+    TextView readOn;
     View dialogView;
+    ChangeListener changeListener;
 
     BookManager bookManager;
     BookAdapter bookAdapter;
@@ -70,8 +75,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         super.onCreate(savedInstanceState);
         BmobIniter.init(this);
         setContentView(R.layout.activity_main);
+        changeListener = new ChangeListener();
         initViews();
-        a=new AlertDialog.Builder(this).setView(dialogView,0,0,0,0).create();
+        a=new AlertDialog.Builder(this).setView(dialogView).create();
         tempBooks = new ArrayList<>();
         havedBooks = new ArrayList<>();
         willbuyBooks = new ArrayList<>();
@@ -146,6 +152,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     public void initViews() {
         searchBook_img = (ImageView) findViewById(R.id.search_img);
+        toUser_img = (ImageView) findViewById(R.id.user_img);
         addBook_img = (ImageView) findViewById(R.id.add_img);
         edit_et = (EditText) findViewById(R.id.edit_et);
         listview = (ListView) findViewById(R.id.listview);
@@ -161,6 +168,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_view, null);
         change_tv = (TextView)dialogView.findViewById(R.id.change_tv);
+        readYes = (TextView)dialogView.findViewById(R.id.read_yes);
+        readNo = (TextView)dialogView.findViewById(R.id.read_no);
+        readOn = (TextView)dialogView.findViewById(R.id.read_on);
+        change_tv.setOnClickListener(changeListener);
+        readYes.setOnClickListener(changeListener);
+        readNo.setOnClickListener(changeListener);
+        readOn.setOnClickListener(changeListener);
+
 
         View footer = View.inflate(this, R.layout.footer, null);
         listview.addFooterView(footer);
@@ -169,38 +184,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         all_ll.setOnClickListener(this);
         have_ll.setOnClickListener(this);
         buy_ll.setOnClickListener(this);
+        toUser_img.setOnClickListener(this);
 
-        dialogView.setOnClickListener(this);
+//        dialogView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v==dialogView) {
-            if (currentBook.getType() == 1) {
-                currentBook.setType(0);
-            } else {
-                currentBook.setType(1);
-            }
-            final Book bv=new Book(currentBook);
-            bookManager.update(bv, new OnResultListener() {
-                @Override
-                public void onSuccess(String objectId) {
-                    if (currentType==1||currentType==0) {
-                        currentList.remove(currentBook);
-                    }
-                    bookAdapter.notifyDataSetChanged();
 
-                    a.dismiss();
-                }
-
-                @Override
-                public void onError(BmobException e) {
-                    a.dismiss();
-                    Util.toast(MainActivity.this,"修改失败");
-                }
-            });
-            return;
-        }
         int id=v.getId();
         switch (id) {
             case R.id.search_img:
@@ -223,6 +214,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 Intent intent=new Intent(this,AddBookActivity.class);
                 startActivityForResult(intent,101);
                 break;
+            case R.id.user_img:
+                GlobalData.activity=MainActivity.this;
+                Intent intent2=new Intent(this,UserActivity.class);
+                startActivity(intent2);
             case R.id.have_ll:
                 currentType=1;
                 changeViewColorAndImg(have_img,R.drawable.have_on2,haveLabel_tv,Color.parseColor(lightColor));
@@ -266,7 +261,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode==RESULT_OK) {
             Bundle b=data.getExtras();
-            Book book = new Book(b.getString("name"),b.getString("id"),b.getInt("type"),b.getLong("addtime"));
+            Book book = new Book(b.getString("name"),b.getString("id"),b.getInt("type"),b.getLong("addtime"),b.getInt("readstatus"));
             Util.L(book.toString());
            /* if ((book.getType()==1&&currentType!=0)||) {
             }*/
@@ -282,5 +277,76 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         img.setImageResource(sourceId);
         view.setTextColor(color);
 
+    }
+
+    class ChangeListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            uiDialog.showDialog();
+            a.dismiss();
+            int read=currentBook.getReadStatus();
+            if (v==change_tv) {
+                if (currentBook.getType() == 1) {
+                    currentBook.setType(0);
+                } else {
+                    currentBook.setType(1);
+                }
+                final Book bv=new Book(currentBook);
+                bookManager.update(bv, new OnResultListener() {
+                    @Override
+                    public void onSuccess(String objectId) {
+                        if (currentType==1||currentType==0) {
+                            currentList.remove(currentBook);
+                        }
+                        bookAdapter.notifyDataSetChanged();
+
+                        uiDialog.dismissDialog();
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                        uiDialog.dismissDialog();
+                        Util.toast(MainActivity.this,"修改失败");
+                    }
+                });
+                return;
+            }
+            if (v==readYes) {
+                if (read==1) {
+                    return;
+                }
+                currentBook.setReadStatus(1);
+            }
+            if (v==readOn) {
+                if (read==2) {
+                    return;
+                }
+                currentBook.setReadStatus(2);
+            }
+            if (v==readNo) {
+                if (read==0) {
+                    return;
+                }
+                currentBook.setReadStatus(0);
+            }
+            final Book bv=new Book(currentBook);
+            bookManager.update(bv, new OnResultListener() {
+                @Override
+                public void onSuccess(String objectId) {
+
+                    bookAdapter.notifyDataSetChanged();
+
+                    uiDialog.dismissDialog();
+                }
+
+                @Override
+                public void onError(BmobException e) {
+                    uiDialog.dismissDialog();
+                    Util.toast(MainActivity.this,"修改失败");
+                }
+            });
+
+        }
     }
 }

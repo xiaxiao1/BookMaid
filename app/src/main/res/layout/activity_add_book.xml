@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
     <RelativeLayout
         android:id="@+id/app_title"
@@ -13,9 +14,10 @@
         >
         <ImageView
             android:id="@+id/back_img"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="10dp"
@@ -43,28 +45,85 @@
         android:padding="4dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/border"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:maxLength="30"
         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         >
 
-        <ImageView
-            android:id="@+id/addbook_have_img"
-            android:layout_width="60dp"
+
+        <TextView android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:src="@drawable/have_off"
-            android:layout_centerHorizontal="true"
+            android:text="买了吗"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/test_black"
+
             />
         <TextView
             android:id="@+id/addbook_have_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="还没有这本书呢"
+            android:text="未买"
             android:gravity="center"
-            android:layout_toRightOf="@id/addbook_have_img"
+            android:layout_alignParentRight="true"
+
             />
+        <ImageView
+            android:id="@+id/addbook_have_img"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/have_off"
+            android:layout_toLeftOf="@id/addbook_have_label_tv"
+            />
+
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/listview_bg"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        >
+
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="读了吗"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/test_black"
+
+            />
+        <TextView
+            android:id="@+id/addbook_read_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="未读"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+
+            />
+        <ImageView
+            android:id="@+id/addbook_read_img"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:src="@drawable/read_menu"
+            android:layout_toLeftOf="@id/addbook_read_label_tv"
+            />
+
     </RelativeLayout>
     <Button
         android:id="@+id/addbook_submit"
@@ -74,6 +133,8 @@
         android:textColor="#ffffff"
         android:background="#1296db"
         android:layout_marginTop="100dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         />
     <ImageView android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
+import cn.bmob.v3.BmobUser;
+
 /**
  * Created by xiaxi on 2016/11/2.
  */
@@ -33,5 +35,10 @@ public class Util {
             sb.append(colorNumber[i]);
         }
         return sb.toString();
+    }
+
+    public static boolean isLogin(){
+        BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
+        return bmobUser!=null;
     }
 }

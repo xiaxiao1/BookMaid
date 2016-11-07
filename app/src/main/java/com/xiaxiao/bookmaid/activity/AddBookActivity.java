@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid.activity;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,24 +25,45 @@ public class AddBookActivity extends AppCompatActivity {
     TextView label;
     ImageView have_img;
     ImageView back_img;
+    ImageView read_img;
+    TextView readlabel_tv;
     Button submit;
 
     boolean haved=false;
     int type=0;
+    int readStatus=0;
     String name="";
     BookManager bookManager;
     UIDialog uiDialog;
+    View readMenuView;
+    AlertDialog chooseReadDialog;
+    TextView readYes;
+    TextView readNo;
+    TextView readOn;
+    ReadListener readListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-        initViews();
+        readListener = new ReadListener();
         bookManager = new BookManager(this);
+        initViews();
         uiDialog = new UIDialog(this);
     }
 
     public void initViews() {
+        readMenuView = View.inflate(this, R.layout.read_status_menu, null);
+        readYes = (TextView) readMenuView.findViewById(R.id.read_yes);
+        readNo = (TextView) readMenuView.findViewById(R.id.read_no);
+        readOn = (TextView) readMenuView.findViewById(R.id.read_on);
+        readYes.setOnClickListener(readListener);
+        readNo.setOnClickListener(readListener);
+        readOn.setOnClickListener(readListener);
+        chooseReadDialog = new AlertDialog.Builder(this).setView(readMenuView).create();
+        read_img = (ImageView) findViewById(R.id.addbook_read_img);
+        readlabel_tv = (TextView) findViewById(R.id.addbook_read_label_tv);
         edit = (EditText) findViewById(R.id.addbook_name_et);
         label = (TextView) findViewById(R.id.addbook_have_label_tv);
         have_img = (ImageView) findViewById(R.id.addbook_have_img);
@@ -59,13 +81,19 @@ public class AddBookActivity extends AppCompatActivity {
                 haved=!haved;
                 if (haved) {
                     have_img.setImageResource(R.drawable.have_on);
-                    label.setText("已经有了哦");
+                    label.setText("已有");
                     type=1;
                 } else {
                     have_img.setImageResource(R.drawable.have_off);
-                    label.setText("还没有这本书呢");
+                    label.setText("未买");
                     type=0;
                 }
+            }
+        });
+        read_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseReadDialog.show();
             }
         });
 
@@ -77,7 +105,7 @@ public class AddBookActivity extends AppCompatActivity {
                     return;
                 }
                 Util.L(edit.getText().toString()+" 有没有："+type);
-                final Book book = new Book(edit.getText().toString(), type, System.currentTimeMillis());
+                final Book book = new Book(edit.getText().toString(),"0", type, System.currentTimeMillis(),readStatus);
                 uiDialog.showDialog();
                 bookManager.add(book, new OnResultListener() {
                     @Override
@@ -86,6 +114,7 @@ public class AddBookActivity extends AppCompatActivity {
                         Intent intent=new Intent();
                         Bundle b=new Bundle();
                         b.putInt("type",book.getType());
+                        b.putInt("readstatus",book.getReadStatus());
                         b.putString("name",book.getName());
                         b.putLong("addtime",book.getAddedTime());
                         b.putString("id",book.getId());
@@ -105,4 +134,25 @@ public class AddBookActivity extends AppCompatActivity {
         });
     }
 
+    class ReadListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            Util.L("read listener");
+            if (v==readYes) {
+                readStatus=1;
+                readlabel_tv.setText("已读");
+
+            }
+            if (v==readNo) {
+                readStatus=0;
+                readlabel_tv.setText("未读");
+            }
+            if (v==readOn) {
+                readStatus=2;
+                readlabel_tv.setText("在读");
+            }
+            chooseReadDialog.dismiss();
+        }
+    }
 }

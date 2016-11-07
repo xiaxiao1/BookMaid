@@ -23,11 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="book name"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textColor="@color/test_black"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/book_img"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="10dp"
         />
     <TextView
@@ -38,21 +38,42 @@
         android:textSize="18sp"
         android:layout_below="@id/book_name_tv"
         android:layout_toRightOf="@id/book_img"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:layout_marginLeft="10dp"
         />
+    <LinearLayout
+        android:id="@+id/read_buy_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/book_img"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="16dp"
+        >
+    <TextView
+        android:id="@+id/book_read_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="book name"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" · "
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            />
     <TextView
         android:id="@+id/book_status_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="book name"
         android:textSize="12sp"
-        android:layout_below="@id/book_writer_tv"
-        android:layout_toRightOf="@id/book_img"
-        android:layout_alignBaseline="@id/book_img"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
         />
+    </LinearLayout>
     <TextView
         android:id="@+id/add_note_tv"
         android:layout_width="wrap_content"
@@ -60,26 +81,38 @@
         android:text="+笔记"
         android:textSize="18sp"
         android:textColor="#ffffff"
-        android:background="@drawable/note_bg"
+        android:background="@drawable/add_note_bg"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/book_name_tv"
+        android:layout_below="@id/book_img"
+        />
+
+
+    <ImageView
+        android:id="@+id/xiaozhitiao_img"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/read_buy_ll"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/xiaozhitiao"
         />
     <TextView
         android:id="@+id/book_xiaozhitiao_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="小纸条："
+        android:layout_height="20dp"
+        android:text="小纸条"
+        android:gravity="center_vertical"
         android:textColor="@color/gray"
-        android:textSize="18sp"
-        android:layout_below="@id/book_img"
-        android:layout_alignParentLeft="true"
+        android:textSize="14sp"
+        android:layout_below="@id/read_buy_ll"
+        android:layout_toRightOf="@id/xiaozhitiao_img"
         android:layout_marginTop="20dp"
         />
     <View
         android:id="@+id/xiaozhitiao_view"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="@color/edit_bg"
+        android:layout_height="2dp"
+        android:background="@drawable/item_bg"
         android:layout_below="@id/book_xiaozhitiao_tv"/>
     <ListView
         android:id="@+id/listview"
@@ -87,5 +120,8 @@
         android:layout_height="match_parent"
         android:layout_below="@id/xiaozhitiao_view"
         android:divider="@null"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:fadeScrollbars="true"
+        android:scrollbars="none"
         ></ListView>
 </RelativeLayout>

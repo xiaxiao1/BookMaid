@@ -69,6 +69,16 @@ public class BookAdapter extends BaseAdapter{
             holder.bookType.setTextColor(Color.parseColor("#8a8a8a"));
 
         }
+        if (book.getReadStatus() == 1) {
+            holder.bookRead.setText(R.string.book_read_yes);
+            holder.bookRead.setTextColor(Color.parseColor("#1296db"));
+        } else if (book.getReadStatus() == 0) {
+            holder.bookRead.setText(R.string.book_read_no);
+            holder.bookRead.setTextColor(Color.parseColor("#8a8a8a"));
+        } else {
+            holder.bookRead.setText(R.string.book_read_on);
+            holder.bookRead.setTextColor(Color.parseColor("#8a8a8a"));
+        }
 
        /* if (position > proirIndex) {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));
@@ -84,12 +94,14 @@ public class BookAdapter extends BaseAdapter{
         TextView bookIndex;
         TextView bookId;
         TextView bookType;
+        TextView bookRead;
 
         public Holder(View view) {
             this.bookName = (TextView) view.findViewById(R.id.item_book_name);
             this.bookIndex = (TextView) view.findViewById(R.id.item_book_index_tv);
             this.bookId = (TextView) view.findViewById(R.id.item_book_id);
             this.bookType = (TextView) view.findViewById(R.id.item_book_type);
+            this.bookRead = (TextView) view.findViewById(R.id.item_book_read);
         }
     }
 }

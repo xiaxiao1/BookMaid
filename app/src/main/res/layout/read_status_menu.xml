@@ -6,56 +6,36 @@
     android:layout_height="match_parent"
     android:layout_marginTop="4dp"
     android:padding="-10dp"
-
+    android:background="@drawable/dialog_bg"
     >
 <TextView
-    android:id="@+id/change_tv"
+    android:id="@+id/read_yes"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:text="haha"
+    android:layout_marginTop="4dp"
+    android:text="已读"
     android:gravity="center"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/dialog_bg"
     />
-    <View android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/listview_bg"
-        />
     <TextView
-        android:id="@+id/read_yes"
+        android:id="@+id/read_on"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="改为已读"
+        android:layout_marginTop="4dp"
+        android:text="在读"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/dialog_bg"
-        />
-    <View android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/listview_bg"
         />
     <TextView
         android:id="@+id/read_no"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="改为未读"
+        android:layout_marginTop="4dp"
+        android:text="未读"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/dialog_bg"
         />
-    <View android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/listview_bg"
-        />
-    <TextView
-        android:id="@+id/read_on"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="改为在读"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/dialog_bg"
-        />
-
-
 </LinearLayout>

@@ -8,10 +8,22 @@ import cn.bmob.v3.BmobObject;
 public class Book extends BmobObject{
     String name;
     String id;
+    /*
+    * type=1: 已买
+    *      0：没买
+    *     -1：全部
+    * */
     int type;
+    /*
+    * readStatus=0: 没读
+    *            1：在读
+    *            2：已读
+    * */
+    int readStatus;
     long addedTime;
 
-    public Book( String name, String id, int type,long addedTime) {
+    public Book( String name, String id, int type,long addedTime,int readStatus) {
+        this.readStatus=readStatus;
         this.addedTime = addedTime;
         this.id = id;
         this.name = name;
@@ -66,6 +78,14 @@ public class Book extends BmobObject{
         this.name = name;
     }
 
+    public int getReadStatus() {
+        return readStatus;
+    }
+
+    public void setReadStatus(int readStatus) {
+        this.readStatus = readStatus;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -73,6 +93,7 @@ public class Book extends BmobObject{
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 ", type=" + type +
+                ", readStatus=" + readStatus +
                 '}';
     }
 }

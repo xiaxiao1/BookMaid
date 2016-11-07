@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.util.BmobIniter;
 import com.xiaxiao.bookmaid.util.Util;
 
 public class StartActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ RelativeLayout bg_rl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BmobIniter.init(this);
         setContentView(R.layout.activity_start);
         bg_rl = (RelativeLayout) findViewById(R.id.bg_rl);
         appName_tv = (TextView) findViewById(R.id.app_name_tv);
@@ -31,12 +33,19 @@ RelativeLayout bg_rl;
                 Util.L(v+"");
                 bg_rl.setAlpha(v/100.0f);
                 if (v==150) {
-                    Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                    if (Util.isLogin()) {
+                        Intent intent = new Intent(StartActivity.this, MainActivity.class);
 //                    StartActivity.this.supportFinishAfterTransition();
-//                    StartActivity.this.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(StartActivity.this,appName_tv,"xiaxiao").toBundle());
-                    StartActivity.this.startActivity(intent);
-                    StartActivity.this.finish();
-                //    StartActivity.this.overridePendingTransition(R.anim.open_alpha,R.anim.exit_alpha);
+//                    StartActivity.this.startActivity(intent, ActivityOptions
+// .makeSceneTransitionAnimation(StartActivity.this,appName_tv,"xiaxiao").toBundle());
+                        StartActivity.this.startActivity(intent);
+                        StartActivity.this.finish();
+                        //    StartActivity.this.overridePendingTransition(R.anim.open_alpha,R
+                        // .anim.exit_alpha);
+                    } else {
+                        StartActivity.this.startActivity(new Intent(StartActivity.this, LoginActivity.class));
+                    }
+
                 }
             }
         });

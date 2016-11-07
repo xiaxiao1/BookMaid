@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -62,15 +63,15 @@ public class BookNoteAdapter extends BaseAdapter{
         holder.user.setText(bookNote.getUserName());
         holder.content.setText(bookNote.getContent());
 
-        holder.createdTime.setText(bookNote.getCreatedAt()+"2016.12.12");
+        holder.createdTime.setText(bookNote.getCreatedAt());
 
 
 
-       /* if (position > proirIndex) {
+        if (position > proirIndex) {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));
         } else {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_drop));
-        }*/
+        }
         proirIndex=position;
         return convertView;
     }

@@ -32,7 +32,11 @@
         <activity android:name=".activity.AddBookActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.BookInfoActivity" />
-        <activity android:name=".activity.AddNoteActivity"></activity>
+        <activity android:name=".activity.AddNoteActivity" />
+        <activity android:name=".activity.UserActivity">
+        </activity>
+        <activity android:name=".activity.LoginActivity">
+        </activity>
     </application>
 
 </manifest>
