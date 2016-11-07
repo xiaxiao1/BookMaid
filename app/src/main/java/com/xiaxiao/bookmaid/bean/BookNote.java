@@ -10,12 +10,21 @@ public class BookNote extends BmobObject{
     String content;
     String bookId;
     String userName;
+    String ownerId;
 
     public BookNote(String content, String id, String bookId, String userName) {
         this.content = content;
         this.id = id;
         this.bookId = bookId;
         this.userName = userName;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getBookId() {

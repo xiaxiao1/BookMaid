@@ -22,6 +22,8 @@ public class Book extends BmobObject{
     int readStatus;
     long addedTime;
 
+    String ownerId;
+
     public Book( String name, String id, int type,long addedTime,int readStatus) {
         this.readStatus=readStatus;
         this.addedTime = addedTime;
@@ -40,6 +42,26 @@ public class Book extends BmobObject{
         this.addedTime = addedTime;
         this.name = name;
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "addedTime=" + addedTime +
+                ", name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", type=" + type +
+                ", readStatus=" + readStatus +
+                ", ownerId='" + ownerId + '\'' +
+                '}';
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public long getAddedTime() {
@@ -86,14 +108,4 @@ public class Book extends BmobObject{
         this.readStatus = readStatus;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "addedTime=" + addedTime +
-                ", name='" + name + '\'' +
-                ", id=" + id +
-                ", type=" + type +
-                ", readStatus=" + readStatus +
-                '}';
-    }
 }

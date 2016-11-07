@@ -29,7 +29,9 @@ import com.xiaxiao.bookmaid.bean.Book;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
                 listview.setAdapter(bookAdapter);
                 uiDialog.dismissDialog();
+
             }
             @Override
             public void onSuccess(String objectId) {
@@ -213,11 +216,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             case R.id.add_img:
                 Intent intent=new Intent(this,AddBookActivity.class);
                 startActivityForResult(intent,101);
+
                 break;
             case R.id.user_img:
                 GlobalData.activity=MainActivity.this;
                 Intent intent2=new Intent(this,UserActivity.class);
                 startActivity(intent2);
+                break;
             case R.id.have_ll:
                 currentType=1;
                 changeViewColorAndImg(have_img,R.drawable.have_on2,haveLabel_tv,Color.parseColor(lightColor));

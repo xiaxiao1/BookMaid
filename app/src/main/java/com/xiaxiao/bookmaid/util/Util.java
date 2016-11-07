@@ -41,4 +41,8 @@ public class Util {
         BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
         return bmobUser!=null;
     }
+
+    public static String getUserId() {
+        return BmobUser.getCurrentUser().getObjectId();
+    }
 }

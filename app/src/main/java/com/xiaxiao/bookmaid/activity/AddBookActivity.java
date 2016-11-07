@@ -17,6 +17,7 @@ import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 import com.xiaxiao.bookmaid.bean.Book;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
 public class AddBookActivity extends AppCompatActivity {
@@ -106,6 +107,7 @@ public class AddBookActivity extends AppCompatActivity {
                 }
                 Util.L(edit.getText().toString()+" 有没有："+type);
                 final Book book = new Book(edit.getText().toString(),"0", type, System.currentTimeMillis(),readStatus);
+                book.setOwnerId(BmobUser.getCurrentUser().getObjectId());
                 uiDialog.showDialog();
                 bookManager.add(book, new OnResultListener() {
                     @Override

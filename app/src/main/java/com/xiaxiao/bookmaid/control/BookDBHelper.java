@@ -131,6 +131,10 @@ public class BookDBHelper extends SQLiteOpenHelper{
         }
         Cursor cursor=db.query(tableName, null, whereClause, whereArgs, null, null, null, null);
         Util.L("count :"+cursor.getCount());
+        if (cursor.getCount()<=0) {
+            Util.L("no database datas");
+            return null;
+        }
         List<Book> list=new ArrayList<>();
         while(cursor.moveToNext()) {
             Book b=new Book(cursor.getString(1));

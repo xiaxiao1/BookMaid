@@ -15,6 +15,7 @@ import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
 public class AddNoteActivity extends AppCompatActivity {
@@ -38,7 +39,8 @@ EditText content;
                 if (contentStr.equals("")) {
                     return ;
                 }
-                bookNote = new BookNote(contentStr, "0", bookId, "xiaxiao");
+                bookNote = new BookNote(contentStr, "0", bookId, BmobUser.getCurrentUser().getUsername());
+                bookNote.setOwnerId(Util.getUserId());
                 bookNoteServer.add(bookNote, new OnResultListener() {
                     @Override
                     public void onSuccess(String objectId) {

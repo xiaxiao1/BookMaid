@@ -9,6 +9,7 @@ import com.xiaxiao.bookmaid.util.Util;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -60,6 +61,7 @@ public class BookServer {
         if (type!=-1) {
             query.addWhereEqualTo("type", type);
         }
+        query.addWhereEqualTo("ownerId", BmobUser.getCurrentUser().getObjectId());
         query.order("-createdAt");
         query.findObjects(new FindListener<Book>() {
             @Override

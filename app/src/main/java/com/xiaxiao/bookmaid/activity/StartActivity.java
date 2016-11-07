@@ -44,6 +44,7 @@ RelativeLayout bg_rl;
                         // .anim.exit_alpha);
                     } else {
                         StartActivity.this.startActivity(new Intent(StartActivity.this, LoginActivity.class));
+                        StartActivity.this.finish();
                     }
 
                 }
