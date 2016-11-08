@@ -5,6 +5,7 @@ import android.content.Context;
 import com.xiaxiao.bookmaid.bean.Book;
 import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
@@ -64,7 +65,12 @@ public class BookServer {
         if (type!=-1) {
             query.addWhereEqualTo("type", type);
         }
-        query.addWhereEqualTo("ownerId", BmobUser.getCurrentUser().getObjectId());
+        if (GlobalData.userId != null) {
+            query.addWhereEqualTo("ownerId", GlobalData.userId);
+        } else {
+            query.addWhereEqualTo("ownerId", "-1");
+        }
+Util.L(BmobUser.getCurrentUser().getObjectId()+"  "+Util.getUserId());
         query.order("-createdAt");
         query.findObjects(new FindListener<Book>() {
             @Override

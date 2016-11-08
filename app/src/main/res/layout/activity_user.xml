@@ -69,6 +69,7 @@
             android:background="#ffffff"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:overScrollMode="ifContentScrolls"
             android:text="@string/app_jianjie"
             />
         <!---->
@@ -242,6 +243,7 @@
                 android:layout_height="34dp"
                 android:src="@drawable/back"
                 android:text="发送"
+                android:textSize="14sp"
                 android:textColor="#ffffff"
                 android:background="@drawable/button_blue_bg"
                 android:layout_marginLeft="4dp"

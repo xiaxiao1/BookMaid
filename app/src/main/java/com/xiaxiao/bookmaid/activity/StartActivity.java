@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.util.BmobIniter;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
 public class StartActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ RelativeLayout bg_rl;
                 bg_rl.setAlpha(v/100.0f);
                 if (v==150) {
                     if (Util.isLogin()) {
+                        GlobalData.userId = Util.getUserId();
                         Intent intent = new Intent(StartActivity.this, MainActivity.class);
 //                    StartActivity.this.supportFinishAfterTransition();
 //                    StartActivity.this.startActivity(intent, ActivityOptions

@@ -16,4 +16,5 @@ public class GlobalData {
     public static BookNote bookNote;
     public static Activity activity;
     public static List<FamousWord> famousWords;
+    public static String userId;
 }

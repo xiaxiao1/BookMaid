@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:text="确定"
         android:textColor="#ffffff"
-        android:background="#1296db"
+        android:background="@drawable/button_blue_bg"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"

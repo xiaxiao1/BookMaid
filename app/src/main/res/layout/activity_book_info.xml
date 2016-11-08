@@ -112,7 +112,7 @@
         android:id="@+id/xiaozhitiao_view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@drawable/item_bg"
+        android:background="@color/hong"
         android:layout_below="@id/book_xiaozhitiao_tv"/>
     <ListView
         android:id="@+id/listview"

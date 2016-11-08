@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     LinearLayout all_ll;
     LinearLayout have_ll;
     LinearLayout buy_ll;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     TextView change_tv;
     TextView readYes;
@@ -70,16 +72,46 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     AlertDialog a;
     String lightColor = "#ff4081";
     String darkColor = "#8a8a8a";
+    String userId;
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        userId = getIntent().getStringExtra("userId");
         BmobIniter.init(this);
         uiDialog = new UIDialog(this);
         setContentView(R.layout.activity_main);
         changeListener = new ChangeListener();
         initViews();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                bookManager.getBooks(-1, new OnResultListener() {
+                    @Override
+                    public void onResult(Object object) {
+                        allBooks=(List<Book>)object;
+                        currentList=allBooks;
+                        bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                        listview.setAdapter(bookAdapter);
+                        swipeRefreshLayout.setRefreshing(false);
+
+                        currentType=-1;
+                        changeViewColorAndImg(all_img,R.drawable.all_on,allLabel_tv,Color.parseColor(lightColor));
+                        changeViewColorAndImg(have_img,R.drawable.have_off2,haveLabel_tv,Color.parseColor(darkColor));
+                        changeViewColorAndImg(buy_img,R.drawable.buy_off2,buyLabel_tv,Color.parseColor(darkColor));
+                    }
+                    @Override
+                    public void onSuccess(String objectId) {
+
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                       swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        });
         a=new AlertDialog.Builder(this).setView(dialogView).create();
         tempBooks = new ArrayList<>();
         havedBooks = new ArrayList<>();
@@ -155,6 +187,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initViews() {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
+        swipeRefreshLayout.setColorSchemeColors(new int[]{R.color.lan,R.color.hong});
         searchBook_img = (ImageView) findViewById(R.id.search_img);
         toUser_img = (ImageView) findViewById(R.id.user_img);
         addBook_img = (ImageView) findViewById(R.id.add_img);

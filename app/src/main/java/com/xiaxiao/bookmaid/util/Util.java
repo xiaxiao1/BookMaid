@@ -43,7 +43,7 @@ public class Util {
 
     public static boolean isLogin(){
         BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
-        return bmobUser!=null;
+        return bmobUser!=null&&bmobUser.getObjectId()!=null;
     }
 
     public static FamousWord pickOneFrom(List<FamousWord> list){

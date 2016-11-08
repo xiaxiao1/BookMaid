@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -66,8 +67,11 @@ public class LoginActivity extends AppCompatActivity {
                                         if(e==null){
                                            uiDialog.dismissDialog();
                                             Util.toast(LoginActivity.this,"注册 成功");
-                                            Util.L(s.toString());
-                                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                            Util.L("注册成功："+s.toString()+s.getObjectId()+s.getUsername());
+                                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+//                                            intent.putExtra("userId", s.getObjectId());
+                                            GlobalData.userId = s.getObjectId();
+                                            startActivity(intent);
                                             LoginActivity.this.finish();
                                         }else{
                                             if (e.getErrorCode()==202) {
