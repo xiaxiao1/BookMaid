@@ -39,11 +39,11 @@ RelativeLayout bg_rl;
 //                    StartActivity.this.startActivity(intent, ActivityOptions
 // .makeSceneTransitionAnimation(StartActivity.this,appName_tv,"xiaxiao").toBundle());
                         StartActivity.this.startActivity(intent);
+                        StartActivity.this.overridePendingTransition(R.anim.open_alpha,R.anim.exit_alpha);
                         StartActivity.this.finish();
-                        //    StartActivity.this.overridePendingTransition(R.anim.open_alpha,R
-                        // .anim.exit_alpha);
                     } else {
                         StartActivity.this.startActivity(new Intent(StartActivity.this, LoginActivity.class));
+                        StartActivity.this.overridePendingTransition(R.anim.open_alpha,R.anim.exit_alpha);
                         StartActivity.this.finish();
                     }
 

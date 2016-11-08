@@ -3,11 +3,13 @@ package com.xiaxiao.bookmaid.control;
 import android.content.Context;
 
 import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
 
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -24,6 +26,7 @@ public class BookServer {
     public BookServer(Context context) {
         bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, BookDBHelper.VERTION);
     }
+
     public void add(final Book book, final OnResultListener onResultListener) {
         book.save(new SaveListener<String>() {
             @Override
@@ -73,6 +76,25 @@ public class BookServer {
                     }
                     bookDBHelper.clearTable();
                     bookDBHelper.addBooks(list);
+                    onResultListener.onResult(list);
+                } else {
+                    Util.L("query error:"+e.getMessage());
+                    onResultListener.onError(e);
+                }
+            }
+        });
+    }
+
+    public void  getFamousWords(final OnResultListener onResultListener) {
+        BmobQuery<FamousWord> query = new BmobQuery<>();
+        query.setLimit(100);
+        query.order("-createdAt");
+        query.findObjects(new FindListener<FamousWord>() {
+            @Override
+            public void done(List<FamousWord> list, BmobException e) {
+                if (e == null) {
+                    Util.L("query ok.");
+
                     onResultListener.onResult(list);
                 } else {
                     Util.L("query error:"+e.getMessage());

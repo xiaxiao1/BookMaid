@@ -4,8 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
+import com.xiaxiao.bookmaid.bean.FamousWord;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
 /**
@@ -40,6 +44,15 @@ public class Util {
     public static boolean isLogin(){
         BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
         return bmobUser!=null;
+    }
+
+    public static FamousWord pickOneFrom(List<FamousWord> list){
+        if (list==null||list.size()==0) {
+            return null;
+        }
+        int length=list.size();
+        int index=(int)(Math.random()*length);
+        return list.get(index);
     }
 
     public static String getUserId() {

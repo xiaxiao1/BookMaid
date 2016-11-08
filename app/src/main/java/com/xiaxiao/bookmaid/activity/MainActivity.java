@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BmobIniter.init(this);
+        uiDialog = new UIDialog(this);
         setContentView(R.layout.activity_main);
         changeListener = new ChangeListener();
         initViews();
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         tempBooks = new ArrayList<>();
         havedBooks = new ArrayList<>();
         willbuyBooks = new ArrayList<>();
-        uiDialog = new UIDialog(this);
         bookManager = new BookManager(this);
 
         uiDialog.showDialog();
@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         startActivity(i);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initViews() {
         searchBook_img = (ImageView) findViewById(R.id.search_img);
         toUser_img = (ImageView) findViewById(R.id.user_img);
@@ -181,6 +182,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
         View footer = View.inflate(this, R.layout.footer, null);
+        //是为了屏蔽listview的点击事件
+        footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         listview.addFooterView(footer);
         searchBook_img.setOnClickListener(this);
         addBook_img.setOnClickListener(this);
@@ -190,6 +198,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         toUser_img.setOnClickListener(this);
 
 //        dialogView.setOnClickListener(this);
+//        listview.setOverscrollHeader(getDrawable(R.drawable.foot_img));
     }
 
     @Override
@@ -270,6 +279,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             Util.L(book.toString());
            /* if ((book.getType()==1&&currentType!=0)||) {
             }*/
+            if (currentList==null) {
+                currentList = new ArrayList<>();
+            }
             currentList.add(0,book);
             bookAdapter.notifyDataSetChanged();
             listview.smoothScrollToPosition(0);

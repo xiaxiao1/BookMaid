@@ -180,4 +180,9 @@ public class BookDBHelper extends SQLiteOpenHelper{
         }
         return db;
     }
+    private void closeDB() {
+        if (db!=null) {
+            db.close();
+        }
+    }
 }

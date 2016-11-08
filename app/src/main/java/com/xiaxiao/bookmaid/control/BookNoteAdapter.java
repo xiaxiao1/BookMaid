@@ -72,6 +72,7 @@ public class BookNoteAdapter extends BaseAdapter{
         } else {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_drop));
         }
+//        convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.open_alpha));
         proirIndex=position;
         return convertView;
     }

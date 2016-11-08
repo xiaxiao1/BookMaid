@@ -6,4 +6,5 @@
     <string name="book_read_yes">已读</string>
     <string name="book_read_no">未读</string>
     <string name="book_read_on">在读</string>
+    <string name="app_jianjie">         之所以做这个小app ，是因为自己比较喜欢读书，也喜欢买书，每次优惠囤书时总是要不停的想，哎？这本书我又没有买过啊。当时就想要是有一个应用，可以存放已买过的书单，到时候一查询不就知道了。于是 小书仆就这么诞生了。希望她也能帮到你。</string>
 </resources>
