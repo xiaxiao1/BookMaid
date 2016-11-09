@@ -27,6 +27,6 @@
         android:layout_marginTop="16dp"
         android:text="确定"
         android:textColor="#ffffff"
-        android:background="#1296db"
+        android:background="@drawable/button_blue_bg"
         />
 </RelativeLayout>

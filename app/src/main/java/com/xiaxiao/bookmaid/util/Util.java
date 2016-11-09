@@ -2,6 +2,8 @@ package com.xiaxiao.bookmaid.util;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.xiaxiao.bookmaid.bean.FamousWord;
@@ -56,6 +58,22 @@ public class Util {
     }
 
     public static String getUserId() {
-        return BmobUser.getCurrentUser().getObjectId();
+        return GlobalData.userId;
+    }
+    public static void setUserId(String userId) {
+        GlobalData.userId=userId;
+    }
+
+    public static void setUser(BmobUser bmobUser) {
+        GlobalData.bmobUser=bmobUser;
+    }
+
+    public static BmobUser getUser() {
+        return GlobalData.bmobUser;
+    }
+
+    public static void hideSoftInput(Context context,View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken() , 0);
     }
 }

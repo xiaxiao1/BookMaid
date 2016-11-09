@@ -14,6 +14,8 @@ import com.xiaxiao.bookmaid.util.BmobIniter;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
+import cn.bmob.v3.BmobUser;
+
 public class StartActivity extends AppCompatActivity {
 RelativeLayout bg_rl;
     TextView appName_tv;
@@ -35,7 +37,8 @@ RelativeLayout bg_rl;
                 bg_rl.setAlpha(v/100.0f);
                 if (v==150) {
                     if (Util.isLogin()) {
-                        GlobalData.userId = Util.getUserId();
+                        Util.setUserId(BmobUser.getCurrentUser().getObjectId());
+                        Util.setUser(BmobUser.getCurrentUser());
                         Intent intent = new Intent(StartActivity.this, MainActivity.class);
 //                    StartActivity.this.supportFinishAfterTransition();
 //                    StartActivity.this.startActivity(intent, ActivityOptions
