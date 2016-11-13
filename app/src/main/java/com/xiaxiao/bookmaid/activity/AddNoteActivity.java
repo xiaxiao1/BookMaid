@@ -39,7 +39,7 @@ EditText content;
                 if (contentStr.equals("")) {
                     return ;
                 }
-                bookNote = new BookNote(contentStr, "0", bookId, BmobUser.getCurrentUser().getUsername());
+                bookNote = new BookNote(contentStr, "0", bookId, Util.getUser().getUsername());
                 bookNote.setOwnerId(Util.getUserId());
                 bookNoteServer.add(bookNote, new OnResultListener() {
                     @Override

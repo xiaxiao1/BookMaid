@@ -37,6 +37,7 @@ public class Book extends BmobObject{
         this.id=book.getId();
         this.addedTime=book.getAddedTime();
         this.type=book.getType();
+        this.readStatus=book.getReadStatus();
     }
     public Book(String name, int type,long addedTime) {
         this.addedTime = addedTime;

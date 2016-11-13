@@ -190,6 +190,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 public void done(String s, BmobException e) {
                     if (e == null) {
                         Util.toast(UserActivity.this, "收到咯");
+                        Util.hideSoftInput(UserActivity.this,editFeedbackMsg_et);
                         editFeedbackMsg_et.setText("");
                         Animation anim = AnimationUtils.loadAnimation(UserActivity.this, R.anim.out_to_top);
                         anim.setAnimationListener(new Animation.AnimationListener() {
@@ -210,6 +211,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                         });
                         feedBack_ll.startAnimation(anim);
                     } else {
+                        Util.hideSoftInput(UserActivity.this,editFeedbackMsg_et);
                         Util.toast(UserActivity.this, "啊！发送失败了");
                     }
                 }
@@ -264,6 +266,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             famousWord.save(new SaveListener<String>() {
                 @Override
                 public void done(String s, BmobException e) {
+                    Util.hideSoftInput(UserActivity.this,tuijianmingyan_neirong_et);
+                    Util.hideSoftInput(UserActivity.this,tuijianmingyan_zuozhe_et);
                     if (e == null) {
                         Util.toast(UserActivity.this, "收到咯");
                         tuijianmingyan_neirong_et.setText("");

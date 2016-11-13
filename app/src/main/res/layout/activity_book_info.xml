@@ -78,7 +78,7 @@
         android:id="@+id/add_note_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+笔记"
+        android:text="+小纸条"
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:background="@drawable/add_note_bg"

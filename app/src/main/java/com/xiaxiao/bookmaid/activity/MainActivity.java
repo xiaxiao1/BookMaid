@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 bookManager.getBooks(-1, new OnResultListener() {
                     @Override
                     public void onResult(Object object) {
+                        swipeRefreshLayout.setRefreshing(false);
                         allBooks=(List<Book>)object;
                         currentList=allBooks;
                         bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
                         listview.setAdapter(bookAdapter);
-                        swipeRefreshLayout.setRefreshing(false);
 
                         currentType=-1;
                         changeViewColorAndImg(all_img,R.drawable.all_on,allLabel_tv,Color.parseColor(lightColor));

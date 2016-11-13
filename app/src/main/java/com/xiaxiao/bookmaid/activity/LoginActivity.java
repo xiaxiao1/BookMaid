@@ -53,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                         if(e==null){
 //                            toast("登录成功:");
                             Util.toast(LoginActivity.this,"登录成功");
+                            Util.setUser(BmobUser.getCurrentUser());
+                            Util.setUserId(BmobUser.getCurrentUser().getObjectId());
                             uiDialog.dismissDialog();
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
                             LoginActivity.this.finish();
@@ -70,7 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                                             Util.L("注册成功："+s.toString()+s.getObjectId()+s.getUsername());
                                             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 //                                            intent.putExtra("userId", s.getObjectId());
-                                            GlobalData.userId = s.getObjectId();
+                                            Util.setUserId(s.getObjectId());
+                                            Util.setUser(s);
                                             startActivity(intent);
                                             LoginActivity.this.finish();
                                         }else{
