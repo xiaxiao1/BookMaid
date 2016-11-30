@@ -5,7 +5,7 @@ import cn.bmob.v3.BmobObject;
 /**
  * Created by xiaxi on 2016/11/2.
  */
-public class Book extends BmobObject{
+public class RelationShip extends BmobObject{
     String name;
     String id;
     /*
@@ -23,8 +23,10 @@ public class Book extends BmobObject{
     long addedTime;
 
     String ownerId;
+    String bookId;
 
-    public Book( String name, String id, int type,long addedTime,int readStatus) {
+
+    public RelationShip(String name, String id, int type, long addedTime, int readStatus) {
         this.readStatus=readStatus;
         this.addedTime = addedTime;
         this.id = id;
@@ -32,19 +34,27 @@ public class Book extends BmobObject{
         this.type = type;
     }
 
-    public Book(Book book) {
+    public RelationShip(RelationShip book) {
         this.name=book.getName();
         this.id=book.getId();
         this.addedTime=book.getAddedTime();
         this.type=book.getType();
         this.readStatus=book.getReadStatus();
     }
-    public Book(String name, int type,long addedTime) {
+    public RelationShip(String name, int type, long addedTime) {
         this.addedTime = addedTime;
         this.name = name;
         this.type = type;
     }
-    public Book(){}
+    public RelationShip(){}
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
 
     @Override
     public String toString() {
@@ -90,7 +100,7 @@ public class Book extends BmobObject{
         this.type = type;
     }
 
-    public Book(String name) {
+    public RelationShip(String name) {
         this.name = name;
     }
 

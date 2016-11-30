@@ -45,6 +45,9 @@ public class BookServer {
         });
     }
 
+    public <E extends  BmobObject> void xx(E b) {
+
+    }
     public void update(final Book book, final OnResultListener onResultListener) {
         book.update(book.getId(), new UpdateListener() {
             @Override

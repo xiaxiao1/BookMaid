@@ -20,5 +20,11 @@
         android:textColor="@color/title_bg"
         android:transitionName="xiaxiao"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="do "
+        android:onClick="gogo"
+        />
 
 </RelativeLayout>
