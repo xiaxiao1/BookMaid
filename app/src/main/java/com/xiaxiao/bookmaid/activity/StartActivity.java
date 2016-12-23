@@ -2,6 +2,7 @@ package com.xiaxiao.bookmaid.activity;
 
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 RelativeLayout bg_rl;
     TextView appName_tv;
     @Override
@@ -55,9 +56,9 @@ RelativeLayout bg_rl;
                         Util.setUserId(BmobUser.getCurrentUser().getObjectId());
                         Util.setUser(BmobUser.getCurrentUser());
                         Intent intent = new Intent(StartActivity.this, MainActivity.class);
-//                    StartActivity.this.supportFinishAfterTransition();
-//                    StartActivity.this.startActivity(intent, ActivityOptions
-// .makeSceneTransitionAnimation(StartActivity.this,appName_tv,"xiaxiao").toBundle());
+                    StartActivity.this.supportFinishAfterTransition();
+                    StartActivity.this.startActivity(intent, ActivityOptions
+ .makeSceneTransitionAnimation(StartActivity.this,appName_tv,"xiaxiao").toBundle());
                         StartActivity.this.startActivity(intent);
                         StartActivity.this.overridePendingTransition(R.anim.open_alpha,R.anim.exit_alpha);
                         StartActivity.this.finish();
@@ -70,7 +71,7 @@ RelativeLayout bg_rl;
                 }
             }
         });
-//        value.start();
+        value.start();
     }
 
     List<BmobObject> bookBeens=new ArrayList<>();

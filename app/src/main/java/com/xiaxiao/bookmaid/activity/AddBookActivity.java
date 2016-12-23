@@ -20,7 +20,7 @@ import com.xiaxiao.bookmaid.bean.Book;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
-public class AddBookActivity extends AppCompatActivity {
+public class AddBookActivity extends BaseActivity {
 
     EditText edit;
     TextView label;

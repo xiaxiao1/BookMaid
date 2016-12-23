@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.xiaxiao.bookmaid.bean.FamousWord;
+import com.xiaxiao.bookmaid.control.BmobServer;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -76,4 +77,8 @@ public class Util {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken() , 0);
     }
+
+
+
+
 }

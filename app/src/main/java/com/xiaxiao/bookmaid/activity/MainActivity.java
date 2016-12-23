@@ -17,6 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.xiaxiao.bookmaid.control.BmobServer;
+import com.xiaxiao.bookmaid.listener.BmobListener;
+import com.xiaxiao.bookmaid.listener.ErrorListener;
+import com.xiaxiao.bookmaid.listener.SuccessListener;
 import com.xiaxiao.bookmaid.util.BmobIniter;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.control.BookManager;
@@ -34,7 +38,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
+public class MainActivity extends BaseActivity  implements View.OnClickListener{
 
     ImageView searchBook_img;
     ImageView addBook_img;
@@ -117,7 +121,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         havedBooks = new ArrayList<>();
         willbuyBooks = new ArrayList<>();
         bookManager = new BookManager(this);
-
         uiDialog.showDialog();
         bookManager.getBooks(-1, new OnResultListener() {
             @Override
@@ -143,6 +146,18 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 uiDialog.dismissDialog();
             }
         });
+        requsetBuilder.build()
+                .getBooksWithDefaultOptions(BmobServer.BOOKTYPE_ALL,new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        Util.L("jghgfhfghfghfghfghgfh新的建造者模式有用了");
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+
+                    }
+                });
 
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

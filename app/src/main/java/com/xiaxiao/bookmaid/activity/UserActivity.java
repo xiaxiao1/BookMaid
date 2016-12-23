@@ -28,7 +28,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class UserActivity extends AppCompatActivity implements View.OnClickListener{
+public class UserActivity extends BaseActivity implements View.OnClickListener{
 
     ImageView back;
     ImageView tuijian_wenhao_img;

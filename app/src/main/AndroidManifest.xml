@@ -30,17 +30,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AddBookActivity" />
-        <activity android:name=".activity.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+        <activity
+            android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.BookInfoActivity" />
         <activity android:name=".activity.AddNoteActivity" />
         <activity android:name=".activity.UserActivity">
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>
-        <meta-data android:value="5822aaf55312dd09710037e1" android:name="UMENG_APPKEY"/>
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5822aaf55312dd09710037e1" />
+
+        <activity android:name=".activity.BaseActivity">
+        </activity>
     </application>
 
 </manifest>
