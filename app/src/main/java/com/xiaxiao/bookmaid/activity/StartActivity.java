@@ -86,7 +86,7 @@ RelativeLayout bg_rl;
             public void onResult(Object object) {
                 List<Book> books = (List<Book>) object;
                 for (Book b:books) {
-                    BookBean bookBean = new BookBean(b.getName(), "writer", "a good book", 1, 1);
+                    BookBean bookBean = new BookBean(b.getName(), "writer", "a good book", 1, 1,"imgurl");
                     bookBeens.add(bookBean);
                 }
                 BmobHelper.inserList(bookBeens, new OnResultListener() {

@@ -7,4 +7,7 @@
     <string name="book_read_no">未读</string>
     <string name="book_read_on">在读</string>
     <string name="app_jianjie">喜欢读书，也喜欢买书，每次优惠囤书时是不是总是要不停的想，哎？这本书有买过吗。于是 小书仆就这么诞生了。希望她也能帮到你。</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

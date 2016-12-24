@@ -86,10 +86,10 @@
             android:background="@color/gray"
             />
     </RelativeLayout>
-    <include
+    <com.xiaxiao.bookmaid.widget.BottomView
+        android:id="@+id/bottom_ll"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/bottom_ll"
         layout="@layout/main_bottom"
         android:layout_alignParentBottom="true"
         />
@@ -99,7 +99,7 @@
         android:background="@color/gray"
         android:layout_above="@id/bottom_ll"
         />-->
-    <android.support.v4.widget.SwipeRefreshLayout
+    <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,15 +107,8 @@
         android:layout_below="@id/title_rl"
         android:layout_above="@id/bottom_ll"
         android:id="@+id/swipeLayout" >
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:background="#ffffff"
-        android:divider="@null"
-        />
-</android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>
 </RelativeLayout>
 
 
