@@ -4,10 +4,9 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,28 +16,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.xiaxiao.bookmaid.control.BmobServer;
-import com.xiaxiao.bookmaid.listener.BmobListener;
-import com.xiaxiao.bookmaid.listener.ErrorListener;
-import com.xiaxiao.bookmaid.listener.SuccessListener;
-import com.xiaxiao.bookmaid.util.BmobIniter;
+import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.bean.Book;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.control.BookManager;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
-import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.util.BmobIniter;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
-import com.xiaxiao.bookmaid.bean.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
 
-public class MainActivity extends BaseActivity  implements View.OnClickListener{
+public class MainActivity2 extends BaseActivity  implements View.OnClickListener{
 
     ImageView searchBook_img;
     ImageView addBook_img;
@@ -84,7 +77,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 //        userId = getIntent().getStringExtra("userId");
         BmobIniter.init(this);
         uiDialog = new UIDialog(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         changeListener = new ChangeListener();
         initViews();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -96,7 +89,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                         swipeRefreshLayout.setRefreshing(false);
                         allBooks=(List<Book>)object;
                         currentList=allBooks;
-                        bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                        bookAdapter = new BookAdapter(MainActivity2.this, currentList, 0);
                         listview.setAdapter(bookAdapter);
 
                         currentType=-1;
@@ -127,7 +120,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
             public void onResult(Object object) {
                 allBooks=(List<Book>)object;
                 currentList=allBooks;
-                bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                bookAdapter = new BookAdapter(MainActivity2.this, currentList, 0);
                 listview.setAdapter(bookAdapter);
                 uiDialog.dismissDialog();
 
@@ -141,7 +134,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
             public void onError(BmobException e) {
                 allBooks = bookManager.getBooksInLocal(-1);
                 currentList=allBooks;
-                bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                bookAdapter = new BookAdapter(MainActivity2.this, currentList, 0);
                 listview.setAdapter(bookAdapter);
                 uiDialog.dismissDialog();
             }
@@ -350,7 +343,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                     @Override
                     public void onError(BmobException e) {
                         uiDialog.dismissDialog();
-                        Util.toast(MainActivity.this,"修改失败");
+                        Util.toast(MainActivity2.this,"修改失败");
                     }
                 });
                 return;
@@ -386,7 +379,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                 @Override
                 public void onError(BmobException e) {
                     uiDialog.dismissDialog();
-                    Util.toast(MainActivity.this,"修改失败");
+                    Util.toast(MainActivity2.this,"修改失败");
                 }
             });
 

@@ -18,7 +18,7 @@ import com.xiaxiao.bookmaid.util.Util;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivity extends BaseActivity {
 EditText content;
     Button add_btn;
     BookNoteServer bookNoteServer;

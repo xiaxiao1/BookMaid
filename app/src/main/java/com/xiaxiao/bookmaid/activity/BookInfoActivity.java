@@ -21,7 +21,7 @@ import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
 
-public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener{
+public class BookInfoActivity extends BaseActivity implements View.OnClickListener{
 
     ImageView bookImg;
     TextView bookName;
