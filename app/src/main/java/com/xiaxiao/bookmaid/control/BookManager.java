@@ -2,7 +2,7 @@ package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
 
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -20,37 +20,37 @@ public class BookManager {
         bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, BookDBHelper.VERTION);
         bookServer = new BookServer(context);
     }
-    public void add(Book book, OnResultListener onResultListener) {
-        bookServer.add(book,onResultListener);
+    public void add(BookBean book, OnResultListener onResultListener) {
+//        bookServer.add(book,onResultListener);
         Util.L("add book");
 
     }
 
-    public void delete(Book book) {
+    public void delete(BookBean book) {
         Util.L("delete book");
-        bookDBHelper.delete(book);
+//        bookDBHelper.delete(book);
     }
 
-    public void update(Book book,OnResultListener onResultListener) {
+    public void update(BookBean book,OnResultListener onResultListener) {
         Util.L("update book");
-        bookServer.update(book,onResultListener);
+//        bookServer.update(book,onResultListener);
     }
 
-    public List<Book> query(Book book) {
+    public List<BookBean> query(BookBean book) {
         Util.L("query");
-        return bookDBHelper.queryBooks(book.getName());
+        return null;
     }
-    public List<Book> query(String bookName) {
+    public List<BookBean> query(String bookName) {
         Util.L("query");
-        return bookDBHelper.queryBooks(bookName);
+        return null;
     }
 
     public void getBooks(int type,OnResultListener onResultListener) {
         bookServer.getBooks(type,onResultListener);
     }
 
-    public List<Book> getBooksInLocal(int type) {
-        return bookDBHelper.getBooks(type);
+    public List<BookBean> getBooksInLocal(int type) {
+        return null;
     }
 
     public int clearLocal(){

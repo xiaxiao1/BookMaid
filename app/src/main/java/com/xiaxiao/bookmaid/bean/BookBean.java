@@ -69,4 +69,7 @@ public class BookBean  extends BmobObject{
         this.readNumber = readNumber;
         this.coverImg = coverImg;
     }
+    public BookBean() {
+
+    }
 }

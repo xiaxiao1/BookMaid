@@ -1,5 +1,6 @@
 package com.xiaxiao.bookmaid.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,16 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.control.BmobServer;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BaseFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BaseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class BaseFragment extends Fragment {
+    public BmobServer.Builder requsetBuilder;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,11 +24,14 @@ public class BaseFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Activity mActivity;
 
     private OnFragmentInteractionListener mListener;
 
+
+
     public BaseFragment() {
-        // Required empty public constructor
+        requsetBuilder = new BmobServer.Builder(getActivity());
     }
 
     /**
@@ -65,9 +64,7 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

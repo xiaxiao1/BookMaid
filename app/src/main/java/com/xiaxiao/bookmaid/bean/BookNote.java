@@ -11,12 +11,21 @@ public class BookNote extends BmobObject{
     String bookId;
     String userName;
     String ownerId;
+    String replyWho;
 
     public BookNote(String content, String id, String bookId, String userName) {
         this.content = content;
         this.id = id;
         this.bookId = bookId;
         this.userName = userName;
+    }
+
+    public String getReplyWho() {
+        return replyWho;
+    }
+
+    public void setReplyWho(String replyWho) {
+        this.replyWho = replyWho;
     }
 
     public String getOwnerId() {

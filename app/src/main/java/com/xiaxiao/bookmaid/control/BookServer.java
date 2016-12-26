@@ -2,7 +2,7 @@ package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
 
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
@@ -28,13 +28,13 @@ public class BookServer {
         bookDBHelper = new BookDBHelper(context, BookDBHelper.tableName, null, BookDBHelper.VERTION);
     }
 
-    public void add(final Book book, final OnResultListener onResultListener) {
+    public void add(final BookBean book, final OnResultListener onResultListener) {
         book.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (onResultListener!=null) {
                     if (e == null) {
-                        book.setId(objectId);
+//                        book.setId(objectId);
                         bookDBHelper.add(book);
                         onResultListener.onSuccess(objectId);
                     } else {
@@ -48,14 +48,14 @@ public class BookServer {
     public <E extends  BmobObject> void xx(E b) {
 
     }
-    public void update(final Book book, final OnResultListener onResultListener) {
-        book.update(book.getId(), new UpdateListener() {
+    public void update(final BookBean book, final OnResultListener onResultListener) {
+        book.update(book.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
                     Util.L("update ok.");
                     bookDBHelper.update(book);
-                    onResultListener.onSuccess(book.getId());
+                    onResultListener.onSuccess(book.getObjectId());
                 } else {
                     Util.L("update error:"+e.getMessage()+" errorCode:"+e.getErrorCode());
                     onResultListener.onError(e);
@@ -64,27 +64,25 @@ public class BookServer {
         });
     }
     public void getBooks(int type,final OnResultListener onResultListener) {
-        BmobQuery<Book> query = new BmobQuery<>();
+        BmobQuery<BookBean> query = new BmobQuery<>();
         if (type!=-1) {
             query.addWhereEqualTo("type", type);
         }
-        if (GlobalData.userId != null) {
+       /* if (GlobalData.userId != null) {
             query.addWhereEqualTo("ownerId", GlobalData.userId);
         } else {
             query.addWhereEqualTo("ownerId", "-1");
-        }
+        }*/
 Util.L(BmobUser.getCurrentUser().getObjectId()+"  "+Util.getUserId());
         query.order("-createdAt");
-        query.findObjects(new FindListener<Book>() {
+        query.findObjects(new FindListener<BookBean>() {
             @Override
-            public void done(List<Book> list, BmobException e) {
+            public void done(List<BookBean> list, BmobException e) {
                 if (e == null) {
                     Util.L("query ok.");
-                    for (Book b:list) {
-                        b.setId(b.getObjectId());
-                    }
+
                     bookDBHelper.clearTable();
-                    bookDBHelper.addBooks(list);
+//                    bookDBHelper.addBooks(list);
                     onResultListener.onResult(list);
                 } else {
                     Util.L("query error:"+e.getMessage());

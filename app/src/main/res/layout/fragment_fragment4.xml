@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiaxiao.bookmaid.activity.Fragment1">
+    tools:context="com.xiaxiao.bookmaid.activity.Fragment1"
+    android:background="#0000ff"
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

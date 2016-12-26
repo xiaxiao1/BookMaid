@@ -2,14 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiaxiao.bookmaid.activity.Fragment1">
+    tools:context="com.xiaxiao.bookmaid.activity.Fragment1"
+    android:background="#00ff00"
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello_blank_fragment2"
-        android:gravity="center"
-        />
-
+        android:orientation="vertical"
+        >
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

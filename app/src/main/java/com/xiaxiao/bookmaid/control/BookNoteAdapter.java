@@ -18,35 +18,16 @@ import java.util.List;
 /**
  * Created by xiaxi on 2016/11/2.
  */
-public class BookNoteAdapter extends BaseAdapter{
-    List<BookNote> list;
-    Context context;
+public class BookNoteAdapter extends MyBaseAdapter{
+
     int type;
     int proirIndex=-1;
 
-    public BookNoteAdapter(Context context, List<BookNote> list, int type) {
-        this.context = context;
-        this.list = list;
+    public BookNoteAdapter(Context context, List list, int type) {
+       super(context,list);
         this.type = type;
     }
-    @Override
-    public int getCount() {
-        return list.size();
-    }
 
-    @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    public void updateDatas(List<BookNote> books) {
-        this.list=books;
-    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;

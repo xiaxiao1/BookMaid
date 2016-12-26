@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
 import com.xiaxiao.bookmaid.control.BookNoteServer;
@@ -34,7 +34,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     List<BookNote> notes;
     BookNoteServer bookNoteServer;
     BookNoteAdapter bookNoteAdapter;
-    Book b;
+    BookBean b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,22 +43,22 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         b= GlobalData.book;
         notes = new ArrayList<>();
         bookName.setText(b.getName());
-        bookWriter.setText(b.getId());
+//        bookWriter.setText(b.getId());
         bookStatus.setText("未买");
-        if (b.getType()==1) {
-            bookStatus.setText("已有");
-        }
-
-        bookRead.setText("未读");
-        if (b.getReadStatus()==1) {
-            bookRead.setText("已读");
-        }
-        if (b.getReadStatus()==2) {
-            bookRead.setText("在读");
-        }
+//        if (b.getType()==1) {
+//            bookStatus.setText("已有");
+//        }
+//
+//        bookRead.setText("未读");
+//        if (b.getReadStatus()==1) {
+//            bookRead.setText("已读");
+//        }
+//        if (b.getReadStatus()==2) {
+//            bookRead.setText("在读");
+//        }
 
         bookNoteServer = new BookNoteServer(this);
-        bookNoteServer.getBookNotes(b.getId(), new OnResultListener() {
+        bookNoteServer.getBookNotes(b.getObjectId(), new OnResultListener() {
             @Override
             public void onResult(Object obj) {
                 notes = (List<BookNote>) obj;
@@ -95,7 +95,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         Intent i=new Intent(this,AddNoteActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("bookId",b.getId());
+        bundle.putString("bookId",b.getObjectId());
         i.putExtras(bundle);
         startActivityForResult(i,101);
     }

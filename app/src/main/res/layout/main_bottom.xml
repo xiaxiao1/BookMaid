@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center_horizontal"
-            android:text="all"/>
+            android:text="全部"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/tap2_ll"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center_horizontal"
-            android:text="have"/>
+            android:text="想法"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/tap3_ll"
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center_horizontal"
-            android:text="buy"/>
+            android:text="书架"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/tap4_ll"
@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center_horizontal"
-            android:text="buy"/>
+            android:text="我的"/>
     </LinearLayout>
 
 </LinearLayout>

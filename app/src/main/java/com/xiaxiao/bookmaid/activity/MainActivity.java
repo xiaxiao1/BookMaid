@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.ErrorListener;
@@ -29,7 +30,6 @@ import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
-import com.xiaxiao.bookmaid.bean.Book;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,12 +65,12 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 
     BookManager bookManager;
     BookAdapter bookAdapter;
-    Book currentBook;
-    List<Book> allBooks;
-    List<Book> tempBooks;
-    List<Book> havedBooks;
-    List<Book> willbuyBooks;
-    List<Book> currentList;
+    BookBean currentBook;
+    List<BookBean> allBooks;
+    List<BookBean> tempBooks;
+    List<BookBean> havedBooks;
+    List<BookBean> willbuyBooks;
+    List<BookBean> currentList;
     int currentType=-1;
     UIDialog uiDialog;
     AlertDialog a;
@@ -94,9 +94,9 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                     @Override
                     public void onResult(Object object) {
                         swipeRefreshLayout.setRefreshing(false);
-                        allBooks=(List<Book>)object;
+                        allBooks=(List<BookBean>)object;
                         currentList=allBooks;
-                        bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                        bookAdapter = new BookAdapter(MainActivity.this, currentList);
                         listview.setAdapter(bookAdapter);
 
                         currentType=-1;
@@ -125,9 +125,9 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
         bookManager.getBooks(-1, new OnResultListener() {
             @Override
             public void onResult(Object object) {
-                allBooks=(List<Book>)object;
+                allBooks=(List<BookBean>)object;
                 currentList=allBooks;
-                bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                bookAdapter = new BookAdapter(MainActivity.this, currentList);
                 listview.setAdapter(bookAdapter);
                 uiDialog.dismissDialog();
 
@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
             public void onError(BmobException e) {
                 allBooks = bookManager.getBooksInLocal(-1);
                 currentList=allBooks;
-                bookAdapter = new BookAdapter(MainActivity.this, currentList, 0);
+                bookAdapter = new BookAdapter(MainActivity.this, currentList);
                 listview.setAdapter(bookAdapter);
                 uiDialog.dismissDialog();
             }
@@ -154,11 +154,11 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                     return false;
                 }
                 currentBook = currentList.get(position);
-                if (currentBook.getType() == 1) {
-                    change_tv.setText("改为未买");
-                } else {
-                    change_tv.setText("改为已有");
-                }
+//                if (currentBook.getType() == 1) {
+//                    change_tv.setText("改为未买");
+//                } else {
+//                    change_tv.setText("改为已有");
+//                }
 
                a.show();
 
@@ -176,13 +176,13 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                 if (position>=currentList.size()) {
                     return;
                 }
-                goBookInfo(currentList.get(position));
+//                goBookInfo(currentList.get(position));
             }
         });
 
     }
 
-    public void goBookInfo(Book book) {
+    public void goBookInfo(BookBean book) {
         GlobalData.book=book;
         Intent i=new Intent(this,BookInfoActivity.class);
         startActivity(i);
@@ -301,7 +301,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode==RESULT_OK) {
             Bundle b=data.getExtras();
-            Book book = new Book(b.getString("name"),b.getString("id"),b.getInt("type"),b.getLong("addtime"),b.getInt("readstatus"));
+            BookBean book = new BookBean();
             Util.L(book.toString());
            /* if ((book.getType()==1&&currentType!=0)||) {
             }*/
@@ -328,68 +328,68 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
         public void onClick(View v) {
             uiDialog.showDialog();
             a.dismiss();
-            int read=currentBook.getReadStatus();
-            if (v==change_tv) {
-                if (currentBook.getType() == 1) {
-                    currentBook.setType(0);
-                } else {
-                    currentBook.setType(1);
-                }
-                final Book bv=new Book(currentBook);
-                bookManager.update(bv, new OnResultListener() {
-                    @Override
-                    public void onSuccess(String objectId) {
-                        if (currentType==1||currentType==0) {
-                            currentList.remove(currentBook);
-                        }
-                        bookAdapter.notifyDataSetChanged();
-
-                        uiDialog.dismissDialog();
-                    }
-
-                    @Override
-                    public void onError(BmobException e) {
-                        uiDialog.dismissDialog();
-                        Util.toast(MainActivity.this,"修改失败");
-                    }
-                });
+//            int read=currentBook.getReadStatus();
+//            if (v==change_tv) {
+//                if (currentBook.getType() == 1) {
+//                    currentBook.setType(0);
+//                } else {
+//                    currentBook.setType(1);
+//                }
+//                final Book bv=new Book(currentBook);
+//                bookManager.update(bv, new OnResultListener() {
+//                    @Override
+//                    public void onSuccess(String objectId) {
+//                        if (currentType==1||currentType==0) {
+//                            currentList.remove(currentBook);
+//                        }
+//                        bookAdapter.notifyDataSetChanged();
+//
+//                        uiDialog.dismissDialog();
+//                    }
+//
+//                    @Override
+//                    public void onError(BmobException e) {
+//                        uiDialog.dismissDialog();
+//                        Util.toast(MainActivity.this,"修改失败");
+//                    }
+//                });
                 return;
             }
-            if (v==readYes) {
-                if (read==1) {
-                    return;
-                }
-                currentBook.setReadStatus(1);
-            }
-            if (v==readOn) {
-                if (read==2) {
-                    return;
-                }
-                currentBook.setReadStatus(2);
-            }
-            if (v==readNo) {
-                if (read==0) {
-                    return;
-                }
-                currentBook.setReadStatus(0);
-            }
-            final Book bv=new Book(currentBook);
-            bookManager.update(bv, new OnResultListener() {
-                @Override
-                public void onSuccess(String objectId) {
-
-                    bookAdapter.notifyDataSetChanged();
-
-                    uiDialog.dismissDialog();
-                }
-
-                @Override
-                public void onError(BmobException e) {
-                    uiDialog.dismissDialog();
-                    Util.toast(MainActivity.this,"修改失败");
-                }
-            });
+//            if (v==readYes) {
+//                if (read==1) {
+//                    return;
+//                }
+//                currentBook.setReadStatus(1);
+//            }
+//            if (v==readOn) {
+//                if (read==2) {
+//                    return;
+//                }
+//                currentBook.setReadStatus(2);
+//            }
+//            if (v==readNo) {
+//                if (read==0) {
+//                    return;
+//                }
+//                currentBook.setReadStatus(0);
+//            }
+//            final Book bv=new Book(currentBook);
+//            bookManager.update(bv, new OnResultListener() {
+//                @Override
+//                public void onSuccess(String objectId) {
+//
+//                    bookAdapter.notifyDataSetChanged();
+//
+//                    uiDialog.dismissDialog();
+//                }
+//
+//                @Override
+//                public void onError(BmobException e) {
+//                    uiDialog.dismissDialog();
+//                    Util.toast(MainActivity.this,"修改失败");
+//                }
+//            });
 
         }
     }
-}
+

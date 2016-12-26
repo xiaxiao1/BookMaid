@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
@@ -17,42 +17,18 @@ import java.util.List;
 /**
  * Created by xiaxi on 2016/11/2.
  */
-public class BookAdapter extends BaseAdapter{
-    List<Book> list;
-    Context context;
-    int type;
+public class BookAdapter extends MyBaseAdapter{
+
     int proirIndex=-1;
 
-    public BookAdapter(Context context, List<Book> list, int type) {
-        this.context = context;
-        this.list = list;
-        this.type = type;
-    }
-    @Override
-    public int getCount() {
-        if (list==null) {
-            return 0;
-        }
-        return list.size();
+    public BookAdapter(Context context, List list) {
+        super(context, list);
     }
 
-    @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    public void updateDatas(List<Book> books) {
-        this.list=books;
-    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        Book book = (Book) list.get(position);
+        BookBean book = (BookBean) list.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.book_item, null);
             holder = new Holder(convertView);
@@ -63,8 +39,8 @@ public class BookAdapter extends BaseAdapter{
         holder.bookIndex.setText((position+1)+"");
         holder.bookIndex.setTextColor(Color.parseColor(Util.getRandomColor()));
         holder.bookName.setText(book.getName());
-        holder.bookId.setText(book.getId());
-        if (book.getType() == 1) {
+        holder.bookId.setText(book.getObjectId());
+        /*if (book.getType() == 1) {
             holder.bookType.setText(R.string.book_type_buy);
             holder.bookType.setTextColor(Color.parseColor("#1296db"));
         } else {
@@ -81,7 +57,7 @@ public class BookAdapter extends BaseAdapter{
         } else {
             holder.bookRead.setText(R.string.book_read_on);
             holder.bookRead.setTextColor(Color.parseColor("#8a8a8a"));
-        }
+        }*/
 
        /* if (position > proirIndex) {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));

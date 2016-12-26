@@ -2,7 +2,6 @@ package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
 
-import com.xiaxiao.bookmaid.bean.Book;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.Util;

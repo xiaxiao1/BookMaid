@@ -1,6 +1,6 @@
 package com.xiaxiao.bookmaid.control;
 
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -18,11 +18,11 @@ import cn.bmob.v3.listener.QueryListListener;
  * Created by xiaxi on 2016/11/30.
  */
 public class BmobHelper {
-    public static  void getLists( BmobQuery<Book > query ,final OnResultListener onResultListener) {
+    public static  void getLists(BmobQuery<BookBean> query , final OnResultListener onResultListener) {
 
-FindListener<Book> findListener=new FindListener<Book>() {
+FindListener<BookBean> findListener=new FindListener<BookBean>() {
     @Override
-    public void done(List<Book> list, BmobException e) {
+    public void done(List<BookBean> list, BmobException e) {
         Util.L("books size:"+list.size());
         onResultListener.onResult(list);
     }

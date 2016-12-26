@@ -2,13 +2,15 @@ package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
 
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
+import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.ErrorListener;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.listener.SuccessListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
+import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.HashMap;
@@ -30,6 +32,8 @@ public class BmobServer {
     BmobListener mSuccessListener;
     BmobListener mErrorListener;
     BmobQuery mBmobQuery;
+    UIDialog waitdialog;
+    boolean enableDialog=true;
 
     public static final int BOOKTYPE_HAVE=1;
     public static final int BOOKTYPE_NO_HAVE=0;
@@ -42,9 +46,12 @@ public class BmobServer {
     }*/
     public static class Builder{
         BmobServer bmobServer;
+        Context mContext;
 
         public Builder(Context context) {
             bmobServer = new BmobServer(context);
+            this.mContext = context;
+
         }
 
         /**
@@ -86,17 +93,28 @@ public class BmobServer {
             bmobServer.mBmobQuery = bmobQuery;
             return this;
         }
+        public Builder enableDialog(boolean enableDialog) {
+            bmobServer.enableDialog=enableDialog;
+            return this;
+        }
         public  BmobServer build() {
+            bmobServer.waitdialog = new UIDialog(mContext);
             return bmobServer;
         }
     }
 
-    public void addBook(final Book book) {
+    /**
+     * add a book
+     * @param book
+     */
+    public void addBook(final BookBean book) {
+        showWaitDialog();
         book.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
+                    dismissWaitDialog();
                     if (e == null) {
-                        book.setId(objectId);
+//                        book.setId(objectId);
                         handleSuccess(objectId);
                     } else {
                         handleError(e);
@@ -105,18 +123,30 @@ public class BmobServer {
             }
         });
     }
-    public void addBook(final Book book, final BmobListener bmobListener) {
+
+    /**
+     * add o book
+     * @param book
+     * @param bmobListener
+     */
+    public void addBook(final BookBean book, final BmobListener bmobListener) {
         addListener(bmobListener);
         addBook(book);
     }
 
-    public void updateBook(final Book book) {
-        book.update(book.getId(), new UpdateListener() {
+    /**
+     * update a book . useless now
+     * @param book
+     */
+    public void updateBook(final BookBean book) {
+        showWaitDialog();
+        book.update(book.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
+                dismissWaitDialog();
                 if (e == null) {
                     Util.L("update ok.");
-                    handleSuccess(book.getId());
+                    handleSuccess(book.getObjectId());
                 } else {
                     Util.L("update error:"+e.getMessage()+" errorCode:"+e.getErrorCode());
                     handleError(e);
@@ -124,27 +154,25 @@ public class BmobServer {
             }
         });
     }
-    public void updateBook(final Book book, final BmobListener bmobListener) {
+    public void updateBook(final BookBean book, final BmobListener bmobListener) {
         addListener(bmobListener);
         updateBook(book);
     }
 
-    public void getBooks(int type) {
+    public void getBooks() {
         if (mBmobQuery==null) {
             return;
         }
-        if (type!=BOOKTYPE_ALL) {
+       /* if (type!=BOOKTYPE_ALL) {
             mBmobQuery.addWhereEqualTo("type", type);
-        }
-//        mBmobQuery.order("-createdAt");
-        mBmobQuery.findObjects(new FindListener<Book>() {
+        }*/
+        showWaitDialog();
+        mBmobQuery.findObjects(new FindListener<BookBean>() {
             @Override
-            public void done(List<Book> list, BmobException e) {
+            public void done(List<BookBean> list, BmobException e) {
+                dismissWaitDialog();
                 if (e == null) {
                     Util.L("query ok.");
-                    for (Book b:list) {
-                        b.setId(b.getObjectId());
-                    }
                    handleSuccess(list);
                 } else {
                     Util.L("query error:"+e.getMessage());
@@ -153,11 +181,16 @@ public class BmobServer {
             }
         });
     }
-    public void getBooksWithDefaultOptions(int type,final BmobListener bmobListener) {
+    public void getBooksWithDefaultOptions(final BmobListener bmobListener) {
         addListener(bmobListener);
-        mBmobQuery = new BmobQuery<Book>();
+        mBmobQuery = new BmobQuery<BookBean>();
         mBmobQuery.order("-createdAt");
-        getBooks(type);
+        /*if (GlobalData.userId != null) {
+            mBmobQuery.addWhereEqualTo("ownerId", GlobalData.userId);
+        } else {
+            mBmobQuery.addWhereEqualTo("ownerId", "-1");
+        }*/
+        getBooks();
     }
 
 
@@ -165,9 +198,11 @@ public class BmobServer {
         if (mBmobQuery==null) {
             return;
         }
+        showWaitDialog();
         mBmobQuery.findObjects(new FindListener<FamousWord>() {
             @Override
             public void done(List<FamousWord> list, BmobException e) {
+                dismissWaitDialog();
                 if (e == null) {
                     Util.L("query ok.");
                     handleSuccess(list);
@@ -187,6 +222,33 @@ public class BmobServer {
     }
 
 
+    public void getAllIdeas(BmobListener bmobListener) {
+        addListener(bmobListener);
+        mBmobQuery = new BmobQuery();
+        if (mBmobQuery==null) {
+            handleError(null);
+            return;
+        }
+
+        showWaitDialog();
+        mBmobQuery.findObjects(new FindListener<BookNote>() {
+            @Override
+            public void done(List<BookNote> list, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    Util.L("query ok.");
+                    handleSuccess(list);
+                } else {
+                    Util.L("query error:"+e.getMessage());
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+    //*******************************************************************************************//
+
+
     protected void addListener(BmobListener bmobListener) {
         mSuccessListener=bmobListener;
         mErrorListener=bmobListener;
@@ -201,5 +263,14 @@ public class BmobServer {
         if (mErrorListener!=null) {
             mErrorListener.onError(e);
         }
+    }
+
+    protected void showWaitDialog() {
+        if (enableDialog) {
+            waitdialog.showDialog();
+        }
+    }
+    protected  void dismissWaitDialog() {
+        waitdialog.dismissDialog();
     }
 }

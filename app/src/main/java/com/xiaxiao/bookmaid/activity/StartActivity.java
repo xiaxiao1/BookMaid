@@ -5,20 +5,17 @@ import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
-import com.xiaxiao.bookmaid.bean.Book;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.control.BmobHelper;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.BmobIniter;
-import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -76,41 +73,41 @@ RelativeLayout bg_rl;
 
     List<BmobObject> bookBeens=new ArrayList<>();
     public void gogo1(View view){
-        UIDialog uiDialog = new UIDialog(this);
-//        uiDialog.showDialog();
-        BmobQuery<Book> query=new BmobQuery<Book>();
-        query.setLimit(50);
-        query.setSkip(50);
-        BmobHelper.getLists(query,new OnResultListener() {
-            @Override
-            public void onResult(Object object) {
-                List<Book> books = (List<Book>) object;
-                for (Book b:books) {
-                    BookBean bookBean = new BookBean(b.getName(), "writer", "a good book", 1, 1,"imgurl");
-                    bookBeens.add(bookBean);
-                }
-                BmobHelper.inserList(bookBeens, new OnResultListener() {
-                    @Override
-                    public void onSuccess(String objectId) {
-
-                    }
-
-                    @Override
-                    public void onError(BmobException e) {
-
-                    }
-                });
-            }
-            @Override
-            public void onSuccess(String objectId) {
-
-            }
-
-            @Override
-            public void onError(BmobException e) {
-
-            }
-        });
+//        UIDialog uiDialog = new UIDialog(this);
+////        uiDialog.showDialog();
+//        BmobQuery<Book> query=new BmobQuery<Book>();
+//        query.setLimit(50);
+//        query.setSkip(50);
+//        BmobHelper.getLists(query,new OnResultListener() {
+//            @Override
+//            public void onResult(Object object) {
+//                List<Book> books = (List<Book>) object;
+//                for (Book b:books) {
+//                    BookBean bookBean = new BookBean(b.getName(), "writer", "a good book", 1, 1,"imgurl");
+//                    bookBeens.add(bookBean);
+//                }
+//                BmobHelper.inserList(bookBeens, new OnResultListener() {
+//                    @Override
+//                    public void onSuccess(String objectId) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(BmobException e) {
+//
+//                    }
+//                });
+//            }
+//            @Override
+//            public void onSuccess(String objectId) {
+//
+//            }
+//
+//            @Override
+//            public void onError(BmobException e) {
+//
+//            }
+//        });
 
     }
 

@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.xiaxiao.bookmaid.bean.Book;
+import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.ArrayList;
@@ -50,23 +50,23 @@ public class BookDBHelper extends SQLiteOpenHelper{
      * @param book
      * @return
      */
-    public boolean add(Book book) {
+    public boolean add(BookBean book) {
         ContentValues value = new ContentValues();
-        value.put("id",book.getId());
-        value.put("name",book.getName());
-        value.put("type",book.getType());
-        value.put("added_time",book.getAddedTime());
-        value.put("read_status",book.getReadStatus());
+//        value.put("id",book.getId());
+//        value.put("name",book.getName());
+//        value.put("type",book.getType());
+//        value.put("added_time",book.getAddedTime());
+//        value.put("read_status",book.getReadStatus());
         if(-1==db.insert(tableName, null, value)){
             return false;
         }
         return true;
     }
 
-    public void addBooks(List<Book> list) {
-        for (Book b:list) {
-            add(b);
-        }
+    public void addBooks(List<BookBean> list) {
+//        for (Book b:list) {
+//            add(b);
+//        }
     }
 
     /**
@@ -74,11 +74,11 @@ public class BookDBHelper extends SQLiteOpenHelper{
      * @param book
      * @return
      */
-    public boolean delete(Book book) {
+    public boolean delete(BookBean book) {
         //删除条件
         String whereClause = "id=?";
         //删除条件参数
-        String[] whereArgs = {""+book.getId()+""};
+        String[] whereArgs = {""+book.getObjectId()+""};
         //执行删除
         if(0<db.delete(tableName,whereClause,whereArgs)){
             return true;
@@ -95,17 +95,17 @@ public class BookDBHelper extends SQLiteOpenHelper{
      * @param book
      * @return
      */
-    public boolean update(Book book) {
+    public boolean update(BookBean book) {
         ContentValues value = new ContentValues();
-        value.put("id",book.getId());
-        value.put("name",book.getName());
-        value.put("type",book.getType());
-        value.put("added_time",book.getAddedTime());
-        value.put("read_status",book.getReadStatus());
+//        value.put("id",book.getId());
+//        value.put("name",book.getName());
+//        value.put("type",book.getType());
+//        value.put("added_time",book.getAddedTime());
+//        value.put("read_status",book.getReadStatus());
         //更新条件
         String whereClause = "id=?";
         //更新条件参数
-        String[] whereArgs = {""+book.getId()+""};
+        String[] whereArgs = {""+book.getObjectId()+""};
         if(0<db.update(tableName, value, whereClause, whereArgs)){
             Util.L("update local DB ok");
             return true;
@@ -119,7 +119,7 @@ public class BookDBHelper extends SQLiteOpenHelper{
      * @param type
      * @return
      */
-    public List<Book> getBooks(int type) {
+    public List<BookBean> getBooks(int type) {
         //查询条件
         String whereClause = null;
         //查询条件参数
@@ -135,13 +135,13 @@ public class BookDBHelper extends SQLiteOpenHelper{
             Util.L("no database datas");
             return null;
         }
-        List<Book> list=new ArrayList<>();
+        List<BookBean> list=new ArrayList<>();
         while(cursor.moveToNext()) {
-            Book b=new Book(cursor.getString(1));
-            b.setId(cursor.getString(0));
-            b.setType(cursor.getInt(2));
-            b.setAddedTime(cursor.getInt(3));
-            b.setReadStatus(cursor.getInt(4));
+            BookBean b=new BookBean();
+//            b.setId(cursor.getString(0));
+//            b.setType(cursor.getInt(2));
+//            b.setAddedTime(cursor.getInt(3));
+//            b.setReadStatus(cursor.getInt(4));
             list.add(b);
         }
         cursor.close();
@@ -153,20 +153,20 @@ public class BookDBHelper extends SQLiteOpenHelper{
      * @param bookName
      * @return
      */
-    public List<Book> queryBooks(String bookName) {
+    public List<BookBean> queryBooks(String bookName) {
         //查询条件
         String whereClause = "name like ?";
         //查询条件参数
         String[] whereArgs = {"%"+bookName+"%"};
         Cursor cursor=db.query(tableName, null, whereClause, whereArgs, null, null, null, null);
         Util.L("count :"+cursor.getCount());
-        List<Book> list=new ArrayList<>();
+        List<BookBean> list=new ArrayList<>();
         while(cursor.moveToNext()) {
-            Book b=new Book(cursor.getString(1));
-            b.setId(cursor.getString(0));
-            b.setType(cursor.getInt(2));
-            b.setAddedTime(cursor.getInt(3));
-            b.setReadStatus(cursor.getInt(4));
+            BookBean b=new BookBean();
+//            b.setId(cursor.getString(0));
+//            b.setType(cursor.getInt(2));
+//            b.setAddedTime(cursor.getInt(3));
+//            b.setReadStatus(cursor.getInt(4));
             list.add(b);
         }
         cursor.close();

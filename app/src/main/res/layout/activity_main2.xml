@@ -46,46 +46,7 @@
             android:layout_marginRight="10dp"
             />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/title_rl"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginTop="2dp"
-        android:layout_below="@id/app_title"
-        >
 
-        <ImageView
-            android:id="@+id/search_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/search"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="6dp"
-            />
-        <EditText
-            android:id="@+id/edit_et"
-            android:hint="输入书名..."
-            android:textSize="12sp"
-            android:textColorHint="@color/gray"
-            android:background="@drawable/border"
-            android:layout_width="match_parent"
-            android:paddingLeft="6dp"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
-            android:layout_height="30dp"
-            android:maxLines="1"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/search_img"
-            android:layout_marginLeft="10dp"
-            />
-        <View android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="1dp"
-            android:background="@color/gray"
-            />
-    </RelativeLayout>
     <com.xiaxiao.bookmaid.widget.BottomView
         android:id="@+id/bottom_ll"
         android:layout_width="match_parent"
@@ -93,18 +54,13 @@
         layout="@layout/main_bottom"
         android:layout_alignParentBottom="true"
         />
-    <!--<View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/gray"
-        android:layout_above="@id/bottom_ll"
-        />-->
+
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/title_rl"
+        android:layout_below="@id/app_title"
         android:layout_above="@id/bottom_ll"
         android:id="@+id/swipeLayout" >
 
