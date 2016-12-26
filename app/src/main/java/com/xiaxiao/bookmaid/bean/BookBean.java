@@ -9,8 +9,17 @@ public class BookBean  extends BmobObject{
     String name;
     String writer;
     String introduce;
+    String coverImg;
     int ownNumber;
     int readNumber;
+
+    public String getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
+    }
 
     public String getIntroduce() {
         return introduce;
@@ -52,11 +61,12 @@ public class BookBean  extends BmobObject{
         this.writer = writer;
     }
 
-    public BookBean(String name, String writer, String introduce, int ownNumber, int readNumber) {
+    public BookBean(String name, String writer, String introduce, int ownNumber, int readNumber,String coverImg) {
         this.name = name;
         this.writer = writer;
         this.introduce = introduce;
         this.ownNumber = ownNumber;
         this.readNumber = readNumber;
+        this.coverImg = coverImg;
     }
 }
