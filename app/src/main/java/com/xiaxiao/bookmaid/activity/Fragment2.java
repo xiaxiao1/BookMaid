@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookNote;
+import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.UIDialog;
@@ -68,11 +69,13 @@ public class Fragment2 extends BaseFragment {
     }
 
     public void getInfos() {
-        requsetBuilder.build()
+        getBuilder()
+                .build()
                 .getAllIdeas(new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
                         if (bookNoteAdapter == null) {
+                            datas = (List<BookNote>) object;
                             bookNoteAdapter = new BookNoteAdapter(getActivity(), datas, 0);
                             listView.setAdapter(bookNoteAdapter);
                         } else {

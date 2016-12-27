@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xiaxiao.bookmaid.activity.Fragment1"
-    android:background="#00ffff"
     >
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,5 +19,25 @@
             android:divider="@null"
             />
     </android.support.v4.widget.SwipeRefreshLayout>
+    <TextView
+        android:id="@+id/no_data_tip_tv"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="暂无数据"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/no_login_tip_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:text="去登录"
+        android:textColor="#00dd00"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
 
 </FrameLayout>

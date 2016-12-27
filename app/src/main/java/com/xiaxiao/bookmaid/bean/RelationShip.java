@@ -1,13 +1,13 @@
 package com.xiaxiao.bookmaid.bean;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
 
 /**
  * Created by xiaxi on 2016/11/2.
  */
 public class RelationShip extends BmobObject{
-    String name;
-    String id;
+
     /*
     * type=1: 已买
     *      0：没买
@@ -23,45 +23,51 @@ public class RelationShip extends BmobObject{
     long addedTime;
 
     String ownerId;
-    String bookId;
+    BmobUser owner;
+    BookBean book;
 
 
     public RelationShip(String name, String id, int type, long addedTime, int readStatus) {
         this.readStatus=readStatus;
         this.addedTime = addedTime;
-        this.id = id;
-        this.name = name;
+
         this.type = type;
     }
 
     public RelationShip(RelationShip book) {
-        this.name=book.getName();
-        this.id=book.getId();
+
         this.addedTime=book.getAddedTime();
         this.type=book.getType();
         this.readStatus=book.getReadStatus();
     }
     public RelationShip(String name, int type, long addedTime) {
         this.addedTime = addedTime;
-        this.name = name;
         this.type = type;
     }
     public RelationShip(){}
 
-    public String getBookId() {
-        return bookId;
+    public BookBean getBook() {
+        return book;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void setBook(BookBean book) {
+        this.book = book;
     }
+
+    public BmobUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(BmobUser owner) {
+        this.owner = owner;
+    }
+
+
 
     @Override
     public String toString() {
         return "Book{" +
                 "addedTime=" + addedTime +
-                ", name='" + name + '\'' +
-                ", id='" + id + '\'' +
                 ", type=" + type +
                 ", readStatus=" + readStatus +
                 ", ownerId='" + ownerId + '\'' +
@@ -84,13 +90,7 @@ public class RelationShip extends BmobObject{
         this.addedTime = addedTime;
     }
 
-    public String  getId() {
-        return id;
-    }
 
-    public void setId(String  id) {
-        this.id = id;
-    }
 
     public int getType() {
         return type;
@@ -98,18 +98,6 @@ public class RelationShip extends BmobObject{
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public RelationShip(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getReadStatus() {

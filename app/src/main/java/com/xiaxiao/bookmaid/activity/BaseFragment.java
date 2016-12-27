@@ -26,12 +26,13 @@ public class BaseFragment extends Fragment {
     private String mParam2;
     private Activity mActivity;
 
+
     private OnFragmentInteractionListener mListener;
 
 
 
     public BaseFragment() {
-        requsetBuilder = new BmobServer.Builder(getActivity());
+//        requsetBuilder = new BmobServer.Builder(getActivity());
     }
 
     /**
@@ -64,6 +65,7 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -104,5 +106,12 @@ public class BaseFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public BmobServer.Builder getBuilder() {
+       if(requsetBuilder==null){
+            requsetBuilder = new BmobServer.Builder(getActivity());
+        }
+        return requsetBuilder;
     }
 }

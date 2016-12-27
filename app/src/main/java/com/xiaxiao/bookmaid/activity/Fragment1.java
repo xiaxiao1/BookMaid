@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
-import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
@@ -79,7 +78,7 @@ public class Fragment1 extends BaseFragment {
 
     public void getInfos() {
 
-        requsetBuilder
+        getBuilder()
                 .enableDialog(false)
                 .build()
                 .getBooksWithDefaultOptions(new BmobListener() {

@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -49,6 +50,13 @@ public class Util {
         return bmobUser!=null&&bmobUser.getObjectId()!=null;
     }
 
+    public static BmobUser getUser2() {
+        if (isLogin()) {
+            return BmobUser.getCurrentUser(BmobUser.class);
+        }
+        return null;
+    }
+
     public static FamousWord pickOneFrom(List<FamousWord> list){
         if (list==null||list.size()==0) {
             return null;
@@ -78,7 +86,9 @@ public class Util {
         imm.hideSoftInputFromWindow(view.getWindowToken() , 0);
     }
 
-
+    public static  void goLoginPage(Context context,Class cls) {
+        context.startActivity(new Intent(context,cls));
+    }
 
 
 }

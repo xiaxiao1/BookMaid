@@ -112,36 +112,36 @@ RelativeLayout bg_rl;
     }
 
     public void gogo(View view) {
-        BmobQuery<RelationShip> relationShipBmobQuery = new BmobQuery<>();
-        relationShipBmobQuery.findObjects(new FindListener<RelationShip>() {
-            @Override
-            public void done(List<RelationShip> list, BmobException e) {
-                if (e==null) {
-
-                    for (final RelationShip r:list) {
-                        BmobQuery<BookBean> bookBeanBmobQuery = new BmobQuery<BookBean>();
-                        bookBeanBmobQuery.addWhereEqualTo("name", r.getName());
-                        bookBeanBmobQuery.findObjects(new FindListener<BookBean>() {
-                            @Override
-                            public void done(List<BookBean> list, BmobException e) {
-                                if (e==null) {
-                                    r.setBookId(list.get(0).getObjectId());
-                                    r.update(new UpdateListener() {
-                                        @Override
-                                        public void done(BmobException e) {
-                                            if (e==null) {
-                                                Util.L("ok :"+num+r.getName());
-                                                num++;
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
+//        BmobQuery<RelationShip> relationShipBmobQuery = new BmobQuery<>();
+//        relationShipBmobQuery.findObjects(new FindListener<RelationShip>() {
+//            @Override
+//            public void done(List<RelationShip> list, BmobException e) {
+//                if (e==null) {
+//
+//                    for (final RelationShip r:list) {
+//                        BmobQuery<BookBean> bookBeanBmobQuery = new BmobQuery<BookBean>();
+//                        bookBeanBmobQuery.addWhereEqualTo("name", r.getName());
+//                        bookBeanBmobQuery.findObjects(new FindListener<BookBean>() {
+//                            @Override
+//                            public void done(List<BookBean> list, BmobException e) {
+//                                if (e==null) {
+//                                    r.setBookId(list.get(0).getObjectId());
+//                                    r.update(new UpdateListener() {
+//                                        @Override
+//                                        public void done(BmobException e) {
+//                                            if (e==null) {
+//                                                Util.L("ok :"+num+r.getName());
+//                                                num++;
+//                                            }
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//        });
     }
 
     int num=0;

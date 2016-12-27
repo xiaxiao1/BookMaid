@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity {
                             Util.setUser(BmobUser.getCurrentUser());
                             Util.setUserId(BmobUser.getCurrentUser().getObjectId());
                             uiDialog.dismissDialog();
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity2.class));
                             LoginActivity.this.finish();
                         }else{
                             Util.L(e.toString());
@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity {
                                            uiDialog.dismissDialog();
                                             Util.toast(LoginActivity.this,"注册 成功");
                                             Util.L("注册成功："+s.toString()+s.getObjectId()+s.getUsername());
-                                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                            Intent intent=new Intent(LoginActivity.this,MainActivity2.class);
 //                                            intent.putExtra("userId", s.getObjectId());
                                             Util.setUserId(s.getObjectId());
                                             Util.setUser(s);

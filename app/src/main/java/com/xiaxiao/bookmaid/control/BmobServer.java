@@ -5,6 +5,7 @@ import android.content.Context;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
+import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.ErrorListener;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
@@ -13,6 +14,7 @@ import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -191,6 +193,32 @@ public class BmobServer {
             mBmobQuery.addWhereEqualTo("ownerId", "-1");
         }*/
         getBooks();
+    }
+
+    public void getMyBooks(final BmobListener bmobListener) {
+        addListener(bmobListener);
+        mBmobQuery = new BmobQuery<RelationShip>();
+        mBmobQuery.order("-createdAt");
+        if (Util.isLogin()) {
+            mBmobQuery.addWhereEqualTo("ownerId", Util.getUser2().getObjectId());
+        } else {
+            mBmobQuery.addWhereEqualTo("ownerId", "-1");
+        }
+        mBmobQuery.include("book");
+        mBmobQuery.findObjects(new FindListener<RelationShip>() {
+            @Override
+            public void done(List<RelationShip> list, BmobException e) {
+                if (e == null) {
+                    List<BookBean> books = new ArrayList<BookBean>();
+                    for (RelationShip r : list) {
+                        books.add(r.getBook());
+                    }
+                    handleSuccess(books);
+                } else {
+                    handleError(e);
+                }
+            }
+        });
     }
 
 
