@@ -10,6 +10,7 @@ import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.util.BmobIniter;
+import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 import com.xiaxiao.bookmaid.widget.BottomView;
 
@@ -40,14 +41,16 @@ public class TestActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gogogo2();
+//                gogogo2();
+                UIDialog uiDialog = new UIDialog(TestActivity.this);
+                uiDialog.showChooseDialog();
             }
         });
 
 
     }
 
-    public void gogogo() {
+   /* public void gogogo() {
 //        BmobQuery<RelationShip> relationShipBmobQuery = new BmobQuery<RelationShip>();
 //        relationShipBmobQuery.order("-createdAt");
 //        relationShipBmobQuery.findObjects(new FindListener<RelationShip>() {
@@ -56,8 +59,8 @@ public class TestActivity extends AppCompatActivity {
 //                if (e == null) {
 //                    for (RelationShip r:list) {
 //                        final String rId=r.getObjectId();
-//                      /*  Util.L(r.getBookId());
-//                        String bookId = r.getBookId();*/
+//                      *//*  Util.L(r.getBookId());
+//                        String bookId = r.getBookId();*//*
 //                        BmobQuery<BookBean> bookBeanBmobQuery = new BmobQuery<BookBean>();
 ////                        bookBeanBmobQuery.addWhereEqualTo("objectId", bookId);
 //                        bookBeanBmobQuery.getObject(bookId, new QueryListener<BookBean>() {
@@ -123,7 +126,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
 
 
 }
