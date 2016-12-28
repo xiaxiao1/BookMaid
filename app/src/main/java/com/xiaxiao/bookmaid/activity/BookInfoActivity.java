@@ -1,23 +1,17 @@
 package com.xiaxiao.bookmaid.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
-import com.xiaxiao.bookmaid.control.BookNoteServer;
 import com.xiaxiao.bookmaid.listener.BmobListener;
-import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.GlideHelper;
 import com.xiaxiao.bookmaid.util.GlobalData;
 
@@ -56,6 +50,24 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         bookItemTuijianzheNameTv.setText(b.getRecommendPerson().getUsername());
         bookInfoIntroduceTv.setText(b.getIntroduce());
 
+        getInfos();
+
+
+    }
+
+    public void initViews() {
+        headerView = getLayoutInflater().inflate(R.layout.book_info_head_view, null);
+        bookInfoCoverImg = (ImageView) headerView.findViewById(R.id.book_info_cover_img);
+        bookInfoNameTv = (TextView) headerView.findViewById(R.id.book_info_name_tv);
+        bookInfoWriterTv = (TextView) headerView.findViewById(R.id.book_info_writer_tv);
+        bookItemTuijianzheHeadCimg = (CircleImageView) headerView.findViewById(R.id.book_item_tuijianzhe_head_cimg);
+        bookItemTuijianzheNameTv = (TextView) headerView.findViewById(R.id.book_item_tuijianzhe_name_tv);
+        bookInfoIntroduceTv = (TextView) headerView.findViewById(R.id.book_info_introduce_tv);
+        listview = (ListView) findViewById(R.id.listview);
+        listview.addHeaderView(headerView);
+
+    }
+    public void getInfos() {
         requsetBuilder.build()
                 .getBookNotes("", new BmobListener() {
                     @Override
@@ -72,21 +84,6 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
 
                     }
                 });
-
-
-    }
-
-    public void initViews() {
-        headerView = getLayoutInflater().inflate(R.layout.book_info_head_view, null);
-        bookInfoCoverImg = (ImageView) headerView.findViewById(R.id.book_info_cover_img);
-        bookInfoNameTv = (TextView) headerView.findViewById(R.id.book_info_name_tv);
-        bookInfoWriterTv = (TextView) headerView.findViewById(R.id.book_info_writer_tv);
-        bookItemTuijianzheHeadCimg = (CircleImageView) headerView.findViewById(R.id.book_item_tuijianzhe_head_cimg);
-        bookItemTuijianzheNameTv = (TextView) headerView.findViewById(R.id.book_item_tuijianzhe_name_tv);
-        bookInfoIntroduceTv = (TextView) headerView.findViewById(R.id.book_info_introduce_tv);
-        listview = (ListView) findViewById(R.id.listview);
-        listview.addHeaderView(headerView);
-
     }
 
     @Override

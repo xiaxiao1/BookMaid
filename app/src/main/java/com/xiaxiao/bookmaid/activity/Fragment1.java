@@ -16,6 +16,7 @@ import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
+import com.xiaxiao.bookmaid.util.UIDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class Fragment1 extends BaseFragment {
 
     BookAdapter bookAdapter;
     List<BookBean> allBooks;
+    UIDialog waitHttpDialog;
 
     public Fragment1() {
         // Required empty public constructor
@@ -57,7 +59,7 @@ public class Fragment1 extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initViews(View view) {
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeLayout);
-        swipeRefreshLayout.setColorSchemeColors(new int[]{R.color.lan,R.color.hong});
+        swipeRefreshLayout.setColorSchemeColors(swipeSchemeColors);
         listview = (ListView)view.findViewById(R.id.listview);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,6 +75,16 @@ public class Fragment1 extends BaseFragment {
             }
         });
         listview.addFooterView(footer);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position>=allBooks.size()) {
+                    return;
+                }
+                goBookInfo(allBooks.get(position));
+            }
+        });
 
     }
 
@@ -84,6 +96,7 @@ public class Fragment1 extends BaseFragment {
                 .getBooksWithDefaultOptions(new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
+                        waitHttpDialog.dismissWaitDialog();
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
@@ -99,6 +112,7 @@ public class Fragment1 extends BaseFragment {
 
                     @Override
                     public void onError(BmobException e) {
+                        waitHttpDialog.dismissWaitDialog();
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
@@ -112,18 +126,9 @@ public class Fragment1 extends BaseFragment {
         View view= inflater.inflate(R.layout.fragment_fragment1, container, false);
         initViews(view);
         allBooks = new ArrayList<>();
-
+        waitHttpDialog = new UIDialog(getActivity());
+        waitHttpDialog.showWaitDialog();
         getInfos();
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (position>=allBooks.size()) {
-                    return;
-                }
-                goBookInfo(allBooks.get(position));
-            }
-        });
 
         return view;
     }

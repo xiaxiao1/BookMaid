@@ -55,6 +55,7 @@ public class Fragment2 extends BaseFragment {
 
     public void initViews(View view) {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        swipeRefreshLayout.setColorSchemeColors(swipeSchemeColors);
         listView = (ListView) view.findViewById(R.id.listview);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -66,6 +67,7 @@ public class Fragment2 extends BaseFragment {
 
     public void getInfos() {
         getBuilder()
+                .enableDialog(false)
                 .build()
                 .getAllIdeas(new BmobListener() {
                     @Override

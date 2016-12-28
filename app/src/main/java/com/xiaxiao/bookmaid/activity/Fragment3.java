@@ -62,6 +62,7 @@ public class Fragment3 extends BaseFragment {
 
     public void initViews(View view) {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        swipeRefreshLayout.setColorSchemeColors(swipeSchemeColors);
         listView = (ListView) view.findViewById(R.id.listview);
         noDataTip_tv = (TextView) view.findViewById(R.id.no_data_tip_tv);
         noLoginTip_tv = (TextView) view.findViewById(R.id.no_login_tip_tv);

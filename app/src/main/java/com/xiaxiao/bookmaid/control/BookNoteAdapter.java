@@ -7,13 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookNote;
+import com.xiaxiao.bookmaid.util.GlideHelper;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by xiaxi on 2016/11/2.
@@ -39,12 +44,17 @@ public class BookNoteAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        holder.index.setText((position+1)+"");
-        holder.index.setTextColor(Color.parseColor(Util.getRandomColor()));
-        holder.user.setText(bookNote.getUserName());
-        holder.content.setText(bookNote.getContent());
-
-        holder.createdTime.setText(bookNote.getCreatedAt());
+        GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemFromwhoHeadCmig);
+        holder.booknoteItemFromwhoNameTv.setText(bookNote.getWhoWrite().getUsername());
+        if (!bookNote.getReplyWhos().getObjectId().equals("")) {
+            holder.booknoteItemTowhoLl.setVisibility(View.VISIBLE);
+            GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemTowhoHeadCimg);
+            holder.booknoteItemTowhoNameTv.setText(bookNote.getReplyWhos().getUsername());
+        } else {
+            holder.booknoteItemTowhoLl.setVisibility(View.GONE);
+        }
+        holder.booknoteItemContentTv.setText(bookNote.getContent());
+        holder.booknoteItemTimeTv.setText(bookNote.getCreatedAt());
 
 
 
@@ -59,16 +69,26 @@ public class BookNoteAdapter extends MyBaseAdapter{
     }
 
     class Holder{
-        TextView content;
-        TextView user;
-        TextView createdTime;
-        TextView index;
+        private CircleImageView booknoteItemFromwhoHeadCmig;
+        private TextView booknoteItemFromwhoNameTv;
+        private LinearLayout booknoteItemTowhoLl;
+        private CircleImageView booknoteItemTowhoHeadCimg;
+        private TextView booknoteItemTowhoNameTv;
+        private TextView booknoteItemContentTv;
+        private ImageView booknoteItemRightimg;
+        private TextView booknoteItemTimeTv;
+
 
         public Holder(View view) {
-            this.content = (TextView) view.findViewById(R.id.item_book_name);
-            this.index = (TextView) view.findViewById(R.id.item_book_index_tv);
-            this.user = (TextView) view.findViewById(R.id.item_book_id);
-            this.createdTime = (TextView) view.findViewById(R.id.item_book_type);
+            booknoteItemFromwhoHeadCmig = (CircleImageView) view.findViewById(R.id.booknote_item_fromwho_head_cmig);
+            booknoteItemFromwhoNameTv = (TextView) view.findViewById(R.id.booknote_item_fromwho_name_tv);
+            booknoteItemTowhoLl = (LinearLayout) view.findViewById(R.id.booknote_item_towho_ll);
+            booknoteItemTowhoHeadCimg = (CircleImageView) view.findViewById(R.id.booknote_item_towho_head_cimg);
+            booknoteItemTowhoNameTv = (TextView) view.findViewById(R.id.booknote_item_towho_name_tv);
+            booknoteItemContentTv = (TextView) view.findViewById(R.id.booknote_item_content_tv);
+            booknoteItemRightimg = (ImageView) view.findViewById(R.id.booknote_item_rightimg);
+            booknoteItemTimeTv = (TextView) view.findViewById(R.id.booknote_item_time_tv);
+
         }
     }
 }

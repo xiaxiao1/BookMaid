@@ -4,17 +4,17 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="blue">#91a1f7</color>
-    <color name="gray">#8a8a8a</color>
+    <color name="gray">#767676</color>
     <color name="listview_bg">#dbdbdb</color>
     <color name="listview_item_border">#e6e6e6</color>
     <color name="title_bg">#747afc</color>
     <color name="edit_bg">#FFF9CFDD</color>
     <color name="edit_bg_press">#cc9fae</color>
     <color name="test_black">#454545</color>
-    <color name="hong">#f58476</color>
-    <color name="lan">#747afc</color>
-    <color name="lv">#81EFE9</color>
-    <color name="wide_line">#dbdbdb</color>
-    <color name="thin_line">#8a8a8a</color>
+    <color name="hong">#f56857</color>
+    <color name="lan">#4a51f5</color>
+    <color name="lv">#44f2e9</color>
+    <color name="wide_line">#e7e6e6</color>
+    <color name="thin_line">#c6c5c5</color>
 
 </resources>
