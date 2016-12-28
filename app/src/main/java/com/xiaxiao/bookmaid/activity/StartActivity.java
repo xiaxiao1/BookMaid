@@ -74,7 +74,7 @@ RelativeLayout bg_rl;
     List<BmobObject> bookBeens=new ArrayList<>();
     public void gogo1(View view){
 //        UIDialog uiDialog = new UIDialog(this);
-////        uiDialog.showDialog();
+////        uiDialog.showWaitDialog();
 //        BmobQuery<Book> query=new BmobQuery<Book>();
 //        query.setLimit(50);
 //        query.setSkip(50);

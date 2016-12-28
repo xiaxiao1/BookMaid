@@ -8,19 +8,14 @@ import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.ErrorListener;
-import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.listener.SuccessListener;
-import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -187,6 +182,7 @@ public class BmobServer {
         addListener(bmobListener);
         mBmobQuery = new BmobQuery<BookBean>();
         mBmobQuery.order("-createdAt");
+        mBmobQuery.include("recommendPerson");
         /*if (GlobalData.userId != null) {
             mBmobQuery.addWhereEqualTo("ownerId", GlobalData.userId);
         } else {
@@ -295,10 +291,10 @@ public class BmobServer {
 
     protected void showWaitDialog() {
         if (enableDialog) {
-            waitdialog.showDialog();
+            waitdialog.showWaitDialog();
         }
     }
     protected  void dismissWaitDialog() {
-        waitdialog.dismissDialog();
+        waitdialog.dismissWaitDialog();
     }
 }

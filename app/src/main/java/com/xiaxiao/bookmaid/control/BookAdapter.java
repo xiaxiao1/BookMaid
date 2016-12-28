@@ -6,13 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by xiaxi on 2016/11/2.
@@ -36,10 +40,15 @@ public class BookAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        holder.bookIndex.setText((position+1)+"");
-        holder.bookIndex.setTextColor(Color.parseColor(Util.getRandomColor()));
-        holder.bookName.setText(book.getName());
-        holder.bookId.setText(book.getObjectId());
+        Glide.with(context).load("https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58").into(holder.bookItemCoverImg);
+        holder.bookItemNameTv.setText(book.getName());
+        holder.bookItemWriterTv.setText(book.getWriter());
+        holder.bookItemIntroduceTv.setText(book.getIntroduce());
+        holder.bookItemBuyView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
+        holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
+        holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
+        Glide.with(context).load("https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000").into(holder.bookItemTuijianzheHeadCimg);
+
         /*if (book.getType() == 1) {
             holder.bookType.setText(R.string.book_type_buy);
             holder.bookType.setTextColor(Color.parseColor("#1296db"));
@@ -69,18 +78,28 @@ public class BookAdapter extends MyBaseAdapter{
     }
 
     class Holder{
-        TextView bookName;
-        TextView bookIndex;
-        TextView bookId;
-        TextView bookType;
-        TextView bookRead;
+        private ImageView bookItemCoverImg;
+        private TextView bookItemNameTv;
+        private TextView bookItemWriterTv;
+        private TextView bookItemIntroduceTv;
+        private View bookItemBuyView;
+        private View bookItemReadView;
+        private TextView bookItemTuijianTv;
+        private CircleImageView bookItemTuijianzheHeadCimg;
+        private TextView bookItemTuijianzheNameTv;
+
 
         public Holder(View view) {
-            this.bookName = (TextView) view.findViewById(R.id.item_book_name);
-            this.bookIndex = (TextView) view.findViewById(R.id.item_book_index_tv);
-            this.bookId = (TextView) view.findViewById(R.id.item_book_id);
-            this.bookType = (TextView) view.findViewById(R.id.item_book_type);
-            this.bookRead = (TextView) view.findViewById(R.id.item_book_read);
+            bookItemCoverImg = (ImageView) view.findViewById(R.id.book_item_cover_img);
+            bookItemNameTv = (TextView) view.findViewById(R.id.book_item_name_tv);
+            bookItemWriterTv = (TextView) view.findViewById(R.id.book_item_writer_tv);
+            bookItemIntroduceTv = (TextView) view.findViewById(R.id.book_item_introduce_tv);
+            bookItemBuyView = (View) view.findViewById(R.id.book_item_buy_view);
+            bookItemReadView = (View) view.findViewById(R.id.book_item_read_view);
+            bookItemTuijianTv = (TextView) view.findViewById(R.id.book_item_tuijian_tv);
+            bookItemTuijianzheHeadCimg = (CircleImageView) view.findViewById(R.id.book_item_tuijianzhe_head_cimg);
+            bookItemTuijianzheNameTv = (TextView) view.findViewById(R.id.book_item_tuijianzhe_name_tv);
+
         }
     }
 }

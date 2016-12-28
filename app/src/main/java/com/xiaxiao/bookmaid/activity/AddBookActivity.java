@@ -1,8 +1,6 @@
 package com.xiaxiao.bookmaid.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +10,9 @@ import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BookManager;
-import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
-
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
 
 public class AddBookActivity extends BaseActivity {
 
@@ -108,11 +102,11 @@ public class AddBookActivity extends BaseActivity {
                 Util.L(edit.getText().toString()+" 有没有："+type);
                 final BookBean book = new BookBean("","","",1,1,"");
 //                book.setOwnerId(Util.getUser().getObjectId());
-                uiDialog.showDialog();
+                uiDialog.showWaitDialog();
                 /*bookManager.add(book, new OnResultListener() {
                     @Override
                     public void onSuccess(String objectId) {
-                        uiDialog.dismissDialog();
+                        uiDialog.dismissWaitDialog();
                         Intent intent=new Intent();
                         Bundle b=new Bundle();
                         b.putString("name",book.getName());
@@ -125,7 +119,7 @@ public class AddBookActivity extends BaseActivity {
                     @Override
                     public void onError(BmobException e) {
                         Util.toast(AddBookActivity.this,"添加失败，请重试");
-                        uiDialog.dismissDialog();
+                        uiDialog.dismissWaitDialog();
                     }
                 });*/
 

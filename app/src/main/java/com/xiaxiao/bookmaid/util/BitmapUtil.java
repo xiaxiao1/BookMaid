@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -307,8 +308,8 @@ public class BitmapUtil {
 
 		return ouput;
 	}
-	/*public static Bitmap getThumbnail(File file, Activity act) throws FileNotFoundException, IOException {
-		int degree = ImageUtil.readPicDegree(file.getAbsolutePath());
+	public static Bitmap getThumbnail(File file, Activity act) throws FileNotFoundException, IOException {
+//		int degree = ImageUtil.readPicDegree(file.getAbsolutePath());
 		InputStream input = new FileInputStream(file);
 		int size = getXY(act)[0] > getXY(act)[1] ? getXY(act)[1] : getXY(act)[0];
 		BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
@@ -331,12 +332,12 @@ public class BitmapUtil {
 		input = new FileInputStream(file);
 		Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
 		input.close();
-		if ( degree != 0 )
+		/*if ( degree != 0 )
 		{
 			bitmap = ImageUtil.rotateBitmap(degree, bitmap);
-		}
+		}*/
 		return bitmap;
-	}*/
+	}
 
 	public static Bitmap getThumbnail(Uri uri, Activity act) throws FileNotFoundException, IOException {
 		InputStream input = act.getContentResolver().openInputStream(uri);

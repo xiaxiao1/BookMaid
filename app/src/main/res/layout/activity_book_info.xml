@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,80 +11,95 @@
     >
 
     <ImageView
-        android:id="@+id/book_img"
-        android:layout_width="100dp"
-        android:layout_height="120dp"
+        android:id="@+id/book_info_cover_img"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
         android:src="@drawable/book_cover"
         android:background="@drawable/add_bg"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         />
     <TextView
-        android:id="@+id/book_name_tv"
+        android:id="@+id/book_info_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="book name"
         android:textSize="20sp"
         android:textColor="@color/test_black"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/book_img"
+        android:layout_below="@id/book_info_cover_img"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="10dp"
+        android:layout_centerHorizontal="true"
         />
     <TextView
-        android:id="@+id/book_writer_tv"
+        android:id="@+id/book_info_writer_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="book writer"
         android:textSize="18sp"
-        android:layout_below="@id/book_name_tv"
-        android:layout_toRightOf="@id/book_img"
+        android:layout_below="@id/book_info_name_tv"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="10dp"
+        android:layout_centerHorizontal="true"
         />
+
     <LinearLayout
-        android:id="@+id/read_buy_ll"
+        android:id="@+id/book_info_tuijianzhe_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/book_img"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="16dp"
-        >
-    <TextView
-        android:id="@+id/book_read_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="book name"
-        android:textSize="12sp"
         android:gravity="center_vertical"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/book_info_writer_tv"
+
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/book_item_tuijianzhe_head_cimg"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/xxx"
+            />
         <TextView
+            android:id="@+id/book_item_tuijianzhe_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" · "
+            android:text="读书的小屁孩"
+            android:textColor="@color/gray"
             android:textSize="12sp"
-            android:gravity="center_vertical"
+            android:layout_marginLeft="6dp"
             />
-    <TextView
-        android:id="@+id/book_status_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="book name"
-        android:textSize="12sp"
-        android:gravity="center_vertical"
-        />
+        <TextView
+            android:id="@+id/book_item_tuijian_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="   推荐   "
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            android:layout_centerVertical="true"
+            />
     </LinearLayout>
     <TextView
-        android:id="@+id/add_note_tv"
+        android:id="@+id/book_info_introduce_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="book writer lalalalalalalallala"
+        android:textSize="18sp"
+        android:layout_below="@id/book_info_tuijianzhe_ll"
+        android:layout_marginTop="4dp"
+        />
+    <LinearLayout
+        android:id="@+id/book_info_fenxi_ll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#987345"
+        android:layout_below="@id/book_info_introduce_tv"
+        ></LinearLayout>
+    <include
+        android:id="@+id/book_info_fenge_line"
+        layout="@layout/view_split_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+小纸条"
-        android:textSize="18sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/add_note_bg"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/book_img"
+        android:layout_below="@id/book_info_fenxi_ll"
+        android:layout_marginTop="4dp"
         />
 
 
@@ -92,7 +108,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/read_buy_ll"
+        android:layout_below="@id/book_info_fenge_line"
         android:layout_marginTop="20dp"
         android:src="@drawable/xiaozhitiao"
         />
@@ -100,11 +116,11 @@
         android:id="@+id/book_xiaozhitiao_tv"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="小纸条"
+        android:text="哗啦啦的小纸条君~"
         android:gravity="center_vertical"
         android:textColor="@color/gray"
         android:textSize="14sp"
-        android:layout_below="@id/read_buy_ll"
+        android:layout_below="@id/book_info_fenge_line"
         android:layout_toRightOf="@id/xiaozhitiao_img"
         android:layout_marginTop="20dp"
         />

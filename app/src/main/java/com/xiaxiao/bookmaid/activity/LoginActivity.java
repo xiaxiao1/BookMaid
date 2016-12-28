@@ -1,16 +1,12 @@
 package com.xiaxiao.bookmaid.activity;
 
-import android.app.Application;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.xiaxiao.bookmaid.R;
-import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -44,7 +40,7 @@ public class LoginActivity extends BaseActivity {
                 final BmobUser bu = new BmobUser();
                 bu.setUsername(nameStr);
                 bu.setPassword(mimaStr);
-                uiDialog.showDialog();
+                uiDialog.showWaitDialog();
 
                 bu.login(new SaveListener<BmobUser>() {
 
@@ -55,7 +51,7 @@ public class LoginActivity extends BaseActivity {
                             Util.toast(LoginActivity.this,"登录成功");
                             Util.setUser(BmobUser.getCurrentUser());
                             Util.setUserId(BmobUser.getCurrentUser().getObjectId());
-                            uiDialog.dismissDialog();
+                            uiDialog.dismissWaitDialog();
                             startActivity(new Intent(LoginActivity.this,MainActivity2.class));
                             LoginActivity.this.finish();
                         }else{
@@ -67,7 +63,7 @@ public class LoginActivity extends BaseActivity {
                                     @Override
                                     public void done(BmobUser s, BmobException e) {
                                         if(e==null){
-                                           uiDialog.dismissDialog();
+                                           uiDialog.dismissWaitDialog();
                                             Util.toast(LoginActivity.this,"注册 成功");
                                             Util.L("注册成功："+s.toString()+s.getObjectId()+s.getUsername());
                                             Intent intent=new Intent(LoginActivity.this,MainActivity2.class);
@@ -78,13 +74,13 @@ public class LoginActivity extends BaseActivity {
                                             LoginActivity.this.finish();
                                         }else{
                                             if (e.getErrorCode()==202) {
-                                                uiDialog.dismissDialog();
+                                                uiDialog.dismissWaitDialog();
                                                 Util.toast(LoginActivity.this,"账户已存在或密码错误");
                                             }
                                         }
                                     }
                                 });
-                                /*uiDialog.dismissDialog();
+                                /*uiDialog.dismissWaitDialog();
                                 Util.toast(LoginActivity.this,"用户名或密码错了哦");*/
                             }
                         }

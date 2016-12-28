@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.bean.BookBean;
-import com.xiaxiao.bookmaid.control.BmobServer;
-import com.xiaxiao.bookmaid.listener.BmobListener;
-import com.xiaxiao.bookmaid.listener.ErrorListener;
-import com.xiaxiao.bookmaid.listener.SuccessListener;
 import com.xiaxiao.bookmaid.util.BmobIniter;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.control.BookManager;
@@ -34,9 +29,7 @@ import com.xiaxiao.bookmaid.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
 
 public class MainActivity extends BaseActivity  implements View.OnClickListener{
 
@@ -121,7 +114,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
         havedBooks = new ArrayList<>();
         willbuyBooks = new ArrayList<>();
         bookManager = new BookManager(this);
-        uiDialog.showDialog();
+        uiDialog.showWaitDialog();
         bookManager.getBooks(-1, new OnResultListener() {
             @Override
             public void onResult(Object object) {
@@ -129,7 +122,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                 currentList=allBooks;
                 bookAdapter = new BookAdapter(MainActivity.this, currentList);
                 listview.setAdapter(bookAdapter);
-                uiDialog.dismissDialog();
+                uiDialog.dismissWaitDialog();
 
             }
             @Override
@@ -143,7 +136,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                 currentList=allBooks;
                 bookAdapter = new BookAdapter(MainActivity.this, currentList);
                 listview.setAdapter(bookAdapter);
-                uiDialog.dismissDialog();
+                uiDialog.dismissWaitDialog();
             }
         });
 
@@ -326,7 +319,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
-            uiDialog.showDialog();
+            uiDialog.showWaitDialog();
             a.dismiss();
 //            int read=currentBook.getReadStatus();
 //            if (v==change_tv) {
@@ -344,12 +337,12 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 //                        }
 //                        bookAdapter.notifyDataSetChanged();
 //
-//                        uiDialog.dismissDialog();
+//                        uiDialog.dismissWaitDialog();
 //                    }
 //
 //                    @Override
 //                    public void onError(BmobException e) {
-//                        uiDialog.dismissDialog();
+//                        uiDialog.dismissWaitDialog();
 //                        Util.toast(MainActivity.this,"修改失败");
 //                    }
 //                });
@@ -380,12 +373,12 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 //
 //                    bookAdapter.notifyDataSetChanged();
 //
-//                    uiDialog.dismissDialog();
+//                    uiDialog.dismissWaitDialog();
 //                }
 //
 //                @Override
 //                public void onError(BmobException e) {
-//                    uiDialog.dismissDialog();
+//                    uiDialog.dismissWaitDialog();
 //                    Util.toast(MainActivity.this,"修改失败");
 //                }
 //            });

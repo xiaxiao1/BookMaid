@@ -1,9 +1,6 @@
 package com.xiaxiao.bookmaid.activity;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +10,7 @@ import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
-import com.xiaxiao.bookmaid.bean.BookNote;
-import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.control.BookAdapter;
-import com.xiaxiao.bookmaid.control.BookNoteAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
@@ -58,7 +52,7 @@ public class Fragment3 extends BaseFragment {
         waitHttpDialog = new UIDialog(getActivity());
         View view= inflater.inflate(R.layout.fragment_fragment3, container, false);
         initViews(view);
-        waitHttpDialog.showDialog();
+        waitHttpDialog.showWaitDialog();
         getInfos();
         return view;
     }
@@ -87,7 +81,7 @@ public class Fragment3 extends BaseFragment {
 
     public void getInfos() {
         if (!Util.isLogin()) {
-            waitHttpDialog.dismissDialog();
+            waitHttpDialog.dismissWaitDialog();
             swipeRefreshLayout.setRefreshing(false);
             noDataTip(true);
             noLoginTip(true);
@@ -109,7 +103,7 @@ public class Fragment3 extends BaseFragment {
                             bookAdapter.notifyDataSetChanged();
                         }
 
-                        waitHttpDialog.dismissDialog();
+                        waitHttpDialog.dismissWaitDialog();
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
@@ -123,7 +117,7 @@ public class Fragment3 extends BaseFragment {
 
                     @Override
                     public void onError(BmobException e) {
-                        waitHttpDialog.dismissDialog();
+                        waitHttpDialog.dismissWaitDialog();
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }

@@ -14,5 +14,7 @@
     <color name="hong">#f58476</color>
     <color name="lan">#747afc</color>
     <color name="lv">#81EFE9</color>
+    <color name="wide_line">#dbdbdb</color>
+    <color name="thin_line">#8a8a8a</color>
 
 </resources>
