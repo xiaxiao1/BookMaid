@@ -203,23 +203,49 @@ ImageView testImg;
 
 
 
-        BmobQuery<BookBean> bookBeanBmobQuery = new BmobQuery<>();
-        bookBeanBmobQuery.findObjects(new FindListener<BookBean>() {
+        BmobQuery<BookNote> bookBeanBmobQuery = new BmobQuery<>();
+        bookBeanBmobQuery.findObjects(new FindListener<BookNote>() {
             @Override
-            public void done(final List<BookBean> list, BmobException e) {
-                BmobQuery<BmobUser> bmobUserBmobQuery = new BmobQuery<>();
-                bmobUserBmobQuery.getObject("6ac3bcb9a7", new QueryListener<BmobUser>() {
+            public void done(final List<BookNote> list, BmobException e) {
+                /*for (final BookNote bookNote:list) {
+                    String bookId=bookNote.getBookId();
+                    Util.L("bookNote: "+bookNote.getContent()+"   "+bookId);
+                    BmobQuery<BookBean> bookBeanBmobQuery1 = new BmobQuery<BookBean>();
+                    bookBeanBmobQuery1.getObject(bookId, new QueryListener<BookBean>() {
+                        @Override
+                        public void done(BookBean bookBean, BmobException e) {
+                            if (e == null) {
+                                Util.L("bookbean " + bookBean.getName());
+                                bookNote.setBook(bookBean);
+                                bookNote.update(bookNote.getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null) {
+                                            Util.L("booknote add book成功");
+                                        } else {
+                                            Util.L("error:" + e.getMessage());
+                                        }
+                                    }
+                                });
+                            } else {
+                                Util.L("error:" + e.getMessage());
+                            }
+                        }
+                    });
+                }*/
+                BmobQuery<BookBean> bmobUserBmobQuery = new BmobQuery<>();
+                bmobUserBmobQuery.getObject("54a2a6f2a4", new QueryListener<BookBean>() {
                     @Override
-                    public void done(BmobUser bmobUser, BmobException e) {
+                    public void done(BookBean bookBean, BmobException e) {
                         if (e==null) {
-                            Util.L(bmobUser.getUsername());
-                            for (BookBean book:list) {
-                                book.setRecommendPerson(bmobUser);
-                                book.update(new UpdateListener() {
+//                            Util.L(bmobUser.getUsername());
+                            for (BookNote bookbean:list) {
+                                bookbean.setBook(bookBean);
+                                bookbean.update(new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
                                         if (e==null) {
-                                            Util.L("更新推荐人成功");
+                                            Util.L("更新huifuren人成功");
                                         }
                                     }
                                 });

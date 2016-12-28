@@ -21,7 +21,7 @@ import java.util.List;
 public class BookNoteAdapter extends MyBaseAdapter{
 
     int type;
-    int proirIndex=-1;
+    int proirIndex=-2;
 
     public BookNoteAdapter(Context context, List list, int type) {
        super(context,list);

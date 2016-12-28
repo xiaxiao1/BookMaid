@@ -8,6 +8,7 @@ import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.ErrorListener;
+import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.listener.SuccessListener;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
@@ -256,6 +257,28 @@ public class BmobServer {
 
         showWaitDialog();
         mBmobQuery.findObjects(new FindListener<BookNote>() {
+            @Override
+            public void done(List<BookNote> list, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    Util.L("query ok.");
+                    handleSuccess(list);
+                } else {
+                    Util.L("query error:"+e.getMessage());
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+
+    public void getBookNotes(String bookId,BmobListener bmobListener) {
+        addListener(bmobListener);
+        BmobQuery<BookNote> query = new BmobQuery<>();
+//        query.addWhereEqualTo("bookId", bookId);
+        query.order("-createdAt");
+        showWaitDialog();
+        query.findObjects(new FindListener<BookNote>() {
             @Override
             public void done(List<BookNote> list, BmobException e) {
                 dismissWaitDialog();

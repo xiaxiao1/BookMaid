@@ -5,34 +5,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
 import com.xiaxiao.bookmaid.control.BookNoteServer;
+import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
+import com.xiaxiao.bookmaid.util.GlideHelper;
 import com.xiaxiao.bookmaid.util.GlobalData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BookInfoActivity extends BaseActivity implements View.OnClickListener{
 
-    ImageView bookImg;
-    TextView bookName;
-    TextView bookWriter;
-    TextView bookStatus;
-    TextView bookRead;
-    TextView addNote_tv;
-    ListView listView;
+    private ImageView bookInfoCoverImg;
+    private TextView bookInfoNameTv;
+    private TextView bookInfoWriterTv;
+    private CircleImageView bookItemTuijianzheHeadCimg;
+    private TextView bookItemTuijianzheNameTv;
+    private TextView bookInfoIntroduceTv;
+    private ListView listview;
+    private View headerView;
+
 
     List<BookNote> notes;
-    BookNoteServer bookNoteServer;
     BookNoteAdapter bookNoteAdapter;
     BookBean b;
     @Override
@@ -42,53 +49,44 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         initViews();
         b= GlobalData.book;
         notes = new ArrayList<>();
-        bookName.setText(b.getName());
-//        bookWriter.setText(b.getId());
-        bookStatus.setText("未买");
-//        if (b.getType()==1) {
-//            bookStatus.setText("已有");
-//        }
-//
-//        bookRead.setText("未读");
-//        if (b.getReadStatus()==1) {
-//            bookRead.setText("已读");
-//        }
-//        if (b.getReadStatus()==2) {
-//            bookRead.setText("在读");
-//        }
+        GlideHelper.loadImage(this,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",bookInfoCoverImg);
+        bookInfoNameTv.setText(b.getName());
+        bookInfoWriterTv.setText(b.getWriter());
+        GlideHelper.loadImage(this,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",bookItemTuijianzheHeadCimg);
+        bookItemTuijianzheNameTv.setText(b.getRecommendPerson().getUsername());
+        bookInfoIntroduceTv.setText(b.getIntroduce());
 
-        bookNoteServer = new BookNoteServer(this);
-        bookNoteServer.getBookNotes(b.getObjectId(), new OnResultListener() {
-            @Override
-            public void onResult(Object obj) {
-                notes = (List<BookNote>) obj;
-                if (bookNoteAdapter==null) {
-                    bookNoteAdapter = new BookNoteAdapter(BookInfoActivity.this, notes,0);
-                    listView.setAdapter(bookNoteAdapter);
-                }
-            }
-            @Override
-            public void onSuccess(String objectId) {
+        requsetBuilder.build()
+                .getBookNotes("", new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        notes = (List<BookNote>) object;
+                        if (bookNoteAdapter==null) {
+                            bookNoteAdapter = new BookNoteAdapter(BookInfoActivity.this, notes,0);
+                            listview.setAdapter(bookNoteAdapter);
+                        }
+                    }
 
-            }
+                    @Override
+                    public void onError(BmobException e) {
 
-            @Override
-            public void onError(BmobException e) {
+                    }
+                });
 
-            }
-        });
 
     }
 
     public void initViews() {
-        bookImg = (ImageView) findViewById(R.id.book_img);
-        bookName = (TextView) findViewById(R.id.book_name_tv);
-        bookWriter = (TextView) findViewById(R.id.book_writer_tv);
-        bookStatus = (TextView) findViewById(R.id.book_status_tv);
-        bookRead = (TextView) findViewById(R.id.book_read_tv);
-        addNote_tv = (TextView) findViewById(R.id.add_note_tv);
-        listView = (ListView) findViewById(R.id.listview);
-        addNote_tv.setOnClickListener(this);
+        headerView = getLayoutInflater().inflate(R.layout.book_info_head_view, null);
+        bookInfoCoverImg = (ImageView) headerView.findViewById(R.id.book_info_cover_img);
+        bookInfoNameTv = (TextView) headerView.findViewById(R.id.book_info_name_tv);
+        bookInfoWriterTv = (TextView) headerView.findViewById(R.id.book_info_writer_tv);
+        bookItemTuijianzheHeadCimg = (CircleImageView) headerView.findViewById(R.id.book_item_tuijianzhe_head_cimg);
+        bookItemTuijianzheNameTv = (TextView) headerView.findViewById(R.id.book_item_tuijianzhe_name_tv);
+        bookInfoIntroduceTv = (TextView) headerView.findViewById(R.id.book_info_introduce_tv);
+        listview = (ListView) findViewById(R.id.listview);
+        listview.addHeaderView(headerView);
+
     }
 
     @Override

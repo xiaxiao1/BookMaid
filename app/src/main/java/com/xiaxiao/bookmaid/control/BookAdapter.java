@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
+import com.xiaxiao.bookmaid.util.GlideHelper;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
@@ -40,15 +41,14 @@ public class BookAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        Glide.with(context).load("https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58").into(holder.bookItemCoverImg);
+        GlideHelper.loadImage(context,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",holder.bookItemCoverImg);
         holder.bookItemNameTv.setText(book.getName());
         holder.bookItemWriterTv.setText(book.getWriter());
         holder.bookItemIntroduceTv.setText(book.getIntroduce());
         holder.bookItemBuyView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
         holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
         holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
-        Glide.with(context).load("https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000").into(holder.bookItemTuijianzheHeadCimg);
-
+        GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.bookItemTuijianzheHeadCimg);
         /*if (book.getType() == 1) {
             holder.bookType.setText(R.string.book_type_buy);
             holder.bookType.setTextColor(Color.parseColor("#1296db"));
