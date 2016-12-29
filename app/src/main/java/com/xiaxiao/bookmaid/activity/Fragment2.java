@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
+import com.xiaxiao.bookmaid.control.IdeaAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.UIDialog;
 
@@ -22,7 +23,7 @@ import cn.bmob.v3.exception.BmobException;
 public class Fragment2 extends BaseFragment {
     SwipeRefreshLayout swipeRefreshLayout;
     ListView listView;
-    BookNoteAdapter bookNoteAdapter;
+    IdeaAdapter ideaAdapter;
     List<BookNote> datas;
     UIDialog waitHttpDialog;
 
@@ -72,12 +73,12 @@ public class Fragment2 extends BaseFragment {
                 .getAllIdeas(new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
-                        if (bookNoteAdapter == null) {
+                        if (ideaAdapter == null) {
                             datas = (List<BookNote>) object;
-                            bookNoteAdapter = new BookNoteAdapter(getActivity(), datas, 0);
-                            listView.setAdapter(bookNoteAdapter);
+                            ideaAdapter = new IdeaAdapter(getActivity(), datas, 0);
+                            listView.setAdapter(ideaAdapter);
                         } else {
-                            bookNoteAdapter.notifyDataSetChanged();
+                            ideaAdapter.notifyDataSetChanged();
                         }
 
                         waitHttpDialog.dismissWaitDialog();

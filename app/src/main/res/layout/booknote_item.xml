@@ -124,7 +124,7 @@ android:orientation="vertical"
         />
     <TextView android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="小书仆：么么哒 求抱抱"
+        android:text="小书仆: 么么哒 求抱抱"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="10dp"

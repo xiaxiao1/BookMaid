@@ -249,13 +249,15 @@ public class BmobServer {
 
     public void getAllIdeas(BmobListener bmobListener) {
         addListener(bmobListener);
-        mBmobQuery = new BmobQuery();
+        mBmobQuery = new BmobQuery<BookNote>();
         if (mBmobQuery==null) {
             handleError(null);
             return;
         }
 
         showWaitDialog();
+        mBmobQuery.order("-createdAt");
+        mBmobQuery.include("whoWrite,replyWhos,book");
         mBmobQuery.findObjects(new FindListener<BookNote>() {
             @Override
             public void done(List<BookNote> list, BmobException e) {
