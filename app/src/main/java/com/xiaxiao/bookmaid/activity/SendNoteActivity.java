@@ -65,7 +65,7 @@ public class SendNoteActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String str=addedNote_tv.getText().toString();
-                if (str==null) {
+                if (str==null||str.equals("")) {
                     return;
                 }
                 Util.L(str);
