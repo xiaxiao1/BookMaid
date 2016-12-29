@@ -1,7 +1,6 @@
 package com.xiaxiao.bookmaid.activity;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,8 +14,8 @@ import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
-import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
+import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +50,10 @@ public class Fragment1 extends BaseFragment {
      * @param book
      */
     public void goBookInfo(BookBean book) {
-        GlobalData.book=book;
+        Util.goBookInfoPage(getActivity(),book);
+       /* GlobalData.book=book;
         Intent i=new Intent(getActivity(),BookInfoActivity.class);
-        startActivity(i);
+        startActivity(i);*/
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -106,6 +106,7 @@ public class Fragment1 extends BaseFragment {
                             listview.setAdapter(bookAdapter);
 
                         } else {
+                            bookAdapter.updateDatas(allBooks);
                             bookAdapter.notifyDataSetChanged();
                         }
                     }

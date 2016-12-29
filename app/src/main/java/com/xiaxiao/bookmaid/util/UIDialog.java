@@ -1,12 +1,9 @@
 package com.xiaxiao.bookmaid.util;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -18,7 +15,8 @@ import com.xiaxiao.bookmaid.R;
 public class UIDialog {
     private boolean isShow=false;
     private ProgressDialog progressDialog;
-    AlertDialog dialog;
+    AlertDialog kdialog;
+    AlertDialog takePhotoDialog;
     private Context context;
     public UIDialog(Context context) {
         this.context = context;
@@ -33,15 +31,15 @@ public class UIDialog {
             progressDialog.dismiss();
         }
     }
-    public void dismissCustomDialog() {
-        if (dialog!=null&&dialog.isShowing()) {
-            dialog.dismiss();
+    public void dismissTakePhotoDialog() {
+        if (takePhotoDialog!=null&&takePhotoDialog.isShowing()) {
+            takePhotoDialog.dismiss();
         }
     }
 
-    public void showChooseDialog(final CustomDialogListener customDialogListener) {
-        if (dialog!=null) {
-            dialog.show();
+    public void showTakePhotoDialog(final CustomDialogListener customDialogListener) {
+        if (takePhotoDialog!=null) {
+            takePhotoDialog.show();
             return;
         }
         TextView takePhoto_tv;
@@ -74,17 +72,49 @@ public class UIDialog {
                 }
             });
         }
-        dialog=new AlertDialog.Builder(context)
+        takePhotoDialog=new AlertDialog.Builder(context)
                 .setView(view)
                 .setCancelable(true)
                 .create();
 
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.view_white_bg);
-        dialog.show();
+        takePhotoDialog.getWindow().setBackgroundDrawableResource(R.drawable.view_white_bg);
+        takePhotoDialog.show();
         //一定得在show完dialog后来set属性
-        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        WindowManager.LayoutParams lp = takePhotoDialog.getWindow().getAttributes();
         lp.width = context.getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        dialog.getWindow().setAttributes(lp);
+        takePhotoDialog.getWindow().setAttributes(lp);
+    }
+
+    public void showAddNoteDialog(final CustomDialogListener customDialogListener) {
+
+        TextView addNote_tv;
+
+        View view = View.inflate(context, R.layout.dialog_view_add_note, null);
+        addNote_tv = (TextView) view.findViewById(R.id.dialog_add_note_tv);
+
+        final AlertDialog mdialog=new AlertDialog.Builder(context)
+                .setView(view)
+                .setCancelable(true)
+                .create();
+
+        if (customDialogListener!=null) {
+
+            addNote_tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    customDialogListener.onItemClick(0);
+                    mdialog.dismiss();
+                }
+            });
+
+        }
+
+        mdialog.getWindow().setBackgroundDrawableResource(R.drawable.view_white_bg);
+        mdialog.show();
+        //一定得在show完dialog后来set属性
+        WindowManager.LayoutParams lp = mdialog.getWindow().getAttributes();
+        lp.width = context.getResources().getDimensionPixelSize(R.dimen.dialog_width);
+        mdialog.getWindow().setAttributes(lp);
     }
 
 

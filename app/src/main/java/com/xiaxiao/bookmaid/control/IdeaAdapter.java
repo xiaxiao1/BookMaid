@@ -41,19 +41,21 @@ public class IdeaAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.bookCover_img);
-        holder.bookName_tv.setText(bookNote.getWhoWrite().getUsername());
-        GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.writerHeadImg_cimg);
+        GlideHelper.loadImage(context,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",holder.bookCover_img);
+        holder.bookName_tv.setText(bookNote.getBook().getName());
+        if (bookNote.getWhoWrite().getHeadImage()!=null) {
+            GlideHelper.loadImage(context,bookNote.getWhoWrite().getHeadImage().getUrl(),holder.writerHeadImg_cimg);
+        }
         holder.writerName_tv.setText(bookNote.getWhoWrite().getUsername());
-        if (!bookNote.getReplyWhos().getObjectId().equals("")) {
+        if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
             holder.toWhoArea_ll.setVisibility(View.VISIBLE);
-            GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemTowhoHeadCimg);
-            holder.booknoteItemTowhoNameTv.setText(bookNote.getReplyWhos().getUsername());
+            GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.toWhoHeadImg_cimg);
+            holder.toWhoName_tv.setText(bookNote.getReplyWhos().getUsername());
         } else {
             holder.toWhoArea_ll.setVisibility(View.GONE);
         }
-        holder.booknoteItemContentTv.setText(bookNote.getContent());
-        holder.booknoteItemTimeTv.setText(bookNote.getCreatedAt());
+        holder.ideaContent_tv.setText(bookNote.getContent());
+        holder.createTime_tv.setText(bookNote.getCreatedAt());
 
 
 

@@ -107,7 +107,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/book_info_fenge_line"
         android:layout_marginTop="20dp"
-        android:src="@drawable/xiaozhitiao"
+        android:src="@drawable/zhifeiji"
         />
     <TextView
         android:id="@+id/book_xiaozhitiao_tv"

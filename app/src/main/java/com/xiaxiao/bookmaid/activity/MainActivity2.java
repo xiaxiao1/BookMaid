@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.listener.OnFragmentResultListener;
 import com.xiaxiao.bookmaid.util.BmobIniter;
 import com.xiaxiao.bookmaid.widget.BottomView;
 
@@ -27,6 +29,8 @@ public class MainActivity2 extends BaseActivity  implements View.OnClickListener
         BmobIniter.init(this);
         setContentView(R.layout.activity_main2);
         initViews();
+        getRuntimePermissionManager(this);
+        runtimePermissionsManager.requestPermissions();
         fragment1 = new Fragment1();
         currentPage = fragment1;
         mFragmentTransaction = getFragmentManager().beginTransaction();
@@ -114,6 +118,11 @@ public class MainActivity2 extends BaseActivity  implements View.OnClickListener
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (currentPage instanceof OnFragmentResultListener) {
+            OnFragmentResultListener onFragmentResultListener = (OnFragmentResultListener) currentPage;
+            onFragmentResultListener.OnFragmentResult(requestCode,resultCode,data);
+        }
         /*if (resultCode==RESULT_OK) {
             Bundle b=data.getExtras();
             Book book = new Book(b.getString("name"),b.getString("id"),b.getInt("type"),b.getLong("addtime"),b.getInt("readstatus"));
@@ -129,6 +138,12 @@ public class MainActivity2 extends BaseActivity  implements View.OnClickListener
 
 
         }*/
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        runtimePermissionsManager.handle(requestCode, permissions, grantResults);
     }
 
     /**

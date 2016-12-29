@@ -7,14 +7,85 @@
     tools:context="com.xiaxiao.bookmaid.activity.BookInfoActivity"
     android:background="#ffffff"
     >
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/book_info_bottom_ll"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#ff0000"
+        android:background="#ffffff"
         android:orientation="vertical"
-        ></LinearLayout>
+        >
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/thin_line"
+            android:layout_alignParentTop="true"
+            />
+        <View android:layout_width="0.5dp"
+            android:layout_height="25dp"
+            android:background="@color/thin_line"
+            android:layout_centerInParent="true"
+            />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:id="@+id/bookinfo_add_note_ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:gravity="center_horizontal"
+                >
+                <TextView
+                    android:id="@+id/bookinfo_add_note_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="丢个小纸条"
+                    android:textStyle="bold"
+                    android:textColor="@color/hong"
+                    android:textSize="13sp"
+                    android:layout_gravity="center_vertical"
+                    />
+                <ImageView
+                    android:id="@+id/bookinfo_add_note_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/zhifeiji"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bookinfo_add_shelf_ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:gravity="center_horizontal"
+                >
+                <TextView
+                    android:id="@+id/bookinfo_add_shelf_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="加入书架"
+                    android:textStyle="bold"
+                    android:textColor="@color/lan"
+                    android:textSize="13sp"
+                    android:layout_gravity="center_vertical"
+                    />
+                <ImageView
+                    android:id="@+id/bookinfo_add_shelf_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/jiaru_shujia"
+                    android:padding="4dp"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listview"

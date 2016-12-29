@@ -69,7 +69,7 @@ public class Fragment3 extends BaseFragment {
         noLoginTip_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.goLoginPage(getActivity(),LoginActivity.class);
+                Util.goLoginPage(getActivity());
             }
         });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -87,7 +87,7 @@ public class Fragment3 extends BaseFragment {
             noDataTip(true);
             noLoginTip(true);
             Util.toast(getActivity(),"请先登录");
-            Util.goLoginPage(getActivity(),LoginActivity.class);
+            Util.goLoginPage(getActivity());
             return;
         }
         noLoginTip(false);

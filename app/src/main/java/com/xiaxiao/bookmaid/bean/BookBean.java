@@ -2,6 +2,7 @@ package com.xiaxiao.bookmaid.bean;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by xiaxi on 2016/11/30.
@@ -14,6 +15,16 @@ public class BookBean  extends BmobObject{
     int ownNumber;
     int readNumber;
     BmobUser recommendPerson;
+    BmobFile coverImage;
+
+
+    public BmobFile getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(BmobFile coverImage) {
+        this.coverImage = coverImage;
+    }
 
     public BmobUser getRecommendPerson() {
         return recommendPerson;

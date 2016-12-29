@@ -14,8 +14,8 @@ public class BookNote extends BmobObject{
     String ownerId;
     String replyWho;
 
-    BmobUser whoWrite;
-    BmobUser replyWhos;
+    MyUser whoWrite;
+    MyUser replyWhos;
     BookBean book;
 
     public BookNote(String content, String id, String bookId, String userName) {
@@ -37,19 +37,19 @@ public class BookNote extends BmobObject{
         this.book = book;
     }
 
-    public BmobUser getReplyWhos() {
+    public MyUser getReplyWhos() {
         return replyWhos;
     }
 
-    public void setReplyWhos(BmobUser replyWhos) {
+    public void setReplyWhos(MyUser replyWhos) {
         this.replyWhos = replyWhos;
     }
 
-    public BmobUser getWhoWrite() {
+    public MyUser getWhoWrite() {
         return whoWrite;
     }
 
-    public void setWhoWrite(BmobUser whoWrite) {
+    public void setWhoWrite(MyUser whoWrite) {
         this.whoWrite = whoWrite;
     }
 

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -37,7 +38,7 @@ public class LoginActivity extends BaseActivity {
                     Util.toast(LoginActivity.this,"呼呼，密码和名字没写全吧");
                     return;
                 }
-                final BmobUser bu = new BmobUser();
+                final BmobUser bu = new MyUser();
                 bu.setUsername(nameStr);
                 bu.setPassword(mimaStr);
                 uiDialog.showWaitDialog();
@@ -49,8 +50,7 @@ public class LoginActivity extends BaseActivity {
                         if(e==null){
 //                            toast("登录成功:");
                             Util.toast(LoginActivity.this,"登录成功");
-                            Util.setUser(BmobUser.getCurrentUser());
-                            Util.setUserId(BmobUser.getCurrentUser().getObjectId());
+                            Util.setUser(BmobUser.getCurrentUser(MyUser.class));
                             uiDialog.dismissWaitDialog();
                             startActivity(new Intent(LoginActivity.this,MainActivity2.class));
                             LoginActivity.this.finish();
@@ -68,7 +68,6 @@ public class LoginActivity extends BaseActivity {
                                             Util.L("注册成功："+s.toString()+s.getObjectId()+s.getUsername());
                                             Intent intent=new Intent(LoginActivity.this,MainActivity2.class);
 //                                            intent.putExtra("userId", s.getObjectId());
-                                            Util.setUserId(s.getObjectId());
                                             Util.setUser(s);
                                             startActivity(intent);
                                             LoginActivity.this.finish();

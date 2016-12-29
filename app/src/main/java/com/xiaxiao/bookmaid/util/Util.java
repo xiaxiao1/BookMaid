@@ -7,7 +7,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.xiaxiao.bookmaid.activity.BookInfoActivity;
+import com.xiaxiao.bookmaid.activity.LoginActivity;
+import com.xiaxiao.bookmaid.bean.BookBean;
+import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
+import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.control.BmobServer;
 
 import java.text.SimpleDateFormat;
@@ -46,13 +51,13 @@ public class Util {
     }
 
     public static boolean isLogin(){
-        BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
+        BmobUser bmobUser = BmobUser.getCurrentUser(MyUser.class);
         return bmobUser!=null&&bmobUser.getObjectId()!=null;
     }
 
     public static BmobUser getUser2() {
         if (isLogin()) {
-            return BmobUser.getCurrentUser(BmobUser.class);
+            return BmobUser.getCurrentUser(MyUser.class);
         }
         return null;
     }
@@ -77,8 +82,8 @@ public class Util {
         GlobalData.bmobUser=bmobUser;
     }
 
-    public static BmobUser getUser() {
-        return GlobalData.bmobUser;
+    public static MyUser getUser() {
+        return BmobUser.getCurrentUser(MyUser.class);
     }
 
     public static void hideSoftInput(Context context,View view) {
@@ -86,8 +91,14 @@ public class Util {
         imm.hideSoftInputFromWindow(view.getWindowToken() , 0);
     }
 
-    public static  void goLoginPage(Context context,Class cls) {
-        context.startActivity(new Intent(context,cls));
+    public static  void goLoginPage(Context context) {
+        context.startActivity(new Intent(context, LoginActivity.class));
+    }
+
+    public static void goBookInfoPage(Context context, BookBean bookBean) {
+        GlobalData.book=bookBean;
+        Intent i=new Intent(context,BookInfoActivity.class);
+        context.startActivity(i);
     }
 
 

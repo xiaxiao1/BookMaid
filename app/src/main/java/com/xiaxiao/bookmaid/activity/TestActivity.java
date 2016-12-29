@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +12,8 @@ import android.widget.ImageView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
-import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.util.BitmapUtil;
 import com.xiaxiao.bookmaid.util.BmobIniter;
-import com.xiaxiao.bookmaid.util.RuntimePermissionsManager;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 import com.xiaxiao.bookmaid.widget.BottomView;
@@ -26,7 +23,6 @@ import java.io.IOException;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -64,7 +60,7 @@ ImageView testImg;
     }
 
     public void photo() {
-        uiDialog.showChooseDialog(new UIDialog.CustomDialogListener() {
+        uiDialog.showTakePhotoDialog(new UIDialog.CustomDialogListener() {
             @Override
             public void onItemClick(int index) {
                 switch (index) {
@@ -78,7 +74,7 @@ ImageView testImg;
                         break;
                     case 2:
                         //quxiao
-                        uiDialog.dismissCustomDialog();
+                        uiDialog.dismissTakePhotoDialog();
                         break;
                 }
             }
@@ -86,7 +82,7 @@ ImageView testImg;
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        uiDialog.dismissCustomDialog();
+        uiDialog.dismissTakePhotoDialog();
         switch (requestCode) {
             case BitmapUtil.PHOTO_PICKED_WITH_DATA:
                 Util.toast(this,"从相册里选");

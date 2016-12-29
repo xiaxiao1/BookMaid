@@ -46,8 +46,12 @@
 
         <activity android:name=".activity.BaseActivity">
         </activity>
-        <!--<activity android:name=".activity.TestActivity">
-        </activity>-->
+        <!--
+        <activity android:name=".activity.TestActivity">
+        </activity>
+        -->
+        <activity android:name=".activity.SendNoteActivity">
+        </activity>
     </application>
 
 </manifest>

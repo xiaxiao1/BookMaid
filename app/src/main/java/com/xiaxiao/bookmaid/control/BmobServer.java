@@ -5,22 +5,26 @@ import android.content.Context;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
+import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.listener.ErrorListener;
-import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.listener.SuccessListener;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by xiaxi on 2016/11/3.
@@ -257,7 +261,7 @@ public class BmobServer {
 
         showWaitDialog();
         mBmobQuery.order("-createdAt");
-        mBmobQuery.include("whoWrite,replyWhos,book");
+        mBmobQuery.include("whoWrite,replyWhos,book,book.recommendPerson");
         mBmobQuery.findObjects(new FindListener<BookNote>() {
             @Override
             public void done(List<BookNote> list, BmobException e) {
@@ -296,6 +300,97 @@ public class BmobServer {
         });
     }
 
+    /**
+     * add a book
+     * @param bookNote
+     * @param bmobListener
+     */
+    public void addBookNote(final BookNote bookNote,BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        bookNote.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+//                        book.setId(objectId);
+                    handleSuccess(objectId);
+                } else {
+                    handleError(e);
+                }
+
+            }
+        });
+    }
+
+    public void updateBookCoverImage(File coverfile, final BookBean bookBean,BmobListener bmobListener) {
+        addListener(bmobListener);
+        final BmobFile bmobFile = new BmobFile(coverfile);
+        showWaitDialog();
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    bookBean.setCoverImage(bmobFile);
+                    bookBean.update(bookBean.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            dismissWaitDialog();
+                            if (e == null) {
+                                handleSuccess(1);
+                            } else {
+                                handleError(e);
+                            }
+                        }
+                    });
+                } else {
+                    dismissWaitDialog();
+                    handleError(null);
+                }
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+                // 返回的上传进度（百分比）
+//                tv2.setText(""+value);
+            }
+        });
+    }
+
+    public void updateUserheadImage(File headfile, final BmobUser bmobUser, BmobListener bmobListener) {
+        addListener(bmobListener);
+        final BmobFile bmobFile = new BmobFile(headfile);
+        showWaitDialog();
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    MyUser myUser=(MyUser)bmobUser;
+                    myUser.setHeadImage(bmobFile);
+                    myUser.update(myUser.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            dismissWaitDialog();
+                            if (e == null) {
+                                handleSuccess(1);
+                            } else {
+                                handleError(e);
+                            }
+                        }
+                    });
+                } else {
+                    dismissWaitDialog();
+                    handleError(null);
+                }
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+                // 返回的上传进度（百分比）
+//                tv2.setText(""+value);
+            }
+        });
+    }
     //*******************************************************************************************//
 
 

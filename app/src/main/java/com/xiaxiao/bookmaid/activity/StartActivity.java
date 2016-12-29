@@ -11,23 +11,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
-import com.xiaxiao.bookmaid.bean.BookBean;
-import com.xiaxiao.bookmaid.bean.RelationShip;
-import com.xiaxiao.bookmaid.control.BmobHelper;
-import com.xiaxiao.bookmaid.listener.OnResultListener;
+import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.util.BmobIniter;
-import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 public class StartActivity extends BaseActivity {
 RelativeLayout bg_rl;
@@ -50,8 +42,7 @@ RelativeLayout bg_rl;
                 bg_rl.setAlpha(v/100.0f);
                 if (v==150) {
                     if (Util.isLogin()) {
-                        Util.setUserId(BmobUser.getCurrentUser().getObjectId());
-                        Util.setUser(BmobUser.getCurrentUser());
+                        Util.setUser(BmobUser.getCurrentUser(MyUser.class));
                         Intent intent = new Intent(StartActivity.this, MainActivity.class);
                     StartActivity.this.supportFinishAfterTransition();
                     StartActivity.this.startActivity(intent, ActivityOptions

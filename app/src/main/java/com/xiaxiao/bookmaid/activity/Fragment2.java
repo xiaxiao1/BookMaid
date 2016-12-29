@@ -5,14 +5,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookNote;
-import com.xiaxiao.bookmaid.control.BookNoteAdapter;
 import com.xiaxiao.bookmaid.control.IdeaAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.UIDialog;
+import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,12 @@ public class Fragment2 extends BaseFragment {
                 getInfos();
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Util.goBookInfoPage(getActivity(), datas.get(position).getBook());
+            }
+        });
     }
 
     public void getInfos() {
@@ -78,6 +85,7 @@ public class Fragment2 extends BaseFragment {
                             ideaAdapter = new IdeaAdapter(getActivity(), datas, 0);
                             listView.setAdapter(ideaAdapter);
                         } else {
+                            ideaAdapter.updateDatas(datas);
                             ideaAdapter.notifyDataSetChanged();
                         }
 

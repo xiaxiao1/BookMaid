@@ -1,12 +1,10 @@
 package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.util.GlideHelper;
-import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
 
@@ -46,7 +43,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
         }
         GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemFromwhoHeadCmig);
         holder.booknoteItemFromwhoNameTv.setText(bookNote.getWhoWrite().getUsername());
-        if (!bookNote.getReplyWhos().getObjectId().equals("")) {
+        if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
             holder.booknoteItemTowhoLl.setVisibility(View.VISIBLE);
             GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemTowhoHeadCimg);
             holder.booknoteItemTowhoNameTv.setText(bookNote.getReplyWhos().getUsername());
