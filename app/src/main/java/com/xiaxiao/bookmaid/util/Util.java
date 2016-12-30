@@ -1,5 +1,6 @@
 package com.xiaxiao.bookmaid.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -99,6 +100,31 @@ public class Util {
         GlobalData.book=bookBean;
         Intent i=new Intent(context,BookInfoActivity.class);
         context.startActivity(i);
+    }
+
+
+    public static UIDialog takePhoto(final Context context) {
+       UIDialog a=  new UIDialog(context);
+        a.showTakePhotoDialog(new UIDialog.CustomDialogListener() {
+            @Override
+            public void onItemClick(int index) {
+                switch (index) {
+                    case 0:
+                        //paizhao
+                        BitmapUtil.doTakePhoto((Activity) context);
+                        break;
+                    case 1:
+                        //xiangce
+                        BitmapUtil.doPickPhotoFromGallery((Activity) context);
+                        break;
+                    case 2:
+                        //quxiao
+//                        uiDialog.dismissTakePhotoDialog();
+                        break;
+                }
+            }
+        });
+        return a;
     }
 
 

@@ -51,9 +51,11 @@ public class UIDialog {
         cancle_tv = (TextView) view.findViewById(R.id.cancle_tv);
         if (customDialogListener!=null) {
 
+
             cancle_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dismissTakePhotoDialog();
                     customDialogListener.onItemClick(2);
                 }
             });
@@ -61,6 +63,7 @@ public class UIDialog {
                 @Override
                 public void onClick(View v) {
                     Util.toast(context,"take photo");
+                    dismissTakePhotoDialog();
                     customDialogListener.onItemClick(0);
                 }
             });
@@ -68,6 +71,7 @@ public class UIDialog {
                 @Override
                 public void onClick(View v) {
                     Util.toast(context,"from gallery");
+                    dismissTakePhotoDialog();
                     customDialogListener.onItemClick(1);
                 }
             });

@@ -15,6 +15,9 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
+/**
+ * 确定好用户是否登陆的逻辑  并不只是判断是否有currentUser   需要提取出用户密码后调用login 显示登录
+ */
 public class LoginActivity extends BaseActivity {
 
     EditText name;

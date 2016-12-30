@@ -1,151 +1,163 @@
 package com.xiaxiao.bookmaid.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BookManager;
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.listener.BmobListener;
+import com.xiaxiao.bookmaid.util.BitmapUtil;
+import com.xiaxiao.bookmaid.util.CropUtil;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
-public class AddBookActivity extends BaseActivity {
+import java.io.File;
+import java.io.IOException;
 
-    EditText edit;
-    TextView label;
-    ImageView have_img;
+import cn.bmob.v3.exception.BmobException;
+
+public class AddBookActivity extends BaseActivity implements View.OnClickListener{
+
     ImageView back_img;
-    ImageView read_img;
-    TextView readlabel_tv;
-    Button submit;
+    ImageView bookCover_img;
+    EditText editname_et;
+    EditText editWriter_et;
+    EditText editIntroduce_et;
+    RelativeLayout buyArea_rl;
+    RelativeLayout readAera_rl;
+    TextView buyLabel_tv;
+    TextView readLabel_tv;
+    Button addBook_btn;
 
-    boolean haved=false;
-    int type=0;
-    int readStatus=0;
-    String name="";
-    BookManager bookManager;
-    UIDialog uiDialog;
-    View readMenuView;
-    AlertDialog chooseReadDialog;
-    TextView readYes;
-    TextView readNo;
-    TextView readOn;
-    ReadListener readListener;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-        readListener = new ReadListener();
-        bookManager = new BookManager(this);
         initViews();
-        uiDialog = new UIDialog(this);
     }
 
     public void initViews() {
-        readMenuView = View.inflate(this, R.layout.read_status_menu, null);
-        readYes = (TextView) readMenuView.findViewById(R.id.read_yes);
-        readNo = (TextView) readMenuView.findViewById(R.id.read_no);
-        readOn = (TextView) readMenuView.findViewById(R.id.read_on);
-        readYes.setOnClickListener(readListener);
-        readNo.setOnClickListener(readListener);
-        readOn.setOnClickListener(readListener);
-        chooseReadDialog = new AlertDialog.Builder(this).setView(readMenuView).create();
-        read_img = (ImageView) findViewById(R.id.addbook_read_img);
-        readlabel_tv = (TextView) findViewById(R.id.addbook_read_label_tv);
-        edit = (EditText) findViewById(R.id.addbook_name_et);
-        label = (TextView) findViewById(R.id.addbook_have_label_tv);
-        have_img = (ImageView) findViewById(R.id.addbook_have_img);
-        submit = (Button) findViewById(R.id.addbook_submit);
-        back_img = (ImageView) findViewById(R.id.back_img);
-        back_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddBookActivity.this.finish();
-            }
-        });
-        have_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                haved=!haved;
-                if (haved) {
-                    have_img.setImageResource(R.drawable.have_on);
-                    label.setText("已有");
-                    type=1;
-                } else {
-                    have_img.setImageResource(R.drawable.have_off);
-                    label.setText("未买");
-                    type=0;
-                }
-            }
-        });
-        read_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseReadDialog.show();
-            }
-        });
+        back_img = (ImageView) findViewById(R.id.add_book_back_img);
+        bookCover_img = (ImageView) findViewById(R.id.add_book_cover_img);
+        editname_et = (EditText) findViewById(R.id.add_book_name_et);
+        editWriter_et = (EditText) findViewById(R.id.add_book_writer_et);
+        editIntroduce_et = (EditText) findViewById(R.id.add_book_introduce_et);
+        buyArea_rl = (RelativeLayout) findViewById(R.id.add_book_buy_rl);
+        readAera_rl = (RelativeLayout) findViewById(R.id.add_book_read_rl);
+        buyLabel_tv = (TextView) findViewById(R.id.add_book_buy_label_tv);
+        readLabel_tv = (TextView) findViewById(R.id.add_book_read_label_tv);
+        addBook_btn = (Button) findViewById(R.id.add_book_add_btn);
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edit.getText().toString().equals("")) {
-                    Util.toast(AddBookActivity.this,"书名还没有写呢");
-                    return;
-                }
-                Util.L(edit.getText().toString()+" 有没有："+type);
-                final BookBean book = new BookBean("","","",1,1,"");
-//                book.setOwnerId(Util.getUser().getObjectId());
-                uiDialog.showWaitDialog();
-                /*bookManager.add(book, new OnResultListener() {
-                    @Override
-                    public void onSuccess(String objectId) {
-                        uiDialog.dismissWaitDialog();
-                        Intent intent=new Intent();
-                        Bundle b=new Bundle();
-                        b.putString("name",book.getName());
-                        b.putString("id",book.getObjectId());
-                        intent.putExtras(b);
-                        AddBookActivity.this.setResult(RESULT_OK,intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(BmobException e) {
-                        Util.toast(AddBookActivity.this,"添加失败，请重试");
-                        uiDialog.dismissWaitDialog();
-                    }
-                });*/
-
-            }
-        });
+        back_img.setOnClickListener(this);
+        bookCover_img.setOnClickListener(this);
+        buyArea_rl.setOnClickListener(this);
+        readAera_rl.setOnClickListener(this);
+        addBook_btn.setOnClickListener(this);
     }
 
-    class ReadListener implements View.OnClickListener{
 
-        @Override
-        public void onClick(View v) {
-            Util.L("read listener");
-            if (v==readYes) {
-                readStatus=1;
-                readlabel_tv.setText("已读");
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.add_book_back_img:
+                finish();
+                break;
+            case R.id.add_book_cover_img:
+                takePhoto();
+                break;
+            case R.id.add_book_buy_rl:
+                break;
+            case R.id.add_book_read_rl:
+                break;
+            case R.id.add_book_add_btn:
+                break;
+        }
 
-            }
-            if (v==readNo) {
-                readStatus=0;
-                readlabel_tv.setText("未读");
-            }
-            if (v==readOn) {
-                readStatus=2;
-                readlabel_tv.setText("在读");
-            }
-            chooseReadDialog.dismiss();
+    }
+
+
+    public   void takePhoto() {
+        Util.toast(this,"takephoyo");
+        Util.takePhoto(this);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case BitmapUtil.PHOTO_PICKED_WITH_DATA:
+                Util.toast(this,"从相册里选");
+                Uri photo_uri = data.getData();
+                try {
+                    final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(photo_uri, this),
+                            400, 400, true);
+
+                    final File tempFile = CropUtil.makeTempFile(bitmap, "temp_file.jpg");
+                    if (tempFile==null) {
+                        return;
+                    }
+                    bookCover_img.setImageBitmap(bitmap);
+                    /*requsetBuilder.build()
+                            .updateUserheadImage(tempFile, Util.getUser(), new BmobListener() {
+                                @Override
+                                public void onSuccess(Object object) {
+                                    userHead_cimg.setImageBitmap(bitmap);
+                                    tempFile.delete();
+                                    Util.toast(getActivity(),"上传头像成功");
+                                }
+
+                                @Override
+                                public void onError(BmobException e) {
+                                    Util.toast(getActivity(),"上传头像失败");
+                                    Util.L("上传头像失败"+e.getErrorCode()+e.getMessage());
+                                }
+                            });*/
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case BitmapUtil.CAMERA_WITH_DATA:
+                Util.toast(this,"拍照的");
+                final File file = new File(BitmapUtil.HEAD_IMAGE_PATH + "temp.jpg");
+                try {
+                    final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, this), 400,
+                            400, true);
+                    final File tempFile = CropUtil.makeTempFile(bitmap, "temp_file.jpg");
+                    bookCover_img.setImageBitmap(bitmap);
+                    /*requsetBuilder.build()
+                            .updateUserheadImage(tempFile, Util.getUser(), new BmobListener() {
+                                @Override
+                                public void onSuccess(Object object) {
+                                    userHead_cimg.setImageBitmap(bitmap);
+                                    tempFile.delete();
+                                    file.delete();
+                                    Util.toast(getActivity(),"上传头像成功");
+                                }
+
+                                @Override
+                                public void onError(BmobException e) {
+                                    Util.toast(getActivity(),"上传头像失败");
+                                }
+                            });*/
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 }

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+android:gravity="center_horizontal"
     >
     <RelativeLayout
         android:id="@+id/app_title"
@@ -13,7 +13,7 @@
         android:background="@color/title_bg"
         >
         <ImageView
-            android:id="@+id/back_img"
+            android:id="@+id/add_book_back_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back"
@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/back_img"
+            android:layout_toRightOf="@id/add_book_back_img"
             android:layout_centerVertical="true"
             android:text="@string/app_name"
             android:textColor="#ffffff"
@@ -37,19 +37,74 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/addbook_name_et"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="书名..."
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/view_light_gray_bg_small_radius"
         android:padding="4dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/border"
+        >
+        <ImageView
+            android:id="@+id/add_book_cover_img"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/xxx"
+            android:layout_alignParentLeft="true"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/add_book_cover_img"
+            android:layout_marginLeft="8dp"
+            >
+            <EditText
+                android:id="@+id/add_book_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="i am book name"
+                android:textSize="19sp"
+                android:paddingTop="2dp"
+                android:maxLength="30"
+                />
+            <EditText
+                android:id="@+id/add_book_writer_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="writerxxx"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:maxLength="15"
+                />
+            <EditText
+                android:id="@+id/add_book_introduce_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="tsadsadsdso"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                android:maxLines="3"
+                android:maxLength="150"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="敲黑板！认真书写哦"
+        android:textSize="10sp"
+        android:gravity="right"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:maxLength="30"
         />
     <RelativeLayout
+        android:id="@+id/add_book_buy_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -59,7 +114,8 @@
         >
 
 
-        <TextView android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="买了吗"
             android:gravity="center"
@@ -68,7 +124,7 @@
 
             />
         <TextView
-            android:id="@+id/addbook_have_label_tv"
+            android:id="@+id/add_book_buy_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="未买"
@@ -77,11 +133,11 @@
 
             />
         <ImageView
-            android:id="@+id/addbook_have_img"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:src="@drawable/have_off"
-            android:layout_toLeftOf="@id/addbook_have_label_tv"
+            android:padding="4dp"
+            android:src="@drawable/read_menu"
+            android:layout_toLeftOf="@id/add_book_buy_label_tv"
             />
 
     </RelativeLayout>
@@ -90,6 +146,7 @@
         android:background="@color/listview_bg"
         android:layout_marginTop="@dimen/activity_vertical_margin"/>
     <RelativeLayout
+        android:id="@+id/add_book_read_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -98,7 +155,8 @@
         >
 
 
-        <TextView android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="读了吗"
             android:gravity="center"
@@ -107,7 +165,7 @@
 
             />
         <TextView
-            android:id="@+id/addbook_read_label_tv"
+            android:id="@+id/add_book_read_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="未读"
@@ -116,25 +174,31 @@
 
             />
         <ImageView
-            android:id="@+id/addbook_read_img"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:padding="4dp"
             android:src="@drawable/read_menu"
-            android:layout_toLeftOf="@id/addbook_read_label_tv"
+            android:layout_toLeftOf="@id/add_book_read_label_tv"
             />
 
     </RelativeLayout>
     <Button
-        android:id="@+id/addbook_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/add_book_add_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="确定"
         android:textColor="#ffffff"
-        android:background="@drawable/button_blue_bg"
-        android:layout_marginTop="100dp"
+        android:background="@drawable/circle_bg_soild_test"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        />
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您添加的书同时也会经审核推荐给小书仆的其他人"
+        android:textSize="10sp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
         />
     <ImageView android:layout_width="match_parent"
         android:layout_height="wrap_content"

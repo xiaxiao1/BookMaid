@@ -80,31 +80,13 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
     }
 
     public void photo() {
-        uiDialog.showTakePhotoDialog(new UIDialog.CustomDialogListener() {
-            @Override
-            public void onItemClick(int index) {
-                switch (index) {
-                    case 0:
-                        //paizhao
-                        BitmapUtil.doTakePhoto(getActivity());
-                        break;
-                    case 1:
-                        //xiangce
-                        BitmapUtil.doPickPhotoFromGallery(getActivity());
-                        break;
-                    case 2:
-                        //quxiao
-                        uiDialog.dismissTakePhotoDialog();
-                        break;
-                }
-            }
-        });
+        Util.takePhoto(getActivity());
     }
 
 
     @Override
     public void OnFragmentResult(int requestCode, int resultCode, Intent data) {
-        uiDialog.dismissTakePhotoDialog();
+//        uiDialog.dismissTakePhotoDialog();
         switch (requestCode) {
             case BitmapUtil.PHOTO_PICKED_WITH_DATA:
                 Util.toast(getActivity(),"从相册里选");
@@ -129,6 +111,7 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
                                 @Override
                                 public void onError(BmobException e) {
                                     Util.toast(getActivity(),"上传头像失败");
+                                    Util.L("上传头像失败"+e.getErrorCode()+e.getMessage());
                                 }
                             });
                 } catch (IOException e) {
@@ -142,7 +125,7 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
                 try {
                     final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, getActivity()), 400,
                             400, true);
-                    userHead_cimg.setImageBitmap(bitmap);
+//                    userHead_cimg.setImageBitmap(bitmap);
                     final File tempFile = CropUtil.makeTempFile(bitmap, "temp_file.jpg");
                     getBuilder().build()
                             .updateUserheadImage(tempFile, Util.getUser(), new BmobListener() {

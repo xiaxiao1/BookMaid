@@ -55,6 +55,7 @@ ImageView testImg;
             public void onClick(View v) {
 //                gogogo2();
 //                dede();
+                startActivity(new Intent(TestActivity.this,AddBookActivity.class));
             }
         });
     }
