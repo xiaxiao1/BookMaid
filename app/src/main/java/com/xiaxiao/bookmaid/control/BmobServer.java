@@ -323,6 +323,22 @@ public class BmobServer {
         });
     }
 
+    public void upFile(File file,BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        final BmobFile bmobFile = new BmobFile(file);
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(bmobFile);
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
     public void updateBookCoverImage(File coverfile, final BookBean bookBean,BmobListener bmobListener) {
         addListener(bmobListener);
         final BmobFile bmobFile = new BmobFile(coverfile);
@@ -345,7 +361,7 @@ public class BmobServer {
                     });
                 } else {
                     dismissWaitDialog();
-                    handleError(null);
+                    handleError(e);
                 }
             }
 
@@ -390,6 +406,31 @@ public class BmobServer {
 //                tv2.setText(""+value);
             }
         });
+    }
+
+    /**
+     * add a relationship
+     * @param relationShip
+     */
+    public void addRelationShip(final RelationShip relationShip) {
+        showWaitDialog();
+        relationShip.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(objectId);
+                } else {
+                    handleError(e);
+                }
+
+            }
+        });
+    }
+
+    public void addRelationShip(final RelationShip relationShip, BmobListener bmobListener) {
+        addListener(bmobListener);
+        addRelationShip(relationShip);
     }
     //*******************************************************************************************//
 

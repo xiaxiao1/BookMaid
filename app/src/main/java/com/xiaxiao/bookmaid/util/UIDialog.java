@@ -121,6 +121,50 @@ public class UIDialog {
         mdialog.getWindow().setAttributes(lp);
     }
 
+    public void showChooseTypeDialog(String text1,String text2, final CustomDialogListener customDialogListener) {
+
+        TextView t1;
+        TextView t2;
+
+        View view = View.inflate(context, R.layout.dialog_view_choose_type, null);
+        t1 = (TextView) view.findViewById(R.id.t1);
+        t2 = (TextView) view.findViewById(R.id.t2);
+        t1.setText(text1);
+        t2.setText(text2);
+
+        final AlertDialog mdialog=new AlertDialog.Builder(context)
+                .setView(view)
+                .setCancelable(true)
+                .create();
+
+        if (customDialogListener!=null) {
+
+            t1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    customDialogListener.onItemClick(0);
+                    mdialog.dismiss();
+                }
+            });
+            t2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    customDialogListener.onItemClick(1);
+                    mdialog.dismiss();
+                }
+            });
+
+        }
+
+        mdialog.getWindow().setBackgroundDrawableResource(R.drawable.view_white_bg);
+        mdialog.show();
+        //一定得在show完dialog后来set属性
+        WindowManager.LayoutParams lp = mdialog.getWindow().getAttributes();
+        lp.width = context.getResources().getDimensionPixelSize(R.dimen.dialog_width);
+        mdialog.getWindow().setAttributes(lp);
+    }
+
+
 
     public interface CustomDialogListener{
         public void onItemClick(int index);

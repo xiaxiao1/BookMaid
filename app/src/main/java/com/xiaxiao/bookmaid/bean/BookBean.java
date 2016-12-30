@@ -14,9 +14,21 @@ public class BookBean  extends BmobObject{
     String coverImg;
     int ownNumber;
     int readNumber;
+    /**
+     * showType=0 未被审核通过  只能推荐的人自己可见
+     * showType=1  可见
+     */
+    int showType;
     BmobUser recommendPerson;
     BmobFile coverImage;
 
+    public int getShowType() {
+        return showType;
+    }
+
+    public void setShowType(int showType) {
+        this.showType = showType;
+    }
 
     public BmobFile getCoverImage() {
         return coverImage;

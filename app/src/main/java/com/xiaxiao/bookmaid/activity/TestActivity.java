@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
+import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.BitmapUtil;
 import com.xiaxiao.bookmaid.util.BmobIniter;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 import com.xiaxiao.bookmaid.widget.BottomView;
@@ -50,12 +52,41 @@ ImageView testImg;
         });
         BmobIniter.init(this);
         Button btn = (Button) findViewById(R.id.btn1);
+        Button btnLogin = (Button) findViewById(R.id.btn2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                gogogo2();
 //                dede();
-                startActivity(new Intent(TestActivity.this,AddBookActivity.class));
+                BmobQuery<BookBean> bookBeanBmobQuery = new BmobQuery<BookBean>();
+                bookBeanBmobQuery.addWhereEqualTo("objectId", "b12e4665aa");
+                requsetBuilder.addBmobQuery(bookBeanBmobQuery)
+                        .addBmobListener(new BmobListener() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                List<BookBean> list = (List<BookBean>) object;
+                                GlobalData.book = (BookBean) list.get(0);
+                                Util.L("success");
+                                Util.goAddBookPage(TestActivity.this,false);
+                            }
+
+                            @Override
+                            public void onError(BmobException e) {
+                                Util.L("error: "+e.getMessage());
+                            }
+                        })
+                        .build()
+                        .getBooks();
+
+                ;
+
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.goLoginPage(TestActivity.this);
             }
         });
     }

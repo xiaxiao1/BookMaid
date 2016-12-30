@@ -127,7 +127,7 @@ public class MainActivity2 extends BaseActivity  implements View.OnClickListener
             Bundle b=data.getExtras();
             Book book = new Book(b.getString("name"),b.getString("id"),b.getInt("type"),b.getLong("addtime"),b.getInt("readstatus"));
             Util.L(book.toString());
-           *//* if ((book.getType()==1&&currentType!=0)||) {
+           *//* if ((book.getBuyType()==1&&currentType!=0)||) {
             }*//*
             if (currentList==null) {
                 currentList = new ArrayList<>();

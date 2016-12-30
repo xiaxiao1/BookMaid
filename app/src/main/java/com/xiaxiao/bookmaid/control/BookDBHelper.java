@@ -54,9 +54,9 @@ public class BookDBHelper extends SQLiteOpenHelper{
         ContentValues value = new ContentValues();
 //        value.put("id",book.getId());
 //        value.put("name",book.getName());
-//        value.put("type",book.getType());
+//        value.put("type",book.getBuyType());
 //        value.put("added_time",book.getAddedTime());
-//        value.put("read_status",book.getReadStatus());
+//        value.put("read_status",book.getReadType());
         if(-1==db.insert(tableName, null, value)){
             return false;
         }
@@ -99,9 +99,9 @@ public class BookDBHelper extends SQLiteOpenHelper{
         ContentValues value = new ContentValues();
 //        value.put("id",book.getId());
 //        value.put("name",book.getName());
-//        value.put("type",book.getType());
+//        value.put("type",book.getBuyType());
 //        value.put("added_time",book.getAddedTime());
-//        value.put("read_status",book.getReadStatus());
+//        value.put("read_status",book.getReadType());
         //更新条件
         String whereClause = "id=?";
         //更新条件参数
@@ -139,9 +139,9 @@ public class BookDBHelper extends SQLiteOpenHelper{
         while(cursor.moveToNext()) {
             BookBean b=new BookBean();
 //            b.setId(cursor.getString(0));
-//            b.setType(cursor.getInt(2));
+//            b.setBuyType(cursor.getInt(2));
 //            b.setAddedTime(cursor.getInt(3));
-//            b.setReadStatus(cursor.getInt(4));
+//            b.setReadType(cursor.getInt(4));
             list.add(b);
         }
         cursor.close();
@@ -164,9 +164,9 @@ public class BookDBHelper extends SQLiteOpenHelper{
         while(cursor.moveToNext()) {
             BookBean b=new BookBean();
 //            b.setId(cursor.getString(0));
-//            b.setType(cursor.getInt(2));
+//            b.setBuyType(cursor.getInt(2));
 //            b.setAddedTime(cursor.getInt(3));
-//            b.setReadStatus(cursor.getInt(4));
+//            b.setReadType(cursor.getInt(4));
             list.add(b);
         }
         cursor.close();

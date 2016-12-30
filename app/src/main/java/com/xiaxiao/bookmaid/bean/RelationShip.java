@@ -9,17 +9,17 @@ import cn.bmob.v3.BmobUser;
 public class RelationShip extends BmobObject{
 
     /*
-    * type=1: 已买
+    * buyType=1: 已买
     *      0：没买
     *     -1：全部
     * */
-    int type;
+    int buyType;
     /*
-    * readStatus=0: 没读
+    * readType=0: 没读
     *            1：在读
     *            2：已读
     * */
-    int readStatus;
+    int readType;
     long addedTime;
 
     String ownerId;
@@ -28,21 +28,21 @@ public class RelationShip extends BmobObject{
 
 
     public RelationShip(String name, String id, int type, long addedTime, int readStatus) {
-        this.readStatus=readStatus;
+        this.readType =readStatus;
         this.addedTime = addedTime;
 
-        this.type = type;
+        this.buyType = type;
     }
 
     public RelationShip(RelationShip book) {
 
         this.addedTime=book.getAddedTime();
-        this.type=book.getType();
-        this.readStatus=book.getReadStatus();
+        this.buyType =book.getBuyType();
+        this.readType =book.getReadType();
     }
     public RelationShip(String name, int type, long addedTime) {
         this.addedTime = addedTime;
-        this.type = type;
+        this.buyType = type;
     }
     public RelationShip(){}
 
@@ -68,8 +68,8 @@ public class RelationShip extends BmobObject{
     public String toString() {
         return "Book{" +
                 "addedTime=" + addedTime +
-                ", type=" + type +
-                ", readStatus=" + readStatus +
+                ", buyType=" + buyType +
+                ", readType=" + readType +
                 ", ownerId='" + ownerId + '\'' +
                 '}';
     }
@@ -92,20 +92,20 @@ public class RelationShip extends BmobObject{
 
 
 
-    public int getType() {
-        return type;
+    public int getBuyType() {
+        return buyType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setBuyType(int buyType) {
+        this.buyType = buyType;
     }
 
-    public int getReadStatus() {
-        return readStatus;
+    public int getReadType() {
+        return readType;
     }
 
-    public void setReadStatus(int readStatus) {
-        this.readStatus = readStatus;
+    public void setReadType(int readType) {
+        this.readType = readType;
     }
 
 }

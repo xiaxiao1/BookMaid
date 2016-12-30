@@ -147,7 +147,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
                     return false;
                 }
                 currentBook = currentList.get(position);
-//                if (currentBook.getType() == 1) {
+//                if (currentBook.getBuyType() == 1) {
 //                    change_tv.setText("改为未买");
 //                } else {
 //                    change_tv.setText("改为已有");
@@ -296,7 +296,7 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
             Bundle b=data.getExtras();
             BookBean book = new BookBean();
             Util.L(book.toString());
-           /* if ((book.getType()==1&&currentType!=0)||) {
+           /* if ((book.getBuyType()==1&&currentType!=0)||) {
             }*/
             if (currentList==null) {
                 currentList = new ArrayList<>();
@@ -321,12 +321,12 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
         public void onClick(View v) {
             uiDialog.showWaitDialog();
             a.dismiss();
-//            int read=currentBook.getReadStatus();
+//            int read=currentBook.getReadType();
 //            if (v==change_tv) {
-//                if (currentBook.getType() == 1) {
-//                    currentBook.setType(0);
+//                if (currentBook.getBuyType() == 1) {
+//                    currentBook.setBuyType(0);
 //                } else {
-//                    currentBook.setType(1);
+//                    currentBook.setBuyType(1);
 //                }
 //                final Book bv=new Book(currentBook);
 //                bookManager.update(bv, new OnResultListener() {
@@ -352,19 +352,19 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 //                if (read==1) {
 //                    return;
 //                }
-//                currentBook.setReadStatus(1);
+//                currentBook.setReadType(1);
 //            }
 //            if (v==readOn) {
 //                if (read==2) {
 //                    return;
 //                }
-//                currentBook.setReadStatus(2);
+//                currentBook.setReadType(2);
 //            }
 //            if (v==readNo) {
 //                if (read==0) {
 //                    return;
 //                }
-//                currentBook.setReadStatus(0);
+//                currentBook.setReadType(0);
 //            }
 //            final Book bv=new Book(currentBook);
 //            bookManager.update(bv, new OnResultListener() {

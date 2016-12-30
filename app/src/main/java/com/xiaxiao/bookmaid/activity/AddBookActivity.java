@@ -3,7 +3,6 @@ package com.xiaxiao.bookmaid.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,17 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.bean.BookBean;
-import com.xiaxiao.bookmaid.control.BookManager;
+import com.xiaxiao.bookmaid.bean.RelationShip;
+import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.BitmapUtil;
 import com.xiaxiao.bookmaid.util.CropUtil;
+import com.xiaxiao.bookmaid.util.GlideHelper;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.io.File;
 import java.io.IOException;
 
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 
 public class AddBookActivity extends BaseActivity implements View.OnClickListener{
@@ -38,6 +41,18 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
     TextView buyLabel_tv;
     TextView readLabel_tv;
     Button addBook_btn;
+    BookBean book;
+    //true:have cover
+    boolean hasCover=false;
+    String bookName;
+    String bookWriter;
+    String bookIntroduce;
+    int buyType;
+    int readType;
+    //true:book is new
+    boolean bookIsNew=false;
+    UIDialog uiDialog;
+    Bitmap  coverBitmap;
 
 
 
@@ -47,6 +62,24 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         initViews();
+        uiDialog = new UIDialog(this);
+        bookIsNew = getIntent().getBooleanExtra("bookIsNew", false);
+        if (bookIsNew) {
+            book = new BookBean();
+        } else {
+            book = GlobalData.book;
+            if (book.getCoverImage()!=null&&book.getCoverImage().getUrl()!=null) {
+                GlideHelper.loadImage(this,book.getCoverImage().getUrl(),bookCover_img);
+            }
+            editname_et.setText(book.getName());
+            editWriter_et.setText(book.getWriter());
+            editIntroduce_et.setText(book.getIntroduce());
+            bookCover_img.setEnabled(false);
+            editname_et.setEnabled(false);
+            editWriter_et.setEnabled(false);
+            editIntroduce_et.setEnabled(false);
+        }
+
     }
 
     public void initViews() {
@@ -80,10 +113,41 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                 takePhoto();
                 break;
             case R.id.add_book_buy_rl:
+                uiDialog.showChooseTypeDialog("未买", "已买", new UIDialog.CustomDialogListener() {
+                    @Override
+                    public void onItemClick(int index) {
+                        if (index==0) {
+                            buyType=0;
+                            buyLabel_tv.setText("未买");
+                        }
+                        if (index==1) {
+                            buyType=1;
+                            buyLabel_tv.setText("已买");
+                        }
+                    }
+                });
                 break;
             case R.id.add_book_read_rl:
+                uiDialog.showChooseTypeDialog("未读", "已读", new UIDialog.CustomDialogListener() {
+                    @Override
+                    public void onItemClick(int index) {
+                        if (index==0) {
+                            readType=0;
+                            readLabel_tv.setText("未读");
+                        }
+                        if (index==1) {
+                            readType=1;
+                            readLabel_tv.setText("已读");
+                        }
+                    }
+                });
                 break;
             case R.id.add_book_add_btn:
+                if (bookIsNew) {
+                    addToBookAndShelf();
+                } else {
+                    justAddtoShelf();
+                }
                 break;
         }
 
@@ -91,7 +155,6 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
 
 
     public   void takePhoto() {
-        Util.toast(this,"takephoyo");
         Util.takePhoto(this);
     }
 
@@ -103,29 +166,15 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                 Util.toast(this,"从相册里选");
                 Uri photo_uri = data.getData();
                 try {
-                    final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(photo_uri, this),
+                    coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(photo_uri, this),
                             400, 400, true);
 
-                    final File tempFile = CropUtil.makeTempFile(bitmap, "temp_file.jpg");
-                    if (tempFile==null) {
-                        return;
+                    if (coverBitmap!=null) {
+                        bookCover_img.setImageBitmap(coverBitmap);
+                        hasCover=true;
                     }
-                    bookCover_img.setImageBitmap(bitmap);
-                    /*requsetBuilder.build()
-                            .updateUserheadImage(tempFile, Util.getUser(), new BmobListener() {
-                                @Override
-                                public void onSuccess(Object object) {
-                                    userHead_cimg.setImageBitmap(bitmap);
-                                    tempFile.delete();
-                                    Util.toast(getActivity(),"上传头像成功");
-                                }
 
-                                @Override
-                                public void onError(BmobException e) {
-                                    Util.toast(getActivity(),"上传头像失败");
-                                    Util.L("上传头像失败"+e.getErrorCode()+e.getMessage());
-                                }
-                            });*/
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -135,29 +184,158 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                 Util.toast(this,"拍照的");
                 final File file = new File(BitmapUtil.HEAD_IMAGE_PATH + "temp.jpg");
                 try {
-                    final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, this), 400,
+                    coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, this), 400,
                             400, true);
-                    final File tempFile = CropUtil.makeTempFile(bitmap, "temp_file.jpg");
-                    bookCover_img.setImageBitmap(bitmap);
-                    /*requsetBuilder.build()
-                            .updateUserheadImage(tempFile, Util.getUser(), new BmobListener() {
-                                @Override
-                                public void onSuccess(Object object) {
-                                    userHead_cimg.setImageBitmap(bitmap);
-                                    tempFile.delete();
-                                    file.delete();
-                                    Util.toast(getActivity(),"上传头像成功");
-                                }
+                    if (coverBitmap!=null) {
+                        bookCover_img.setImageBitmap(coverBitmap);
+                        hasCover=true;
+                    }
 
-                                @Override
-                                public void onError(BmobException e) {
-                                    Util.toast(getActivity(),"上传头像失败");
-                                }
-                            });*/
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
         }
+    }
+
+    public void justAddtoShelf() {
+        RelationShip relationShip = new RelationShip();
+        relationShip.setBuyType(buyType);
+        relationShip.setReadType(readType);
+        relationShip.setOwner(Util.getUser());
+        relationShip.setBook(book);
+        requsetBuilder
+                .build()
+                .addRelationShip(relationShip,new BmobListener(){
+            @Override
+            public void onSuccess(Object object) {
+                Util.toast(AddBookActivity.this,"添加成功 relationship");
+                book.setOwnNumber(book.getOwnNumber()+buyType);
+                book.setReadNumber(book.getReadNumber()+readType);
+                requsetBuilder
+                        .enableDialog(false)
+                        .build()
+                        .updateBook(book, new BmobListener() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                Util.toast(AddBookActivity.this,"添加成功 end end");
+                            }
+
+                            @Override
+                            public void onError(BmobException e) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(BmobException e) {
+                Util.toast(AddBookActivity.this,"添加失败 relationship");
+            }
+        });
+
+    }
+    public void addToBookAndShelf() {
+        bookName = editname_et.getText().toString().trim();
+        bookWriter = editWriter_et.getText().toString().trim();
+        bookIntroduce = editIntroduce_et.getText().toString().trim();
+        if(checkNotNull(bookName,bookWriter,bookIntroduce)){
+            book.setName(bookName);
+            book.setWriter(bookWriter);
+            book.setIntroduce(bookIntroduce);
+            book.setReadNumber(readType);
+            book.setOwnNumber(buyType);
+            book.setRecommendPerson(Util.getUser());
+            book.setShowType(0);
+            final BmobServer bmobServer= requsetBuilder.build();
+            if (hasCover) {
+                bmobServer.upFile(CropUtil.makeTempFile(coverBitmap, "book_cover.jpg"), new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        book.setCoverImage((BmobFile) object);
+                        bmobServer.addBook(book, new BmobListener() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                Util.toast(AddBookActivity.this, "添加成功 book");
+                                RelationShip relationShip = new RelationShip();
+                                relationShip.setBuyType(buyType);
+                                relationShip.setReadType(readType);
+                                relationShip.setOwner(Util.getUser());
+                                relationShip.setBook(book);
+                                bmobServer.addRelationShip(relationShip, new BmobListener() {
+                                    @Override
+                                    public void onSuccess(Object object) {
+                                        Util.toast(AddBookActivity.this, "添加成功 relationship");
+                                    }
+
+                                    @Override
+                                    public void onError(BmobException e) {
+                                        Util.toast(AddBookActivity.this, "添加失败 relationship");
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onError(BmobException e) {
+                                Util.toast(AddBookActivity.this, "添加失败");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                        Util.toast(AddBookActivity.this, "添加失败");
+                    }
+                });
+            } else {//没有封面，直接上传book，并插入relationship
+                bmobServer.addBook(book, new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        Util.toast(AddBookActivity.this,"添加成功 book");
+                        RelationShip relationShip = new RelationShip();
+                        relationShip.setBuyType(buyType);
+                        relationShip.setReadType(readType);
+                        relationShip.setOwner(Util.getUser());
+                        relationShip.setBook(book);
+                        bmobServer.addRelationShip(relationShip,new BmobListener(){
+                            @Override
+                            public void onSuccess(Object object) {
+                                Util.toast(AddBookActivity.this,"添加成功 relationship");
+                            }
+
+                            @Override
+                            public void onError(BmobException e) {
+                                Util.toast(AddBookActivity.this,"添加失败 relationship");
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                        Util.toast(AddBookActivity.this,"添加失败");
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     *
+     * @param params
+     * @return  null:false
+     *           not null :true
+     */
+    public boolean checkNotNull(String ... params) {
+        Util.L("btn click");
+        String strs[] = params.clone();
+        for (String s:strs) {
+            if (s==null||s.equals("")) {
+                return false;
+            }
+        }
+        return true;
+
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.xiaxiao.bookmaid.activity.AddBookActivity;
 import com.xiaxiao.bookmaid.activity.BookInfoActivity;
 import com.xiaxiao.bookmaid.activity.LoginActivity;
 import com.xiaxiao.bookmaid.bean.BookBean;
@@ -100,6 +101,11 @@ public class Util {
         GlobalData.book=bookBean;
         Intent i=new Intent(context,BookInfoActivity.class);
         context.startActivity(i);
+    }
+    public static  void goAddBookPage(Context context,boolean bookIsNew) {
+        Intent intent=new Intent(context, AddBookActivity.class);
+        intent.putExtra("bookIsNew", bookIsNew);
+        context.startActivity(intent);
     }
 
 
