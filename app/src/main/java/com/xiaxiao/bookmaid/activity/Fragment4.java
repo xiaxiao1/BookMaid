@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.listener.BmobListener;
@@ -21,6 +22,7 @@ import com.xiaxiao.bookmaid.util.Util;
 import java.io.File;
 import java.io.IOException;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -67,7 +69,14 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
 
     public void initViews(View view) {
         userHead_cimg = (CircleImageView) view.findViewById(R.id.user_head);
-
+        Button exit_btn = (Button) view.findViewById(R.id.exit_btn);
+        exit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobUser.logOut();
+                getActivity().finish();
+            }
+        });
 
 
 

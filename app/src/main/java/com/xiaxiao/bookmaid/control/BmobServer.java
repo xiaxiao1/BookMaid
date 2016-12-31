@@ -432,6 +432,40 @@ public class BmobServer {
         addListener(bmobListener);
         addRelationShip(relationShip);
     }
+
+    public void login(BmobUser bmobUser, BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        bmobUser.login(new SaveListener<BmobUser>() {
+            @Override
+            public void done(BmobUser bmobUser, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    Util.L("login ok");
+                    handleSuccess(bmobUser);
+                } else {
+                    Util.L("login error");
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+    public void signUp(BmobUser bmobUser, BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        bmobUser.signUp(new SaveListener<BmobUser>() {
+            @Override
+            public void done(BmobUser bmobUser, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(bmobUser);
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
     //*******************************************************************************************//
 
 

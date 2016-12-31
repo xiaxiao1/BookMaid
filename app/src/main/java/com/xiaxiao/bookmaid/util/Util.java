@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.xiaxiao.bookmaid.activity.AddBookActivity;
 import com.xiaxiao.bookmaid.activity.BookInfoActivity;
 import com.xiaxiao.bookmaid.activity.LoginActivity;
+import com.xiaxiao.bookmaid.activity.MainActivity2;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
@@ -95,6 +96,9 @@ public class Util {
 
     public static  void goLoginPage(Context context) {
         context.startActivity(new Intent(context, LoginActivity.class));
+    }
+    public static  void goMainPage(Context context) {
+        context.startActivity(new Intent(context, MainActivity2.class));
     }
 
     public static void goBookInfoPage(Context context, BookBean bookBean) {
