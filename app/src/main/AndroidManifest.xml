@@ -31,7 +31,7 @@
         </activity>
         <activity android:name=".activity.AddBookActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MainActivity2"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.BookInfoActivity" />
         <activity android:name=".activity.AddNoteActivity" />

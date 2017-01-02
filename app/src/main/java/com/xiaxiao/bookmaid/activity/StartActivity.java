@@ -44,20 +44,24 @@ RelativeLayout bg_rl;
                 bg_rl.setAlpha(v/100.0f);
                 if (v==150) {
                     if (Util.isLogin()) {
-                        requsetBuilder.build()
+                        Util.goMainPage(StartActivity.this);
+                        StartActivity.this.finish();
+                        /*requsetBuilder.build()
                                 .login(BmobUser.getCurrentUser(MyUser.class), new BmobListener() {
                                     @Override
                                     public void onSuccess(Object object) {
-                                        Util.setUser((BmobUser)object);
+                                        Util.L("1");
+                                        Util.setUser((BmobUser) object);
                                         Util.goMainPage(StartActivity.this);
                                         StartActivity.this.finish();
                                     }
 
                                     @Override
                                     public void onError(BmobException e) {
+                                        Util.L("2" + e.getMessage());
                                         Util.goLoginPage(StartActivity.this);
                                     }
-                                });
+                                });*/
 
                         /*Intent intent = new Intent(StartActivity.this, MainActivity.class);
                     *//*StartActivity.this.supportFinishAfterTransition();
@@ -69,6 +73,7 @@ RelativeLayout bg_rl;
                     } else {
                         Util.goLoginPage(StartActivity.this);
                         StartActivity.this.finish();
+                        Util.L("3");
                     }
 
                 }

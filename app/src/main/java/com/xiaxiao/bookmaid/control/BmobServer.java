@@ -434,6 +434,7 @@ public class BmobServer {
     }
 
     public void login(BmobUser bmobUser, BmobListener bmobListener) {
+        BmobUser b=bmobUser;
         addListener(bmobListener);
         showWaitDialog();
         bmobUser.login(new SaveListener<BmobUser>() {
