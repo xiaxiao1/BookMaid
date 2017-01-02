@@ -1,6 +1,5 @@
 package com.xiaxiao.bookmaid.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,15 +8,13 @@ import android.widget.EditText;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.listener.BmobListener;
-import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 /**
- * 确定好用户是否登陆的逻辑  并不只是判断是否有currentUser   需要提取出用户密码后调用login 显示登录
+ * 确定好用户是否登陆的逻辑
  */
 public class LoginActivity extends BaseActivity {
 
@@ -48,11 +45,9 @@ public class LoginActivity extends BaseActivity {
                         .login(bu, new BmobListener() {
                             @Override
                             public void onSuccess(Object object) {
-                                Util.toast(LoginActivity.this,"登录成功mlml;ml;m");
-//                                Util.setUser((BmobUser)object);
+                                Util.toast(LoginActivity.this,"登录成功");
                                 Util.goMainPage(LoginActivity.this);
                                 LoginActivity.this.finish();
-                                Util.toast(LoginActivity.this,"bcbcbcbcbcbcb");
                             }
 
                             @Override

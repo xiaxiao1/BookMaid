@@ -95,7 +95,6 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
 
     @Override
     public void OnFragmentResult(int requestCode, int resultCode, Intent data) {
-//        uiDialog.dismissTakePhotoDialog();
         switch (requestCode) {
             case BitmapUtil.PHOTO_PICKED_WITH_DATA:
                 Util.toast(getActivity(),"从相册里选");

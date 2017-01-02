@@ -67,7 +67,7 @@ ImageView testImg;
                                 List<BookBean> list = (List<BookBean>) object;
                                 GlobalData.book = (BookBean) list.get(0);
                                 Util.L("success");
-                                Util.goAddBookPage(TestActivity.this,false);
+                                Util.goAddBookPage(TestActivity.this,false,0);
                             }
 
                             @Override

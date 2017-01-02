@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
+import com.xiaxiao.bookmaid.bean.RelationShip;
+import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.GlideHelper;
@@ -28,6 +31,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BookInfoActivity extends BaseActivity implements View.OnClickListener{
 
+    private final int REQUSET_CODE_TIP=101;
+    private final int REQUSET_CODE_SHELF=102;
     private ImageView bookInfoCoverImg;
     private TextView bookInfoNameTv;
     private TextView bookInfoWriterTv;
@@ -66,6 +71,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         bookInfoIntroduceTv.setText(b.getIntroduce());
 
         getInfos();
+        checkBookIsAdded();
 
 
     }
@@ -81,7 +87,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
 
         addNote_ll = (LinearLayout) findViewById(R.id.bookinfo_add_note_ll);
         addShelf_ll = (LinearLayout) findViewById(R.id.bookinfo_add_shelf_ll);
-        addShelf_tv = (TextView) findViewById(R.id.bookinfo_add_note_tv);
+        addShelf_tv = (TextView) findViewById(R.id.bookinfo_add_shelf_tv);
         addShelf_img = (ImageView) findViewById(R.id.bookinfo_add_shelf_img);
         listview = (ListView) findViewById(R.id.listview);
         listview.addHeaderView(headerView);
@@ -130,6 +136,36 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
                 });
     }
 
+    public void checkBookIsAdded() {
+        new BmobServer.Builder(this).
+                enableDialog(false)
+                .build()
+                .getShelf(Util.getUser(), new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        List<RelationShip> relationShipList = (List<RelationShip>) object;
+                        if (relationShipList == null) {
+                            ableAddShelf();
+                        } else {
+                            for (RelationShip r:relationShipList) {
+                                //说明书架中已有
+                                if (r.getBook().getObjectId().equals(b.getObjectId())) {
+                                    enableAddShelf();
+                                    return;
+                                } else {
+                                    ableAddShelf();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                        ableAddShelf();
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
         /*Intent i=new Intent(this,AddNoteActivity.class);
@@ -151,9 +187,16 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode==RESULT_OK) {
-            if (requestCode==101) {//添加小纸条
+            if (requestCode==REQUSET_CODE_TIP) {//添加小纸条
                 getInfos();
                 listview.smoothScrollToPosition(0);
+            }
+            if (requestCode==REQUSET_CODE_SHELF) {//添加到书架
+                if (data.getBooleanExtra("add", false)) {
+                    enableAddShelf();
+                } else {
+                    ableAddShelf();
+                }
             }
         }
     }
@@ -180,7 +223,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
             intent.putExtra("replyWhoHeadImg", "asd123");
             Util.L("huifu mougeren ");
         }
-        startActivityForResult(intent,101);
+        startActivityForResult(intent,REQUSET_CODE_TIP);
 
     }
 
@@ -190,6 +233,21 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
             return;
         }
         Util.toast(this,"add shelf");
+//        addShelf_ll.setEnabled(false);
+        Util.goAddBookPage(this,false,REQUSET_CODE_SHELF);
+    }
+
+    public void enableAddShelf() {
         addShelf_ll.setEnabled(false);
+        addShelf_tv.setText("已加入书架");
+        addShelf_tv.setTextColor(Color.parseColor("#aaaaaa"));
+        addShelf_img.setImageResource(R.drawable.yijiaru_shujia);
+    }
+
+    public void ableAddShelf() {
+        addShelf_ll.setEnabled(true);
+        addShelf_tv.setText("加入书架");
+        addShelf_tv.setTextColor(Color.parseColor("#4a51f5"));
+        addShelf_img.setImageResource(R.drawable.jiaru_shujia);
     }
 }

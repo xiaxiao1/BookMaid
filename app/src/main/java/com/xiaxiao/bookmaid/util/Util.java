@@ -106,10 +106,10 @@ public class Util {
         Intent i=new Intent(context,BookInfoActivity.class);
         context.startActivity(i);
     }
-    public static  void goAddBookPage(Context context,boolean bookIsNew) {
+    public static  void goAddBookPage(Context context,boolean bookIsNew,int requestCode) {
         Intent intent=new Intent(context, AddBookActivity.class);
         intent.putExtra("bookIsNew", bookIsNew);
-        context.startActivity(intent);
+        ((Activity)context).startActivityForResult(intent,requestCode);
     }
 
 
@@ -137,5 +137,13 @@ public class Util {
         return a;
     }
 
+    public static <T extends  BmobObject> T findObject(T obj, List<T> objs) {
+        for (T o:objs) {
+            if (o.getObjectId().equals(obj.getObjectId())) {
+                return o;
+            }
+        }
+        return null;
+    }
 
 }

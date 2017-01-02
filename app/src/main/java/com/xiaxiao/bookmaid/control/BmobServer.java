@@ -201,9 +201,9 @@ public class BmobServer {
         mBmobQuery = new BmobQuery<RelationShip>();
         mBmobQuery.order("-createdAt");
         if (Util.isLogin()) {
-            mBmobQuery.addWhereEqualTo("ownerId", Util.getUser2().getObjectId());
+            mBmobQuery.addWhereEqualTo("owner", Util.getUser());
         } else {
-            mBmobQuery.addWhereEqualTo("ownerId", "-1");
+            mBmobQuery.addWhereEqualTo("owner", null);
         }
         mBmobQuery.include("book");
         mBmobQuery.findObjects(new FindListener<RelationShip>() {
@@ -461,6 +461,25 @@ public class BmobServer {
                 dismissWaitDialog();
                 if (e == null) {
                     handleSuccess(bmobUser);
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+    public void getShelf(BmobUser bmobUser, BmobListener bmobListener) {
+        addListener(bmobListener);
+        mBmobQuery = new BmobQuery<RelationShip>();
+        mBmobQuery.addWhereEqualTo("owner", bmobUser);
+        mBmobQuery.include("book.objectId");
+        showWaitDialog();
+        mBmobQuery.findObjects(new FindListener<RelationShip>() {
+            @Override
+            public void done(List<RelationShip> list, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(list);
                 } else {
                     handleError(e);
                 }
