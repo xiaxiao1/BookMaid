@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.xiaxiao.bookmaid.R;
@@ -27,9 +28,12 @@ public class Fragment1 extends BaseFragment {
 //    ImageView searchBook_img;
 //    ImageView addBook_img;
 //    EditText edit_et;
+    public static final int LIST_TYPE_ALL_BOOKS=1;
+    public static final int LIST_TYPE_PERSON_BOOKS=0;
     ListView listview;
 
     SwipeRefreshLayout swipeRefreshLayout;
+    ImageView addBook_img;
 
     BookAdapter bookAdapter;
     List<BookBean> allBooks;
@@ -60,6 +64,13 @@ public class Fragment1 extends BaseFragment {
     public void initViews(View view) {
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeLayout);
         swipeRefreshLayout.setColorSchemeColors(swipeSchemeColors);
+        addBook_img = (ImageView) view.findViewById(R.id.f1_add_book_img);
+        addBook_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.goFindBookPage(getActivity());
+            }
+        });
         listview = (ListView)view.findViewById(R.id.listview);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

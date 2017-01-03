@@ -41,7 +41,7 @@ public class IdeaAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        GlideHelper.loadImage(context,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",holder.bookCover_img);
+//        GlideHelper.loadImage(context,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",holder.bookCover_img);
         holder.bookName_tv.setText(bookNote.getBook().getName());
         if (bookNote.getWhoWrite().getHeadImage()!=null) {
             GlideHelper.loadImage(context,bookNote.getWhoWrite().getHeadImage().getUrl(),holder.writerHeadImg_cimg);

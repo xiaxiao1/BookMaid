@@ -14,9 +14,9 @@ android:gravity="center_horizontal"
         >
         <ImageView
             android:id="@+id/add_book_back_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/back_black"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -28,13 +28,15 @@ android:gravity="center_horizontal"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/add_book_back_img"
             android:layout_centerVertical="true"
-            android:text="@string/app_name"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:text="添加书书"
+            android:textSize="18sp"
             android:gravity="center"
             android:layout_marginLeft="10dp"
             />
-
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/listview_bg"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 
@@ -57,7 +59,7 @@ android:gravity="center_horizontal"
             />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_toRightOf="@id/add_book_cover_img"
             android:layout_marginLeft="8dp"
@@ -66,27 +68,27 @@ android:gravity="center_horizontal"
                 android:id="@+id/add_book_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="i am book name"
+                android:hint="书名"
                 android:textSize="19sp"
                 android:paddingTop="2dp"
                 android:maxLength="30"
+                android:maxLines="1"
                 />
             <EditText
                 android:id="@+id/add_book_writer_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="writerxxx"
+                android:hint="作者"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
                 android:maxLength="15"
+                android:maxLines="1"
                 />
             <EditText
                 android:id="@+id/add_book_introduce_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tsadsadsdso"
+                android:hint="简介......."
                 android:textColor="@color/gray"
                 android:textSize="12sp"
                 android:maxLines="3"
@@ -190,8 +192,7 @@ android:gravity="center_horizontal"
         android:textColor="#ffffff"
         android:background="@drawable/circle_bg_soild_test"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+
         />
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -204,5 +205,6 @@ android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:src="@drawable/readbook"
         android:layout_marginTop="60dp"
+        android:visibility="gone"
         />
 </LinearLayout>

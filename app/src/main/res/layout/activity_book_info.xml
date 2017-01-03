@@ -8,6 +8,45 @@
     android:background="#ffffff"
     >
     <RelativeLayout
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/title_bg"
+        >
+        <ImageView
+            android:id="@+id/usercenter_back_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/back_black"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/usercenter_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小书仆"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:id="@+id/usercenter_setting_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/book_info_bottom_ll"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -96,6 +135,7 @@
         android:fadeScrollbars="true"
         android:scrollbars="none"
         android:layout_above="@id/book_info_bottom_ll"
+        android:layout_below="@id/app_title"
         />
 
 

@@ -52,6 +52,12 @@
         -->
         <activity android:name=".activity.SendNoteActivity">
         </activity>
+        <activity android:name=".activity.NoteActivity">
+        </activity>
+        <activity android:name=".activity.ShelfActivity">
+        </activity>
+        <activity android:name=".activity.FindBookActivity">
+        </activity>
     </application>
 
 </manifest>

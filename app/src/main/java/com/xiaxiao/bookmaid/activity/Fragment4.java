@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.listener.BmobListener;
@@ -37,6 +38,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
     UIDialog uiDialog;
     CircleImageView userHead_cimg;
+
+    LinearLayout zhitiao_ll;
+    LinearLayout shujia_ll;
 
 
     public Fragment4() {
@@ -69,11 +73,27 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
 
     public void initViews(View view) {
         userHead_cimg = (CircleImageView) view.findViewById(R.id.user_head);
+        zhitiao_ll = (LinearLayout) view.findViewById(R.id.usercenter_zhitiao_ll);
+        shujia_ll = (LinearLayout) view.findViewById(R.id.usercenter_shujia_ll);
+        zhitiao_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),NoteActivity.class));
+            }
+        });
+        shujia_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ShelfActivity.class));
+            }
+        });
+
         Button exit_btn = (Button) view.findViewById(R.id.exit_btn);
         exit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BmobUser.logOut();
+                Util.goLoginPage(getActivity());
                 getActivity().finish();
             }
         });

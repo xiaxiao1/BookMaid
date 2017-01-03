@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
-    android:focusableInTouchMode="true"
-    >
-<!--title-->
+    tools:context="com.xiaxiao.bookmaid.activity.NoteActivity">
     <RelativeLayout
         android:id="@+id/app_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:background="@color/title_bg"
-        android:visibility="gone"
         >
         <ImageView
             android:id="@+id/user_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="4dp"
-            android:src="@drawable/user"
+            android:src="@drawable/back_black"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
@@ -30,8 +27,7 @@
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:text="@string/app_name"
-            android:textColor="#ffffff"
+            android:text="书架"
             android:textSize="20sp"
             android:gravity="center"
             android:transitionName="xiaxiao"
@@ -46,96 +42,17 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             />
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            android:layout_alignParentBottom="true"
+            />
     </RelativeLayout>
-
-    <com.xiaxiao.bookmaid.widget.BottomView
-        android:id="@+id/bottom_ll"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        layout="@layout/main_bottom"
-        android:layout_alignParentBottom="true"
-        />
-
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_below="@id/app_title"
-        android:layout_above="@id/bottom_ll"
-        android:id="@+id/swipeLayout" >
+        ></FrameLayout>
 
-</FrameLayout>
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

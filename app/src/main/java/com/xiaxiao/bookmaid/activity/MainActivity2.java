@@ -56,7 +56,7 @@ public class MainActivity2 extends BaseActivity  implements View.OnClickListener
         }
         if (index==1) {
             if (fragment2 == null) {
-                fragment2 = new Fragment2();
+                fragment2 = Fragment2.newInstance(Fragment2.LIST_TYPE_ALL_NOTES);
             }
             if(!fragment2.isAdded()){
                 mFragmentTransaction.hide(currentPage).add(R.id.swipeLayout, fragment2).commit();

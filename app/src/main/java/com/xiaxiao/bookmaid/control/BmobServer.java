@@ -187,6 +187,7 @@ public class BmobServer {
         addListener(bmobListener);
         mBmobQuery = new BmobQuery<BookBean>();
         mBmobQuery.order("-createdAt");
+        mBmobQuery.addWhereEqualTo("showType", 1);
         mBmobQuery.include("recommendPerson");
         /*if (GlobalData.userId != null) {
             mBmobQuery.addWhereEqualTo("ownerId", GlobalData.userId);
@@ -205,7 +206,7 @@ public class BmobServer {
         } else {
             mBmobQuery.addWhereEqualTo("owner", null);
         }
-        mBmobQuery.include("book");
+        mBmobQuery.include("book,book.recommendPerson");
         mBmobQuery.findObjects(new FindListener<RelationShip>() {
             @Override
             public void done(List<RelationShip> list, BmobException e) {
@@ -253,15 +254,13 @@ public class BmobServer {
 
     public void getAllIdeas(BmobListener bmobListener) {
         addListener(bmobListener);
-        mBmobQuery = new BmobQuery<BookNote>();
         if (mBmobQuery==null) {
-            handleError(null);
-            return;
+            mBmobQuery = new BmobQuery<BookNote>();
         }
 
-        showWaitDialog();
         mBmobQuery.order("-createdAt");
         mBmobQuery.include("whoWrite,replyWhos,book,book.recommendPerson");
+        showWaitDialog();
         mBmobQuery.findObjects(new FindListener<BookNote>() {
             @Override
             public void done(List<BookNote> list, BmobException e) {
@@ -485,6 +484,27 @@ public class BmobServer {
                 }
             }
         });
+    }
+
+
+    public void updateRelationShip(final RelationShip relationShip) {
+        showWaitDialog();
+        relationShip.update(relationShip.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    handleSuccess(relationShip.getObjectId());
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+
+    }
+
+    public void updateRelationShip(RelationShip relationShip, BmobListener bmobListener) {
+        addListener(bmobListener);
+        updateRelationShip(relationShip);
     }
     //*******************************************************************************************//
 

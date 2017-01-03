@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.xiaxiao.bookmaid.activity.AddBookActivity;
 import com.xiaxiao.bookmaid.activity.BookInfoActivity;
+import com.xiaxiao.bookmaid.activity.FindBookActivity;
 import com.xiaxiao.bookmaid.activity.LoginActivity;
 import com.xiaxiao.bookmaid.activity.MainActivity2;
 import com.xiaxiao.bookmaid.bean.BookBean;
@@ -99,6 +100,9 @@ public class Util {
     }
     public static  void goMainPage(Context context) {
         context.startActivity(new Intent(context, MainActivity2.class));
+    }
+    public static  void goFindBookPage(Context context) {
+        context.startActivity(new Intent(context, FindBookActivity.class));
     }
 
     public static void goBookInfoPage(Context context, BookBean bookBean) {

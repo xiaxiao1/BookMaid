@@ -192,7 +192,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
                 listview.smoothScrollToPosition(0);
             }
             if (requestCode==REQUSET_CODE_SHELF) {//添加到书架
-                if (data.getBooleanExtra("add", false)) {
+                if (data.getBooleanExtra("ok", false)) {
                     enableAddShelf();
                 } else {
                     ableAddShelf();

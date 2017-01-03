@@ -34,6 +34,7 @@ public class TestActivity extends BaseActivity {
 ImageView testImg;
     Bitmap bitmap;
     private  UIDialog uiDialog ;
+    int c=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ ImageView testImg;
             }
         });
         BmobIniter.init(this);
+
         Button btn = (Button) findViewById(R.id.btn1);
         Button btnLogin = (Button) findViewById(R.id.btn2);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -59,26 +61,23 @@ ImageView testImg;
 //                gogogo2();
 //                dede();
                 BmobQuery<BookBean> bookBeanBmobQuery = new BmobQuery<BookBean>();
-                bookBeanBmobQuery.addWhereEqualTo("objectId", "b12e4665aa");
-                requsetBuilder.addBmobQuery(bookBeanBmobQuery)
-                        .addBmobListener(new BmobListener() {
-                            @Override
-                            public void onSuccess(Object object) {
-                                List<BookBean> list = (List<BookBean>) object;
-                                GlobalData.book = (BookBean) list.get(0);
-                                Util.L("success");
-                                Util.goAddBookPage(TestActivity.this,false,0);
-                            }
+                bookBeanBmobQuery.findObjects(new FindListener<BookBean>() {
+                    @Override
+                    public void done(List<BookBean> list, BmobException e) {
+                        for (BookBean bb:list) {
+                            bb.setShowType(1);
+                            bb.update(new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    Util.L(""+(c++));
+                                }
+                            });
+                        }
+                    }
+                });
 
-                            @Override
-                            public void onError(BmobException e) {
-                                Util.L("error: "+e.getMessage());
-                            }
-                        })
-                        .build()
-                        .getBooks();
 
-                ;
+
 
             }
         });

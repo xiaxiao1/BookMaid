@@ -41,6 +41,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
     TextView buyLabel_tv;
     TextView readLabel_tv;
     Button addBook_btn;
+
     BookBean book;
     //true:have cover
     boolean hasCover=false;
@@ -51,6 +52,10 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
     int readType;
     //true:book is new
     boolean bookIsNew=false;
+    boolean changeRelationShip=false;
+    String relationShipId;
+    int currentReadType=0;
+    int currentBuyType=0;
     UIDialog uiDialog;
     Bitmap  coverBitmap;
 
@@ -64,6 +69,11 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         initViews();
         uiDialog = new UIDialog(this);
         bookIsNew = getIntent().getBooleanExtra("bookIsNew", false);
+        changeRelationShip = getIntent().getBooleanExtra("changeRelationShip", false);
+        relationShipId = getIntent().getStringExtra("relationShipId");
+        currentBuyType = getIntent().getIntExtra("buyType", 0);
+        currentReadType = getIntent().getIntExtra("readType", 0);
+        //如果是changebook   那么book一定是已经存在的了，所以这里两种跳转路径都可以使用bookIsNew来判断
         if (bookIsNew) {
             book = new BookBean();
         } else {
@@ -143,11 +153,16 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                 });
                 break;
             case R.id.add_book_add_btn:
-                if (bookIsNew) {
-                    addToBookAndShelf();
-                } else {
-                    justAddtoShelf();
+                if (changeRelationShip) {
+                    updateRelationShip();
+                }else {
+                    if (bookIsNew) {
+                        addToBookAndShelf();
+                    } else {
+                        justAddtoShelf();
+                    }
                 }
+
                 break;
         }
 
@@ -219,6 +234,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void onSuccess(Object object) {
                                 Util.toast(AddBookActivity.this,"添加成功 end end");
+                                finishWithResult();
                             }
 
                             @Override
@@ -266,6 +282,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                                     @Override
                                     public void onSuccess(Object object) {
                                         Util.toast(AddBookActivity.this, "添加成功 relationship");
+                                        finishWithResult();
                                     }
 
                                     @Override
@@ -302,6 +319,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void onSuccess(Object object) {
                                 Util.toast(AddBookActivity.this,"添加成功 relationship");
+                                finishWithResult();
                             }
 
                             @Override
@@ -337,5 +355,50 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         }
         return true;
 
+    }
+
+
+    public void updateRelationShip() {
+        RelationShip relationShip = new RelationShip();
+        relationShip.setObjectId(relationShipId);
+        relationShip.setBuyType(buyType);
+        relationShip.setReadType(readType);
+        requsetBuilder.build()
+                .updateRelationShip(relationShip, new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        //更新成功后 同时修改bookbean 的数量统计
+                        int r=readType-currentReadType;
+                        int b=buyType-currentBuyType;
+                        book.setReadNumber(book.getReadNumber()+r);
+                        book.setOwnNumber(book.getOwnNumber()+b);
+                        requsetBuilder.build()
+                                .updateBook(book, new BmobListener() {
+                                    @Override
+                                    public void onSuccess(Object object) {
+                                        Util.toast(AddBookActivity.this,"更新成功");
+                                        finishWithResult();
+                                    }
+
+                                    @Override
+                                    public void onError(BmobException e) {
+//                                        Util.toast(AddBookActivity.this,"更新成功");
+                                    }
+                                });
+
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                        Util.toast(AddBookActivity.this,"更新失败");
+                    }
+                });
+    }
+
+    public void finishWithResult() {
+        Intent ii = new Intent();
+        ii.putExtra("ok", true);
+        setResult(RESULT_OK, ii);
+        finish();
     }
 }

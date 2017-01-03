@@ -22,12 +22,12 @@ public class BottomView extends RelativeLayout implements View.OnClickListener{
     int[] onResId={R.drawable.all_on,
             R.drawable.have_on2,
             R.drawable.buy_on,
-            R.drawable.buy_on};
+            R.drawable.user_on};
     int[] offResId={R.drawable.all_off,
             R.drawable.have_off2,
             R.drawable.buy_off,
-            R.drawable.buy_off};
-    static final int COLOR_ON = Color.BLUE;
+            R.drawable.user_off};
+    static final int COLOR_ON = Color.parseColor("#f56857");
     static final int COLOR_OFF = Color.GRAY;
     int currentIndex=0;
     LinearLayout currentTap;
