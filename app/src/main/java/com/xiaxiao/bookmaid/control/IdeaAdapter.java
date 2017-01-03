@@ -41,15 +41,25 @@ public class IdeaAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-//        GlideHelper.loadImage(context,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",holder.bookCover_img);
+        if (bookNote.getBook().getCoverImage() != null) {
+            GlideHelper.loadImage(context, bookNote.getBook().getCoverImage().getUrl(), holder.bookCover_img,R.drawable.book);
+        } else {
+            holder.bookCover_img.setImageResource(R.drawable.book);
+        }
         holder.bookName_tv.setText(bookNote.getBook().getName());
-        if (bookNote.getWhoWrite().getHeadImage()!=null) {
-            GlideHelper.loadImage(context,bookNote.getWhoWrite().getHeadImage().getUrl(),holder.writerHeadImg_cimg);
+        if (bookNote.getWhoWrite().getHeadImage() != null) {
+            GlideHelper.loadImage(context, bookNote.getWhoWrite().getHeadImage().getUrl(), holder.writerHeadImg_cimg, R.drawable.app_icon_1);
+        } else {
+            holder.writerHeadImg_cimg.setImageResource(R.drawable.app_icon_1);
         }
         holder.writerName_tv.setText(bookNote.getWhoWrite().getUsername());
         if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
             holder.toWhoArea_ll.setVisibility(View.VISIBLE);
-            GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.toWhoHeadImg_cimg);
+            if (bookNote.getReplyWhos().getHeadImage() != null) {
+                GlideHelper.loadImage(context, bookNote.getReplyWhos().getHeadImage().getUrl(), holder.toWhoHeadImg_cimg, R.drawable.app_icon_1);
+            } else {
+                holder.toWhoHeadImg_cimg.setImageResource(R.drawable.app_icon_1);
+            }
             holder.toWhoName_tv.setText(bookNote.getReplyWhos().getUsername());
         } else {
             holder.toWhoArea_ll.setVisibility(View.GONE);

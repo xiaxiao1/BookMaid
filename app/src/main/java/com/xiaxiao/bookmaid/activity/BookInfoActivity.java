@@ -33,6 +33,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
 
     private final int REQUSET_CODE_TIP=101;
     private final int REQUSET_CODE_SHELF=102;
+    private ImageView back_img;
     private ImageView bookInfoCoverImg;
     private TextView bookInfoNameTv;
     private TextView bookInfoWriterTv;
@@ -47,6 +48,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     private ImageView addNote_img;*/
     private LinearLayout addShelf_ll;
     private TextView addShelf_tv;
+    private TextView title_tv;
     private ImageView addShelf_img;
 
 
@@ -63,10 +65,15 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         uiDialog = new UIDialog(this);
         b= GlobalData.book;
         notes = new ArrayList<>();
-        GlideHelper.loadImage(this,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",bookInfoCoverImg);
+        title_tv.setText(b.getName());
+        if (b.getCoverImage()!=null) {
+            GlideHelper.loadImage(this,b.getCoverImage().getUrl(),bookInfoCoverImg);
+        }
         bookInfoNameTv.setText(b.getName());
         bookInfoWriterTv.setText(b.getWriter());
-        GlideHelper.loadImage(this,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",bookItemTuijianzheHeadCimg);
+        if (b.getRecommendPerson().getHeadImage()!=null) {
+            GlideHelper.loadImage(this,b.getRecommendPerson().getHeadImage().getUrl(),bookItemTuijianzheHeadCimg);
+        }
         bookItemTuijianzheNameTv.setText(b.getRecommendPerson().getUsername());
         bookInfoIntroduceTv.setText(b.getIntroduce());
 
@@ -77,6 +84,8 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void initViews() {
+        back_img = (ImageView) findViewById(R.id.back_img);
+        title_tv = (TextView) findViewById(R.id.bookinfo_title_name_tv);
         headerView = getLayoutInflater().inflate(R.layout.book_info_head_view, null);
         bookInfoCoverImg = (ImageView) headerView.findViewById(R.id.book_info_cover_img);
         bookInfoNameTv = (TextView) headerView.findViewById(R.id.book_info_name_tv);
@@ -94,6 +103,12 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
 
         addNote_ll.setOnClickListener(this);
         addShelf_ll.setOnClickListener(this);
+        back_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookInfoActivity.this.finish();
+            }
+        });
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +131,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     }
     public void getInfos() {
         requsetBuilder.build()
-                .getBookNotes("", new BmobListener() {
+                .getBookNotes(b, new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
                         notes = (List<BookNote>) object;

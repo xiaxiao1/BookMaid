@@ -13,7 +13,7 @@
         android:background="@color/title_bg"
         >
         <ImageView
-            android:id="@+id/user_img"
+            android:id="@+id/shelf_back_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="4dp"
@@ -28,12 +28,13 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:text="书架"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:textColor="@color/gray"
             android:gravity="center"
             android:transitionName="xiaxiao"
             />
         <ImageView
-            android:id="@+id/add_img"
+            android:id="@+id/shelf_add_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="4dp"

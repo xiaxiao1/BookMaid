@@ -211,11 +211,8 @@ public class BmobServer {
             @Override
             public void done(List<RelationShip> list, BmobException e) {
                 if (e == null) {
-                    List<BookBean> books = new ArrayList<BookBean>();
-                    for (RelationShip r : list) {
-                        books.add(r.getBook());
-                    }
-                    handleSuccess(books);
+
+                    handleSuccess(list);
                 } else {
                     handleError(e);
                 }
@@ -277,10 +274,10 @@ public class BmobServer {
     }
 
 
-    public void getBookNotes(String bookId,BmobListener bmobListener) {
+    public void getBookNotes(BookBean book,BmobListener bmobListener) {
         addListener(bmobListener);
         mBmobQuery = new BmobQuery<BookNote>();
-//        query.addWhereEqualTo("bookId", bookId);
+        mBmobQuery.addWhereEqualTo("book", book);
         mBmobQuery.order("-createdAt");
         mBmobQuery.include("whoWrite,replyWhos,book");
         showWaitDialog();

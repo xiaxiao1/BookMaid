@@ -27,6 +27,7 @@ public class SendNoteActivity extends BaseActivity {
     private TextView towhoName_tv;
     private EditText addedNote_tv;
     private LinearLayout sendNote_ll;
+    private ImageView back_img;
 
     private  String bookId;
     private  String replyWhoId;
@@ -43,11 +44,10 @@ public class SendNoteActivity extends BaseActivity {
         replyWhoHeadImg = getIntent().getStringExtra("replyWhoHeadImg");
         if (replyWhoId != null && !replyWhoId.equals("")) {
             replyWho_ll.setVisibility(View.VISIBLE);
-            GlideHelper.loadImage(this, "https://static.oschina.net/uploads/user/518/1036767_100" +
-                    ".jpg?t=1477302684000", towhoHead_cimg);
+            GlideHelper.loadImage(this, replyWhoHeadImg, towhoHead_cimg,R.drawable.app_icon_1);
             towhoName_tv.setText(replyWhoName);
         } else {
-            replyWho_ll.setVisibility(View.INVISIBLE);
+            replyWho_ll.setVisibility(View.GONE);
         }
 
 
@@ -55,12 +55,19 @@ public class SendNoteActivity extends BaseActivity {
     }
 
     public void initViews() {
+        back_img = (ImageView) findViewById(R.id.sendnote_back_img);
         replyWho_ll = (LinearLayout) findViewById(R.id.sendnote_towho_ll);
         towhoHead_cimg = (CircleImageView) findViewById(R.id.sendnote_towho_head_cimg);
         towhoName_tv = (TextView) findViewById(R.id.sendnote_towho_name_tv);
         addedNote_tv = (EditText) findViewById(R.id.sendnote_addnote_et);
         sendNote_ll = (LinearLayout) findViewById(R.id.send_note_send_ll);
 
+        back_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendNoteActivity.this.finish();
+            }
+        });
         sendNote_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

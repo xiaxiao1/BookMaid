@@ -73,6 +73,14 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         relationShipId = getIntent().getStringExtra("relationShipId");
         currentBuyType = getIntent().getIntExtra("buyType", 0);
         currentReadType = getIntent().getIntExtra("readType", 0);
+        if (currentBuyType==1) {
+            buyType=1;
+            buyLabel_tv.setText("已买");
+        }
+        if (currentReadType==1) {
+            readType=1;
+            readLabel_tv.setText("已读");
+        }
         //如果是changebook   那么book一定是已经存在的了，所以这里两种跳转路径都可以使用bookIsNew来判断
         if (bookIsNew) {
             book = new BookBean();

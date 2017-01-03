@@ -5,7 +5,6 @@
     android:id="@+id/title_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="2dp"
     android:layout_below="@id/app_title"
     >
     <RelativeLayout
@@ -28,7 +27,8 @@
             android:id="@+id/usercenter_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" "
+            android:text="查找"
+            android:textColor="@color/gray"
             android:textSize="18sp"
             android:layout_centerInParent="true"
             />
@@ -43,7 +43,7 @@
             />
         <View android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/gray"
+            android:background="@color/title_line"
             android:layout_alignParentBottom="true"
             />
     </RelativeLayout>
@@ -87,7 +87,7 @@
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="1dp"
-        android:background="@color/gray"
+        android:background="@color/thin_line"
         />
 </RelativeLayout>
     <ListView
@@ -108,6 +108,7 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="没有找到相关书籍"
+            android:textColor="@color/gray_light"
             android:padding="2dp"
             />
         <TextView

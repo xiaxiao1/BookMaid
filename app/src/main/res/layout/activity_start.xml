@@ -17,7 +17,7 @@
         android:text="@string/app_name"
         android:textSize="40sp"
         android:layout_centerInParent="true"
-        android:textColor="@color/title_bg"
+        android:textColor="@color/hong"
         android:transitionName="xiaxiao"
         />
     <Button
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:text="do "
         android:onClick="gogo"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

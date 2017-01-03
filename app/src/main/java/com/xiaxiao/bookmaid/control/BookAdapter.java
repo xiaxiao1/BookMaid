@@ -39,14 +39,18 @@ public class BookAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        GlideHelper.loadImage(context,"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2847828995,2260978804&fm=58",holder.bookItemCoverImg);
+        if (book.getCoverImage()!=null) {
+            GlideHelper.loadImage(context,book.getCoverImage().getUrl(),holder.bookItemCoverImg);
+        }
         holder.bookItemNameTv.setText(book.getName());
         holder.bookItemWriterTv.setText(book.getWriter());
         holder.bookItemIntroduceTv.setText(book.getIntroduce());
         holder.bookItemBuyView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
         holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
-//        holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
-        GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.bookItemTuijianzheHeadCimg);
+        holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
+        if (book.getRecommendPerson().getHeadImage()!=null) {
+            GlideHelper.loadImage(context,book.getRecommendPerson().getHeadImage().getUrl(),holder.bookItemTuijianzheHeadCimg);
+        }
         /*if (book.getBuyType() == 1) {
             holder.bookType.setText(R.string.book_type_buy);
             holder.bookType.setTextColor(Color.parseColor("#1296db"));

@@ -18,4 +18,11 @@ public class GlideHelper {
                 .into(imageView);
 
     }
+    public static void loadImage(Context context, String url, ImageView imageView,int defaultResId) {
+        Glide.with(context)
+                .load(url)
+                .placeholder(defaultResId)
+                .into(imageView);
+
+    }
 }

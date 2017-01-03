@@ -54,6 +54,13 @@ public class FindBookActivity extends BaseActivity {
         listview = (ListView) findViewById(R.id.listview);
         noDataLl = (LinearLayout) findViewById(R.id.no_data_ll);
         noDataGoAddTv = (TextView) findViewById(R.id.no_data_go_add_tv);
+
+        sousuoBackImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FindBookActivity.this.finish();
+            }
+        });
         noDataGoAddTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

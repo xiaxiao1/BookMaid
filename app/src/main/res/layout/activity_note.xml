@@ -13,7 +13,7 @@
         android:background="@color/title_bg"
         >
         <ImageView
-            android:id="@+id/usercenter_back_img"
+            android:id="@+id/note_back_img"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/back_black"
@@ -40,7 +40,7 @@
             />
         <View android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/gray"
+            android:background="@color/title_line"
             android:layout_alignParentBottom="true"
             />
     </RelativeLayout>

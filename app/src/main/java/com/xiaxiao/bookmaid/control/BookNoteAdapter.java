@@ -41,11 +41,19 @@ public class BookNoteAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemFromwhoHeadCmig);
+        if (bookNote.getWhoWrite().getHeadImage() != null) {
+            GlideHelper.loadImage(context, bookNote.getWhoWrite().getHeadImage().getUrl(), holder.booknoteItemFromwhoHeadCmig);
+        } else {
+            holder.booknoteItemFromwhoHeadCmig.setImageResource(R.drawable.app_icon_1);
+        }
         holder.booknoteItemFromwhoNameTv.setText(bookNote.getWhoWrite().getUsername());
         if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
             holder.booknoteItemTowhoLl.setVisibility(View.VISIBLE);
-            GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.booknoteItemTowhoHeadCimg);
+            if (bookNote.getReplyWhos().getHeadImage() != null) {
+                GlideHelper.loadImage(context, bookNote.getReplyWhos().getHeadImage().getUrl(), holder.booknoteItemTowhoHeadCimg);
+            } else {
+                holder.booknoteItemTowhoHeadCimg.setImageResource(R.drawable.app_icon_1);
+            }
             holder.booknoteItemTowhoNameTv.setText(bookNote.getReplyWhos().getUsername());
         } else {
             holder.booknoteItemTowhoLl.setVisibility(View.GONE);

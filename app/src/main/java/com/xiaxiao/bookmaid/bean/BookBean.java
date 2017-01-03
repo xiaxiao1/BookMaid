@@ -19,7 +19,7 @@ public class BookBean  extends BmobObject{
      * showType=1  可见
      */
     int showType;
-    BmobUser recommendPerson;
+    MyUser recommendPerson;
     BmobFile coverImage;
 
     public int getShowType() {
@@ -38,11 +38,11 @@ public class BookBean  extends BmobObject{
         this.coverImage = coverImage;
     }
 
-    public BmobUser getRecommendPerson() {
+    public MyUser getRecommendPerson() {
         return recommendPerson;
     }
 
-    public void setRecommendPerson(BmobUser recommendPerson) {
+    public void setRecommendPerson(MyUser recommendPerson) {
         this.recommendPerson = recommendPerson;
     }
 

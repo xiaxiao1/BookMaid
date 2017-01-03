@@ -1,17 +1,21 @@
 package com.xiaxiao.bookmaid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
+import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -28,7 +32,8 @@ public class Fragment3 extends BaseFragment {
     TextView noLoginTip_tv;
     BookAdapter bookAdapter;
     List<BookBean> datas;
-    UIDialog waitHttpDialog;
+    List<RelationShip> relationShips;
+    UIDialog uiDialog;
 
     final String NO_DATA = "暂无数据";
     final String NO_LOGIN = "去登录";
@@ -49,10 +54,12 @@ public class Fragment3 extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         datas = new ArrayList();
-        waitHttpDialog = new UIDialog(getActivity());
+        relationShips = new ArrayList();
+        uiDialog = new UIDialog(getActivity());
         View view= inflater.inflate(R.layout.fragment_fragment3, container, false);
         initViews(view);
-        waitHttpDialog.showWaitDialog();
+        setListViewListener();
+        uiDialog.showWaitDialog();
         getInfos();
         return view;
     }
@@ -82,7 +89,7 @@ public class Fragment3 extends BaseFragment {
 
     public void getInfos() {
         if (!Util.isLogin()) {
-            waitHttpDialog.dismissWaitDialog();
+            uiDialog.dismissWaitDialog();
             swipeRefreshLayout.setRefreshing(false);
             noDataTip(true);
             noLoginTip(true);
@@ -96,7 +103,10 @@ public class Fragment3 extends BaseFragment {
                 .getMyBooks(new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
-                        datas = (List<BookBean>) object;
+                        relationShips = (List<RelationShip>) object;
+                        for (RelationShip r : relationShips) {
+                            datas.add(r.getBook());
+                        }
                         if (bookAdapter == null) {
                             bookAdapter = new BookAdapter(getActivity(), datas);
                             listView.setAdapter(bookAdapter);
@@ -105,7 +115,7 @@ public class Fragment3 extends BaseFragment {
                             bookAdapter.notifyDataSetChanged();
                         }
 
-                        waitHttpDialog.dismissWaitDialog();
+                        uiDialog.dismissWaitDialog();
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
@@ -119,7 +129,7 @@ public class Fragment3 extends BaseFragment {
 
                     @Override
                     public void onError(BmobException e) {
-                        waitHttpDialog.dismissWaitDialog();
+                        uiDialog.dismissWaitDialog();
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
@@ -143,6 +153,39 @@ public class Fragment3 extends BaseFragment {
         } else {
             noLoginTip_tv.setVisibility(View.GONE);
         }
+    }
+
+    public void setListViewListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Util.goBookInfoPage(getActivity(),datas.get(position));
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                uiDialog.showChooseTypeDialog("编辑", "删除", new UIDialog.CustomDialogListener() {
+                    @Override
+                    public void onItemClick(int index) {
+                        if (index==0) {
+                            Intent intent = new Intent(getActivity(),AddBookActivity.class);
+                            intent.putExtra("changeRelationShip", true);
+                            intent.putExtra("relationShipId", relationShips.get(position).getObjectId());
+                            intent.putExtra("buyType", relationShips.get(position).getBuyType());
+                            intent.putExtra("readType", relationShips.get(position).getReadType());
+                            GlobalData.book = datas.get(position);
+                            startActivity(intent);
+                        }
+                        if (index==1) {
+
+                        }
+                    }
+                });
+                return true;
+            }
+        });
     }
 
 }
