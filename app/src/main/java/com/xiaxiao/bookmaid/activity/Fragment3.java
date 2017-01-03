@@ -96,11 +96,12 @@ public class Fragment3 extends BaseFragment {
                 .getMyBooks(new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
+                        datas = (List<BookBean>) object;
                         if (bookAdapter == null) {
-                            datas = (List<BookBean>) object;
                             bookAdapter = new BookAdapter(getActivity(), datas);
                             listView.setAdapter(bookAdapter);
                         } else {
+                            bookAdapter.updateDatas(datas);
                             bookAdapter.notifyDataSetChanged();
                         }
 

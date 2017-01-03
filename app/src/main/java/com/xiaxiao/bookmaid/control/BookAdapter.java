@@ -45,7 +45,7 @@ public class BookAdapter extends MyBaseAdapter{
         holder.bookItemIntroduceTv.setText(book.getIntroduce());
         holder.bookItemBuyView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
         holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
-        holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
+//        holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
         GlideHelper.loadImage(context,"https://static.oschina.net/uploads/user/518/1036767_100.jpg?t=1477302684000",holder.bookItemTuijianzheHeadCimg);
         /*if (book.getBuyType() == 1) {
             holder.bookType.setText(R.string.book_type_buy);
