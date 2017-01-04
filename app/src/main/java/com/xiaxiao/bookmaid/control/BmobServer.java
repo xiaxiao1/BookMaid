@@ -503,6 +503,39 @@ public class BmobServer {
         addListener(bmobListener);
         updateRelationShip(relationShip);
     }
+
+
+    public void deleteBook(final BookBean bookBean, BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        bookBean.delete(bookBean.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(bookBean.getObjectId());
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+    public void deleteRelationShip(final RelationShip relationShip, BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        relationShip.delete(relationShip.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(relationShip.getObjectId());
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
     //*******************************************************************************************//
 
 

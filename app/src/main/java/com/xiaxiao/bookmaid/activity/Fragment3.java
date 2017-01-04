@@ -104,6 +104,7 @@ public class Fragment3 extends BaseFragment {
                     @Override
                     public void onSuccess(Object object) {
                         relationShips = (List<RelationShip>) object;
+                        datas.clear();
                         for (RelationShip r : relationShips) {
                             datas.add(r.getBook());
                         }
@@ -179,7 +180,68 @@ public class Fragment3 extends BaseFragment {
                             startActivity(intent);
                         }
                         if (index==1) {
+                            final BookBean mBook=datas.get(position);
+                            if (mBook.getShowType() == 0) {//说明这本书没有被推荐  所以可以同时被从表中删除了
+                                getBuilder().build()
+                                        .deleteRelationShip(relationShips.get(position), new
+                                                BmobListener() {
 
+
+                                            @Override
+                                            public void onSuccess(Object object) {
+                                                getBuilder().build()
+                                                        .deleteBook(mBook, new BmobListener() {
+                                                            @Override
+                                                            public void onSuccess(Object object) {
+                                                                Util.toast(getActivity(), "删除成功");
+                                                                relationShips.remove(position);
+                                                                datas.remove(position);
+                                                                bookAdapter.updateDatas(datas);
+                                                                bookAdapter.notifyDataSetChanged();
+                                                            }
+
+                                                            @Override
+                                                            public void onError(BmobException e) {
+
+                                                            }
+                                                        });
+                                            }
+
+                                            @Override
+                                            public void onError(BmobException e) {
+                                                Util.toast(getActivity(), "删除失败");
+                                            }
+                                        });
+                            } else {//删除relationship ，同时更新bookbean
+                                getBuilder().build()
+                                        .deleteRelationShip(relationShips.get(position), new BmobListener() {
+
+
+                                            @Override
+                                            public void onSuccess(Object object) {
+                                                mBook.setReadNumber(mBook.getReadNumber()-relationShips.get(position).getReadType());
+                                                mBook.setOwnNumber(mBook.getOwnNumber()-relationShips.get(position).getBuyType());
+                                                getBuilder().build()
+                                                        .updateBook(mBook, new BmobListener() {
+                                                            @Override
+                                                            public void onSuccess(Object object) {
+                                                                Util.toast(getActivity(),"删除成功");
+                                                            }
+
+                                                            @Override
+                                                            public void onError(BmobException e) {
+
+                                                            }
+                                                        });
+                                            }
+
+                                            @Override
+                                            public void onError(BmobException e) {
+                                                Util.toast(getActivity(),"删除失败");
+                                            }
+                                        });
+
+                            }
                         }
                     }
                 });

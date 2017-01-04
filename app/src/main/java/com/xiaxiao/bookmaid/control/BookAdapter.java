@@ -40,7 +40,7 @@ public class BookAdapter extends MyBaseAdapter{
             holder=(Holder)convertView.getTag();
         }
         if (book.getCoverImage()!=null) {
-            GlideHelper.loadImage(context,book.getCoverImage().getUrl(),holder.bookItemCoverImg);
+            GlideHelper.loadImage(context,book.getCoverImage().getUrl(),holder.bookItemCoverImg,R.drawable.book);
         }
         holder.bookItemNameTv.setText(book.getName());
         holder.bookItemWriterTv.setText(book.getWriter());
@@ -49,7 +49,7 @@ public class BookAdapter extends MyBaseAdapter{
         holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
         holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
         if (book.getRecommendPerson().getHeadImage()!=null) {
-            GlideHelper.loadImage(context,book.getRecommendPerson().getHeadImage().getUrl(),holder.bookItemTuijianzheHeadCimg);
+            GlideHelper.loadImage(context,book.getRecommendPerson().getHeadImage().getUrl(),holder.bookItemTuijianzheHeadCimg,R.drawable.app_head_gray);
         }
         /*if (book.getBuyType() == 1) {
             holder.bookType.setText(R.string.book_type_buy);

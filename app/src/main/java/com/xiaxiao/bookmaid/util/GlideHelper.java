@@ -15,13 +15,16 @@ public class GlideHelper {
     public static void loadImage(Context context, String url, ImageView imageView) {
         Glide.with(context)
                 .load(url)
+                .crossFade()
                 .into(imageView);
 
     }
     public static void loadImage(Context context, String url, ImageView imageView,int defaultResId) {
         Glide.with(context)
                 .load(url)
-                .placeholder(defaultResId)
+//                .placeholder(defaultResId)
+                .error(defaultResId)
+                .crossFade()
                 .into(imageView);
 
     }

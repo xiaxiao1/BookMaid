@@ -59,6 +59,7 @@ public class FindBookActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 FindBookActivity.this.finish();
+                Util.hideSoftInput(FindBookActivity.this,bookname_et);
             }
         });
         noDataGoAddTv.setOnClickListener(new View.OnClickListener() {

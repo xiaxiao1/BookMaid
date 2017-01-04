@@ -67,12 +67,12 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         notes = new ArrayList<>();
         title_tv.setText(b.getName());
         if (b.getCoverImage()!=null) {
-            GlideHelper.loadImage(this,b.getCoverImage().getUrl(),bookInfoCoverImg);
+            GlideHelper.loadImage(this,b.getCoverImage().getUrl(),bookInfoCoverImg,R.drawable.book);
         }
         bookInfoNameTv.setText(b.getName());
         bookInfoWriterTv.setText(b.getWriter());
         if (b.getRecommendPerson().getHeadImage()!=null) {
-            GlideHelper.loadImage(this,b.getRecommendPerson().getHeadImage().getUrl(),bookItemTuijianzheHeadCimg);
+            GlideHelper.loadImage(this,b.getRecommendPerson().getHeadImage().getUrl(),bookItemTuijianzheHeadCimg,R.drawable.app_head_gray);
         }
         bookItemTuijianzheNameTv.setText(b.getRecommendPerson().getUsername());
         bookInfoIntroduceTv.setText(b.getIntroduce());

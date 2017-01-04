@@ -44,7 +44,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
         if (bookNote.getWhoWrite().getHeadImage() != null) {
             GlideHelper.loadImage(context, bookNote.getWhoWrite().getHeadImage().getUrl(), holder.booknoteItemFromwhoHeadCmig);
         } else {
-            holder.booknoteItemFromwhoHeadCmig.setImageResource(R.drawable.app_icon_1);
+            holder.booknoteItemFromwhoHeadCmig.setImageResource(R.drawable.app_head_gray);
         }
         holder.booknoteItemFromwhoNameTv.setText(bookNote.getWhoWrite().getUsername());
         if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
@@ -52,7 +52,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
             if (bookNote.getReplyWhos().getHeadImage() != null) {
                 GlideHelper.loadImage(context, bookNote.getReplyWhos().getHeadImage().getUrl(), holder.booknoteItemTowhoHeadCimg);
             } else {
-                holder.booknoteItemTowhoHeadCimg.setImageResource(R.drawable.app_icon_1);
+                holder.booknoteItemTowhoHeadCimg.setImageResource(R.drawable.app_head_gray);
             }
             holder.booknoteItemTowhoNameTv.setText(bookNote.getReplyWhos().getUsername());
         } else {

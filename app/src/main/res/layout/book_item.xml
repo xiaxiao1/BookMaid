@@ -96,7 +96,7 @@ android:orientation="vertical"
                 android:id="@+id/book_item_tuijianzhe_head_cimg"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/app_icon_1"
+                android:src="@drawable/app_head_gray"
                 />
             <TextView
                 android:id="@+id/book_item_tuijianzhe_name_tv"

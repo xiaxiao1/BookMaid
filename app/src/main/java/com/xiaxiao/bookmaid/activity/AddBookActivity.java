@@ -87,7 +87,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         } else {
             book = GlobalData.book;
             if (book.getCoverImage()!=null&&book.getCoverImage().getUrl()!=null) {
-                GlideHelper.loadImage(this,book.getCoverImage().getUrl(),bookCover_img);
+                GlideHelper.loadImage(this,book.getCoverImage().getUrl(),bookCover_img,R.drawable.book);
             }
             editname_et.setText(book.getName());
             editWriter_et.setText(book.getWriter());

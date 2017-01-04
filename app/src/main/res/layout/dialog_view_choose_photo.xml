@@ -26,6 +26,7 @@
         android:text="拍照"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
+        android:background="@drawable/dialog_bg"
         />
     <View android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -38,6 +39,7 @@
         android:text="相册"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
+        android:background="@drawable/dialog_bg"
         />
     <View android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -56,6 +58,7 @@
         android:text="取消"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
+        android:background="@drawable/dialog_bg"
         />
 
 

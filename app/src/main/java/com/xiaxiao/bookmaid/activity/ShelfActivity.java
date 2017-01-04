@@ -18,6 +18,7 @@ public class ShelfActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelf);
+        initViews();
         fragment3 = new Fragment3();
         FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
         mFragmentTransaction.add(R.id.frame, fragment3).show(fragment3).commit();

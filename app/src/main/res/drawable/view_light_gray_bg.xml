@@ -4,6 +4,10 @@
         android:radius="30dp"
         />
 
+    <stroke
+        android:width="0.5dp"
+        android:color="#dedddd"
+        />
     <solid
         android:color="#efeeee"
         />

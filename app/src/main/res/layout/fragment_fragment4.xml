@@ -52,9 +52,9 @@
         android:id="@+id/user_head"
         android:layout_width="116dp"
         android:layout_height="116dp"
-        android:src="@drawable/app_icon_2"
+        android:src="@drawable/app_head_gray"
         app:civ_border_width="2dp"
-        app:civ_border_color="#000000"
+        app:civ_border_color="#111111"
         android:scaleType="centerCrop"
         android:layout_below="@id/app_title"
         android:layout_marginTop="4dp"
@@ -114,6 +114,7 @@
             android:background="@color/wide_line"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="32dp"
             />
         <LinearLayout
             android:id="@+id/usercenter_shujia_ll"
@@ -122,9 +123,16 @@
             android:orientation="horizontal"
             android:background="@drawable/dialog_bg"
             >
+            <ImageView android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/shujia"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                />
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="我的书架"
+                android:textSize="18sp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
@@ -154,9 +162,16 @@
             android:orientation="horizontal"
             android:background="@drawable/dialog_bg"
             >
+            <ImageView android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/zhifeiji"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                />
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="我的纸条"
+                android:textSize="18sp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"

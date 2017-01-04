@@ -65,7 +65,7 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
         initViews(view);
         uiDialog = new UIDialog(getActivity());
 
-        GlideHelper.loadImage(getActivity(),Util.getUser().getHeadImage().getUrl(),userHead_cimg);
+        GlideHelper.loadImage(getActivity(),Util.getUser().getHeadImage().getUrl(),userHead_cimg,R.drawable.app_head_gray);
 
         return view;
     }

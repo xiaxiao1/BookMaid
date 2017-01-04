@@ -44,7 +44,7 @@ public class SendNoteActivity extends BaseActivity {
         replyWhoHeadImg = getIntent().getStringExtra("replyWhoHeadImg");
         if (replyWhoId != null && !replyWhoId.equals("")) {
             replyWho_ll.setVisibility(View.VISIBLE);
-            GlideHelper.loadImage(this, replyWhoHeadImg, towhoHead_cimg,R.drawable.app_icon_1);
+            GlideHelper.loadImage(this, replyWhoHeadImg, towhoHead_cimg,R.drawable.app_head_gray);
             towhoName_tv.setText(replyWhoName);
         } else {
             replyWho_ll.setVisibility(View.GONE);

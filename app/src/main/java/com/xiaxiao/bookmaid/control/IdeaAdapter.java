@@ -48,7 +48,7 @@ public class IdeaAdapter extends MyBaseAdapter{
         }
         holder.bookName_tv.setText(bookNote.getBook().getName());
         if (bookNote.getWhoWrite().getHeadImage() != null) {
-            GlideHelper.loadImage(context, bookNote.getWhoWrite().getHeadImage().getUrl(), holder.writerHeadImg_cimg, R.drawable.app_icon_1);
+            GlideHelper.loadImage(context, bookNote.getWhoWrite().getHeadImage().getUrl(), holder.writerHeadImg_cimg, R.drawable.app_head_gray);
         } else {
             holder.writerHeadImg_cimg.setImageResource(R.drawable.app_icon_1);
         }
@@ -56,7 +56,7 @@ public class IdeaAdapter extends MyBaseAdapter{
         if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
             holder.toWhoArea_ll.setVisibility(View.VISIBLE);
             if (bookNote.getReplyWhos().getHeadImage() != null) {
-                GlideHelper.loadImage(context, bookNote.getReplyWhos().getHeadImage().getUrl(), holder.toWhoHeadImg_cimg, R.drawable.app_icon_1);
+                GlideHelper.loadImage(context, bookNote.getReplyWhos().getHeadImage().getUrl(), holder.toWhoHeadImg_cimg, R.drawable.app_head_gray);
             } else {
                 holder.toWhoHeadImg_cimg.setImageResource(R.drawable.app_icon_1);
             }
