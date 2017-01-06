@@ -1,7 +1,6 @@
 package com.xiaxiao.bookmaid.bean;
 
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobUser;
 
 /**
  * Created by xiaxi on 2016/11/6.

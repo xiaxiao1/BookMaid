@@ -1,7 +1,5 @@
 package com.xiaxiao.bookmaid;
 
-import android.util.Log;
-
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;

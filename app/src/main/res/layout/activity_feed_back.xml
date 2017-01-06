@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/title_bg"
+        >
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/back_black"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/usercenter_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="勾搭俺"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:id="@+id/usercenter_setting_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/title_line"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        android:textSize="12sp"
+        android:text="      源于很久以前，一个粗心的boy用攒下的毛爷爷买了重复的书，这个惨痛的教训促使了小书仆的诞生
+        \n      小书仆只是一款帮助你管理图书的little APP,就像记账单一样，记录着已经买了哪些书，记录着读每本书时闪现出的想法。
+
+        \n      愿你： 良好的管理习惯养成，独特的读书感悟分享。"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        android:textSize="8sp"
+        android:text="对小书仆有好的想法建议，或者加入我，或者单纯的吐槽，欢迎你哦。"
+        />
+    <LinearLayout
+        android:id="@+id/feedback_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+
+        >
+
+        <EditText
+            android:id="@+id/feedback_message_et"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:textColor="@color/gray"
+            android:hint="想说点什么呢"
+            android:textColorHint="@color/listview_bg"
+            android:gravity="center_vertical"
+            android:background="@drawable/border"
+            />
+        <Button
+            android:id="@+id/feedback_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:src="@drawable/back"
+            android:text="发送"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/border_hong_soild"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+</LinearLayout>

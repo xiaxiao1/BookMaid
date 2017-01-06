@@ -5,7 +5,6 @@ import android.content.Context;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
-import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;

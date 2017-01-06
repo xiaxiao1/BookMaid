@@ -41,6 +41,7 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
 
     LinearLayout zhitiao_ll;
     LinearLayout shujia_ll;
+    LinearLayout fankui_ll;
 
 
     public Fragment4() {
@@ -75,6 +76,7 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
         userHead_cimg = (CircleImageView) view.findViewById(R.id.user_head);
         zhitiao_ll = (LinearLayout) view.findViewById(R.id.usercenter_zhitiao_ll);
         shujia_ll = (LinearLayout) view.findViewById(R.id.usercenter_shujia_ll);
+        fankui_ll = (LinearLayout) view.findViewById(R.id.usercenter_fankui_ll);
         zhitiao_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +87,12 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),ShelfActivity.class));
+            }
+        });
+        fankui_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),FeedBackActivity.class));
             }
         });
 

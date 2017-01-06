@@ -17,10 +17,8 @@ import com.xiaxiao.bookmaid.activity.FindBookActivity;
 import com.xiaxiao.bookmaid.activity.LoginActivity;
 import com.xiaxiao.bookmaid.activity.MainActivity2;
 import com.xiaxiao.bookmaid.bean.BookBean;
-import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.bean.MyUser;
-import com.xiaxiao.bookmaid.control.BmobServer;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

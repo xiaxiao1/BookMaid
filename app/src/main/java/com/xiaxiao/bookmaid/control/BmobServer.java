@@ -5,6 +5,7 @@ import android.content.Context;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
+import com.xiaxiao.bookmaid.bean.FeedBack;
 import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.listener.BmobListener;
@@ -14,7 +15,6 @@ import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -530,6 +530,22 @@ public class BmobServer {
                 dismissWaitDialog();
                 if (e == null) {
                     handleSuccess(relationShip.getObjectId());
+                } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+    public void sendFeedback(FeedBack feedBack, BmobListener bmobListener) {
+        addListener(bmobListener);
+        showWaitDialog();
+        feedBack.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                dismissWaitDialog();
+                if (e == null) {
+                    handleSuccess(s);
                 } else {
                     handleError(e);
                 }
