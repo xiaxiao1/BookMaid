@@ -20,13 +20,13 @@ public class BottomView extends RelativeLayout implements View.OnClickListener{
     TextView[] tapTexts;
     ImageView[] tapImgs;
     int[] onResId={R.drawable.all_on,
-            R.drawable.have_on2,
-            R.drawable.buy_on,
-            R.drawable.user_on};
+            R.drawable.zhi1_on,
+            R.drawable.zhi1_on,
+            R.drawable.wo_on};
     int[] offResId={R.drawable.all_off,
-            R.drawable.have_off2,
-            R.drawable.buy_off,
-            R.drawable.user_off};
+            R.drawable.zhi1_off,
+            R.drawable.zhi1_off,
+            R.drawable.wo_off};
     static final int COLOR_ON = Color.parseColor("#f56857");
     static final int COLOR_OFF = Color.GRAY;
     int currentIndex=0;

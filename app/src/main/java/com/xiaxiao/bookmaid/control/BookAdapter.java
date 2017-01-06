@@ -1,7 +1,9 @@
 package com.xiaxiao.bookmaid.control;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
+import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.util.GlideHelper;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -28,10 +31,17 @@ public class BookAdapter extends MyBaseAdapter{
         super(context, list);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        BookBean book = (BookBean) list.get(position);
+        //数据源来自两个页面，类型不一样  一个是bookbean  主页，一个是RelationShip  我的书架  进行相关判断
+
+        Object o=list.get(position);
+        BookBean book;
+        RelationShip relationShip;
+
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.book_item, null);
             holder = new Holder(convertView);
@@ -39,36 +49,37 @@ public class BookAdapter extends MyBaseAdapter{
         } else {
             holder=(Holder)convertView.getTag();
         }
-        if (book.getCoverImage()!=null) {
-            GlideHelper.loadImage(context,book.getCoverImage().getUrl(),holder.bookItemCoverImg,R.drawable.book);
+
+        if (o instanceof RelationShip) {
+            relationShip = (RelationShip) o;
+            book = relationShip.getBook();
+            holder.buylabel_tv.setVisibility(View.VISIBLE);
+            holder.readLabel_tv.setVisibility(View.VISIBLE);
+            Util.setBuyLabelStyle(context,holder.buylabel_tv,relationShip.getBuyType()==1);
+            Util.setReadLabelStyle(context,holder.readLabel_tv,relationShip.getReadType()==1);
+        } else {
+            book=(BookBean)o;
+        }
+
+        if (book.getCoverImage() != null) {
+            GlideHelper.loadImage(context, book.getCoverImage().getUrl(), holder
+                    .bookItemCoverImg, R.drawable.book);
+        } else {
+            holder.bookItemCoverImg.setImageResource(R.drawable.book);
         }
         holder.bookItemNameTv.setText(book.getName());
         holder.bookItemWriterTv.setText(book.getWriter());
         holder.bookItemIntroduceTv.setText(book.getIntroduce());
-        holder.bookItemBuyView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
-        holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
+        /*holder.bookItemBuyView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));
+        holder.bookItemReadView.setBackgroundColor(Color.parseColor(Util.getRandomColor()));*/
         holder.bookItemTuijianzheNameTv.setText(book.getRecommendPerson().getUsername());
-        if (book.getRecommendPerson().getHeadImage()!=null) {
-            GlideHelper.loadImage(context,book.getRecommendPerson().getHeadImage().getUrl(),holder.bookItemTuijianzheHeadCimg,R.drawable.app_head_gray);
-        }
-        /*if (book.getBuyType() == 1) {
-            holder.bookType.setText(R.string.book_type_buy);
-            holder.bookType.setTextColor(Color.parseColor("#1296db"));
+        if (book.getRecommendPerson().getHeadImage() != null) {
+            GlideHelper.loadImage(context, book.getRecommendPerson().getHeadImage().getUrl(),
+                    holder.bookItemTuijianzheHeadCimg, R.drawable.app_head_gray);
         } else {
-            holder.bookType.setText(R.string.book_type_buy_no);
-            holder.bookType.setTextColor(Color.parseColor("#8a8a8a"));
+            holder.bookItemTuijianzheHeadCimg.setImageResource(R.drawable.app_head_gray);
+        }
 
-        }
-        if (book.getReadType() == 1) {
-            holder.bookRead.setText(R.string.book_read_yes);
-            holder.bookRead.setTextColor(Color.parseColor("#1296db"));
-        } else if (book.getReadType() == 0) {
-            holder.bookRead.setText(R.string.book_read_no);
-            holder.bookRead.setTextColor(Color.parseColor("#8a8a8a"));
-        } else {
-            holder.bookRead.setText(R.string.book_read_on);
-            holder.bookRead.setTextColor(Color.parseColor("#8a8a8a"));
-        }*/
 
        /* if (position > proirIndex) {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));
@@ -83,10 +94,11 @@ public class BookAdapter extends MyBaseAdapter{
         private ImageView bookItemCoverImg;
         private TextView bookItemNameTv;
         private TextView bookItemWriterTv;
+        private TextView buylabel_tv;
+        private TextView readLabel_tv;
         private TextView bookItemIntroduceTv;
-        private View bookItemBuyView;
-        private View bookItemReadView;
-        private TextView bookItemTuijianTv;
+        /*private View bookItemBuyView;
+        private View bookItemReadView;*/
         private CircleImageView bookItemTuijianzheHeadCimg;
         private TextView bookItemTuijianzheNameTv;
 
@@ -95,10 +107,11 @@ public class BookAdapter extends MyBaseAdapter{
             bookItemCoverImg = (ImageView) view.findViewById(R.id.book_item_cover_img);
             bookItemNameTv = (TextView) view.findViewById(R.id.book_item_name_tv);
             bookItemWriterTv = (TextView) view.findViewById(R.id.book_item_writer_tv);
+            buylabel_tv = (TextView) view.findViewById(R.id.bookitem_buy_label_tv);
+            readLabel_tv = (TextView) view.findViewById(R.id.bookitem_read_label_tv);
             bookItemIntroduceTv = (TextView) view.findViewById(R.id.book_item_introduce_tv);
-            bookItemBuyView = (View) view.findViewById(R.id.book_item_buy_view);
-            bookItemReadView = (View) view.findViewById(R.id.book_item_read_view);
-            bookItemTuijianTv = (TextView) view.findViewById(R.id.book_item_tuijian_tv);
+            /*bookItemBuyView = (View) view.findViewById(R.id.book_item_buy_view);
+            bookItemReadView = (View) view.findViewById(R.id.book_item_read_view);*/
             bookItemTuijianzheHeadCimg = (CircleImageView) view.findViewById(R.id.book_item_tuijianzhe_head_cimg);
             bookItemTuijianzheNameTv = (TextView) view.findViewById(R.id.book_item_tuijianzhe_name_tv);
 

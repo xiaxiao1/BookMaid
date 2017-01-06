@@ -62,7 +62,7 @@ public class UIDialog {
             takePhoto_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Util.toast(context,"take photo");
+//                    Util.toast(context,"take photo");
                     dismissTakePhotoDialog();
                     customDialogListener.onItemClick(0);
                 }
@@ -70,7 +70,7 @@ public class UIDialog {
             fromGallery_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Util.toast(context,"from gallery");
+//                    Util.toast(context,"from gallery");
                     dismissTakePhotoDialog();
                     customDialogListener.onItemClick(1);
                 }

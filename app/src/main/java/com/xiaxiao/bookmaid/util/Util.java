@@ -3,11 +3,14 @@ package com.xiaxiao.bookmaid.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.activity.AddBookActivity;
 import com.xiaxiao.bookmaid.activity.BookInfoActivity;
 import com.xiaxiao.bookmaid.activity.FindBookActivity;
@@ -148,6 +151,30 @@ public class Util {
             }
         }
         return null;
+    }
+
+
+    public static void setBuyLabelStyle(Context context,TextView textView, boolean on) {
+        if (on) {
+            textView.setText("已买");
+            textView.setTextColor(Color.parseColor("#ffffff"));
+            textView.setBackgroundResource(R.drawable.border_hong_soild);
+        } else {
+            textView.setText("未买");
+            textView.setTextColor(context.getResources().getColor(R.color.hong));
+            textView.setBackgroundResource(R.drawable.border);
+        }
+    }
+    public static void setReadLabelStyle(Context context,TextView textView, boolean on) {
+        if (on) {
+            textView.setText("已读");
+            textView.setTextColor(Color.parseColor("#ffffff"));
+            textView.setBackgroundResource(R.drawable.border_lan_soild);
+        } else {
+            textView.setText("未读");
+            textView.setTextColor(context.getResources().getColor(R.color.lan));
+            textView.setBackgroundResource(R.drawable.border_lan);
+        }
     }
 
 }

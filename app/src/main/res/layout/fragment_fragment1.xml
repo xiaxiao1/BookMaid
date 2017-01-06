@@ -40,6 +40,16 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             />
+        <ImageView
+            android:id="@+id/f1_sousuo_book_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="4dp"
+            android:src="@drawable/sousuo"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/f1_add_book_img"
+            android:layout_marginRight="4dp"
+            />
         <View android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/title_line"

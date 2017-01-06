@@ -115,9 +115,12 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
 
     @Override
     public void OnFragmentResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode!=getActivity().RESULT_OK) {
+            return;
+        }
         switch (requestCode) {
             case BitmapUtil.PHOTO_PICKED_WITH_DATA:
-                Util.toast(getActivity(),"从相册里选");
+//                Util.toast(getActivity(),"从相册里选");
                 Uri photo_uri = data.getData();
                 try {
                     final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(photo_uri, getActivity()),
@@ -148,7 +151,7 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
 
                 break;
             case BitmapUtil.CAMERA_WITH_DATA:
-                Util.toast(getActivity(),"拍照的");
+//                Util.toast(getActivity(),"拍照的");
                 final File file = new File(BitmapUtil.HEAD_IMAGE_PATH + "temp.jpg");
                 try {
                     final Bitmap bitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, getActivity()), 400,

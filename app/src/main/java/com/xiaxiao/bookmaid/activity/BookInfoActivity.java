@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
+import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.bean.RelationShip;
 import com.xiaxiao.bookmaid.control.BmobServer;
 import com.xiaxiao.bookmaid.control.BookNoteAdapter;
@@ -101,6 +102,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         listview = (ListView) findViewById(R.id.listview);
         listview.addHeaderView(headerView);
 
+        addShelf_ll.setEnabled(false);
         addNote_ll.setOnClickListener(this);
         addShelf_ll.setOnClickListener(this);
         back_img.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +219,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-    public void addNote(String bookId,BmobUser replyWho) {
+    public void addNote(String bookId,MyUser replyWho) {
         if (bookId==null) {
             return;
         }
@@ -235,7 +237,9 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         } else {
             intent.putExtra("replyWhoId", replyWho.getObjectId());
             intent.putExtra("replyWhoName", replyWho.getUsername());
-            intent.putExtra("replyWhoHeadImg", "asd123");
+            if (replyWho.getHeadImage()!=null) {
+                intent.putExtra("replyWhoHeadImg", replyWho.getHeadImage().getUrl());
+            }
             Util.L("huifu mougeren ");
         }
         startActivityForResult(intent,REQUSET_CODE_TIP);
@@ -256,13 +260,13 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         addShelf_ll.setEnabled(false);
         addShelf_tv.setText("已加入书架");
         addShelf_tv.setTextColor(Color.parseColor("#aaaaaa"));
-        addShelf_img.setImageResource(R.drawable.yijiaru_shujia);
+        addShelf_img.setImageResource(R.drawable.shujia_yijiaru);
     }
 
     public void ableAddShelf() {
         addShelf_ll.setEnabled(true);
         addShelf_tv.setText("加入书架");
         addShelf_tv.setTextColor(Color.parseColor("#4a51f5"));
-        addShelf_img.setImageResource(R.drawable.jiaru_shujia);
+        addShelf_img.setImageResource(R.drawable.shujia_jiaru);
     }
 }

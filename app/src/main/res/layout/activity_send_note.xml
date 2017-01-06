@@ -25,7 +25,7 @@
             android:id="@+id/usercenter_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="小书仆"
+            android:text="丢纸条"
             android:textSize="18sp"
             android:textColor="@color/gray"
             android:layout_centerInParent="true"

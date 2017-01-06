@@ -15,6 +15,7 @@ import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
 
@@ -34,6 +35,7 @@ public class Fragment1 extends BaseFragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
     ImageView addBook_img;
+    ImageView searchBook_img;
 
     BookAdapter bookAdapter;
     List<BookBean> allBooks;
@@ -65,10 +67,17 @@ public class Fragment1 extends BaseFragment {
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeLayout);
         swipeRefreshLayout.setColorSchemeColors(swipeSchemeColors);
         addBook_img = (ImageView) view.findViewById(R.id.f1_add_book_img);
+        searchBook_img = (ImageView) view.findViewById(R.id.f1_sousuo_book_img);
+        searchBook_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goFindBookPage(0);
+            }
+        });
         addBook_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.goFindBookPage(getActivity());
+                goFindBookPage(1);
             }
         });
         listview = (ListView)view.findViewById(R.id.listview);
@@ -146,4 +155,8 @@ public class Fragment1 extends BaseFragment {
     }
 
 
+    public void goFindBookPage(int type) {
+        GlobalData.findPageType=type;
+        Util.goFindBookPage(getActivity());
+    }
 }

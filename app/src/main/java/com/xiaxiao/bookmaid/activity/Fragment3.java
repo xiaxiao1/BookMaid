@@ -31,7 +31,7 @@ public class Fragment3 extends BaseFragment {
     TextView noDataTip_tv;
     TextView noLoginTip_tv;
     BookAdapter bookAdapter;
-    List<BookBean> datas;
+    List<BookBean> datas_died;
     List<RelationShip> relationShips;
     UIDialog uiDialog;
 
@@ -53,7 +53,7 @@ public class Fragment3 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        datas = new ArrayList();
+//        datas = new ArrayList();
         relationShips = new ArrayList();
         uiDialog = new UIDialog(getActivity());
         View view= inflater.inflate(R.layout.fragment_fragment3, container, false);
@@ -104,15 +104,15 @@ public class Fragment3 extends BaseFragment {
                     @Override
                     public void onSuccess(Object object) {
                         relationShips = (List<RelationShip>) object;
-                        datas.clear();
+                        /*datas.clear();
                         for (RelationShip r : relationShips) {
                             datas.add(r.getBook());
-                        }
+                        }*/
                         if (bookAdapter == null) {
-                            bookAdapter = new BookAdapter(getActivity(), datas);
+                            bookAdapter = new BookAdapter(getActivity(), relationShips);
                             listView.setAdapter(bookAdapter);
                         } else {
-                            bookAdapter.updateDatas(datas);
+                            bookAdapter.updateDatas(relationShips);
                             bookAdapter.notifyDataSetChanged();
                         }
 
@@ -120,7 +120,7 @@ public class Fragment3 extends BaseFragment {
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
-                        if (datas.size() == 0) {
+                        if (relationShips.size() == 0) {
                             noDataTip(true);
 //                            noLoginTip(true);
                         } else {
@@ -160,7 +160,7 @@ public class Fragment3 extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Util.goBookInfoPage(getActivity(),datas.get(position));
+                Util.goBookInfoPage(getActivity(),relationShips.get(position).getBook());
             }
         });
 
@@ -176,11 +176,11 @@ public class Fragment3 extends BaseFragment {
                             intent.putExtra("relationShipId", relationShips.get(position).getObjectId());
                             intent.putExtra("buyType", relationShips.get(position).getBuyType());
                             intent.putExtra("readType", relationShips.get(position).getReadType());
-                            GlobalData.book = datas.get(position);
+                            GlobalData.book = relationShips.get(position).getBook();
                             startActivity(intent);
                         }
                         if (index==1) {
-                            final BookBean mBook=datas.get(position);
+                            final BookBean mBook=relationShips.get(position).getBook();
                             if (mBook.getShowType() == 0) {//说明这本书没有被推荐  所以可以同时被从表中删除了
                                 getBuilder().build()
                                         .deleteRelationShip(relationShips.get(position), new
@@ -195,8 +195,8 @@ public class Fragment3 extends BaseFragment {
                                                             public void onSuccess(Object object) {
                                                                 Util.toast(getActivity(), "删除成功");
                                                                 relationShips.remove(position);
-                                                                datas.remove(position);
-                                                                bookAdapter.updateDatas(datas);
+                                                                relationShips.remove(position);
+                                                                bookAdapter.updateDatas(relationShips);
                                                                 bookAdapter.notifyDataSetChanged();
                                                             }
 

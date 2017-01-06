@@ -4,10 +4,10 @@
     >
 
     <translate
-        android:duration="1000"
+        android:duration="400"
         android:fromXDelta="0%"
         android:toXDelta="-100%"
-        android:startOffset="200"
+        android:startOffset="100"
         />
 
 </set> 

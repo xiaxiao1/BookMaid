@@ -18,23 +18,27 @@
         android:id="@+id/book_info_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="book name"
+        android:text="书名"
         android:textSize="20sp"
         android:textColor="@color/test_black"
         android:layout_below="@id/book_info_cover_img"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         />
     <TextView
         android:id="@+id/book_info_writer_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="book writer"
+        android:text="作者"
         android:textColor="@color/gray"
         android:textSize="18sp"
         android:layout_below="@id/book_info_name_tv"
         android:layout_marginTop="4dp"
         android:layout_centerHorizontal="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         />
 
     <LinearLayout
@@ -45,7 +49,9 @@
         android:gravity="center_vertical"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/book_info_writer_tv"
-
+        android:layout_marginTop="8dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         >
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/book_item_tuijianzhe_head_cimg"
@@ -74,13 +80,12 @@
     </LinearLayout>
     <TextView
         android:id="@+id/book_info_introduce_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:text="lalalalalalalallala"
+        android:text="这本小书书还没有简介呢"
         android:textSize="16sp"
         android:textColor="@color/gray"
         android:layout_below="@id/book_info_tuijianzhe_ll"

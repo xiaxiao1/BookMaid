@@ -17,6 +17,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requsetBuilder = new BmobServer.Builder(this);
 
+
     }
 
     public RuntimePermissionsManager getRuntimePermissionManager(Activity activity) {

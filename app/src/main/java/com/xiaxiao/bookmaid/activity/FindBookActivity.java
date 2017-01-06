@@ -15,6 +15,7 @@ import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.control.BookAdapter;
 import com.xiaxiao.bookmaid.listener.BmobListener;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class FindBookActivity extends BaseActivity {
     private ImageView sousuoBackImg;
     private EditText bookname_et;
     private TextView searchImg;
+    private TextView titlename_tv;
     private ListView listview;
     private LinearLayout noDataLl;
     private TextView noDataGoAddTv;
@@ -43,6 +45,13 @@ public class FindBookActivity extends BaseActivity {
         setContentView(R.layout.activity_find_book);
         initViews();
         datas = new ArrayList<>();
+        if (GlobalData.findPageType == 0) {
+            titlename_tv.setText("搜索");
+            searchImg.setText("搜索");
+        } else {
+            titlename_tv.setText("添加");
+            searchImg.setText("确定");
+        }
 
     }
 
@@ -51,6 +60,7 @@ public class FindBookActivity extends BaseActivity {
         sousuoBackImg = (ImageView) findViewById(R.id.sousuo_back_img);
         bookname_et=(EditText) findViewById(R.id.edit_et);
         searchImg = (TextView) findViewById(R.id.search_img);
+        titlename_tv = (TextView) findViewById(R.id.title_name_tv);
         listview = (ListView) findViewById(R.id.listview);
         noDataLl = (LinearLayout) findViewById(R.id.no_data_ll);
         noDataGoAddTv = (TextView) findViewById(R.id.no_data_go_add_tv);

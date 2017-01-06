@@ -54,7 +54,7 @@
         android:layout_height="116dp"
         android:src="@drawable/app_head_gray"
         app:civ_border_width="2dp"
-        app:civ_border_color="#111111"
+        app:civ_border_color="@color/hong"
         android:scaleType="centerCrop"
         android:layout_below="@id/app_title"
         android:layout_marginTop="4dp"

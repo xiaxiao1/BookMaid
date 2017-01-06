@@ -14,9 +14,10 @@
     <color name="edit_bg_press">#cc9fae</color>
     <color name="test_black">#454545</color>
     <color name="hong">#f56857</color>
-    <color name="lan">#4a51f5</color>
-    <color name="lv">#44f2e9</color>
-    <color name="wide_line">#e7e6e6</color>
-    <color name="thin_line">#c6c5c5</color>
+    <color name="lan">#54cff9</color>
+    <color name="lan2">#4de18d</color>
+    <color name="lv">#52f47a</color>
+    <color name="wide_line">#f9f9f9</color>
+    <color name="thin_line">#ecebeb</color>
 
 </resources>

@@ -94,8 +94,8 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 
                         currentType=-1;
                         changeViewColorAndImg(all_img,R.drawable.all_on,allLabel_tv,Color.parseColor(lightColor));
-                        changeViewColorAndImg(have_img,R.drawable.have_off2,haveLabel_tv,Color.parseColor(darkColor));
-                        changeViewColorAndImg(buy_img,R.drawable.buy_off2,buyLabel_tv,Color.parseColor(darkColor));
+                        changeViewColorAndImg(have_img,R.drawable.wo_off,haveLabel_tv,Color.parseColor(darkColor));
+                        changeViewColorAndImg(buy_img,R.drawable.wo_off,buyLabel_tv,Color.parseColor(darkColor));
                     }
                     @Override
                     public void onSuccess(String objectId) {

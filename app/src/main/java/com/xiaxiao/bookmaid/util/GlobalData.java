@@ -20,4 +20,5 @@ public class GlobalData {
     public static List<FamousWord> famousWords;
     public static String userId;
     public static BmobUser bmobUser;
+    public static int findPageType=0;//0  search;1: add
 }

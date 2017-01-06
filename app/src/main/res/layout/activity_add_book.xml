@@ -56,6 +56,14 @@ android:gravity="center_horizontal"
             android:src="@drawable/book"
             android:layout_alignParentLeft="true"
             />
+
+        <TextView android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_book_cover_img"
+            android:gravity="center_horizontal"
+            android:text="封    面"
+            android:textSize="10sp"
+             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,6 +76,7 @@ android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="书名"
+                android:textColor="@color/gray"
                 android:textSize="19sp"
                 android:paddingTop="2dp"
                 android:maxLength="30"
@@ -141,11 +150,15 @@ android:gravity="center_horizontal"
         <TextView
             android:id="@+id/add_book_buy_label_tv"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="未买"
-            android:textColor="@color/test_black"
+            android:textColor="#ffffff"
+            android:background="@drawable/border_hong_soild"
             android:gravity="center"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
 
             />
         <ImageView
@@ -194,11 +207,15 @@ android:gravity="center_horizontal"
         <TextView
             android:id="@+id/add_book_read_label_tv"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="未读"
-            android:textColor="@color/test_black"
+            android:textColor="#ffffff"
+            android:background="@drawable/border_lan_soild"
             android:gravity="center"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
 
             />
         <ImageView

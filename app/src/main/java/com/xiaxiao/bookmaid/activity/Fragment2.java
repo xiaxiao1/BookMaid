@@ -116,8 +116,8 @@ public class Fragment2 extends BaseFragment {
                 .getAllIdeas(new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
+                        datas = (List<BookNote>) object;
                         if (ideaAdapter == null) {
-                            datas = (List<BookNote>) object;
                             ideaAdapter = new IdeaAdapter(getActivity(), datas, 0);
                             listView.setAdapter(ideaAdapter);
                         } else {

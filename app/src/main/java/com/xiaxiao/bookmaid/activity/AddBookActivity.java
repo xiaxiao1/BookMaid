@@ -73,14 +73,11 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         relationShipId = getIntent().getStringExtra("relationShipId");
         currentBuyType = getIntent().getIntExtra("buyType", 0);
         currentReadType = getIntent().getIntExtra("readType", 0);
-        if (currentBuyType==1) {
-            buyType=1;
-            buyLabel_tv.setText("已买");
-        }
-        if (currentReadType==1) {
-            readType=1;
-            readLabel_tv.setText("已读");
-        }
+        Util.setBuyLabelStyle(this,buyLabel_tv,currentBuyType==1);
+        buyType=1;
+        Util.setReadLabelStyle(this,readLabel_tv,currentReadType==1);
+        readType=1;
+
         //如果是changebook   那么book一定是已经存在的了，所以这里两种跳转路径都可以使用bookIsNew来判断
         if (bookIsNew) {
             book = new BookBean();
@@ -136,11 +133,11 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                     public void onItemClick(int index) {
                         if (index==0) {
                             buyType=0;
-                            buyLabel_tv.setText("未买");
+                            Util.setBuyLabelStyle(AddBookActivity.this,buyLabel_tv,buyType==1);
                         }
                         if (index==1) {
                             buyType=1;
-                            buyLabel_tv.setText("已买");
+                            Util.setBuyLabelStyle(AddBookActivity.this,buyLabel_tv,buyType==1);
                         }
                     }
                 });
@@ -151,11 +148,11 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                     public void onItemClick(int index) {
                         if (index==0) {
                             readType=0;
-                            readLabel_tv.setText("未读");
+                            Util.setReadLabelStyle(AddBookActivity.this,readLabel_tv,readType==1);
                         }
                         if (index==1) {
                             readType=1;
-                            readLabel_tv.setText("已读");
+                            Util.setReadLabelStyle(AddBookActivity.this,readLabel_tv,readType==1);
                         }
                     }
                 });
@@ -184,9 +181,12 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode!=RESULT_OK) {
+            return;
+        }
         switch (requestCode) {
             case BitmapUtil.PHOTO_PICKED_WITH_DATA:
-                Util.toast(this,"从相册里选");
+//                Util.toast(this,"从相册里选");
                 Uri photo_uri = data.getData();
                 try {
                     coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(photo_uri, this),
@@ -204,7 +204,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
 
                 break;
             case BitmapUtil.CAMERA_WITH_DATA:
-                Util.toast(this,"拍照的");
+//                Util.toast(this,"拍照的");
                 final File file = new File(BitmapUtil.HEAD_IMAGE_PATH + "temp.jpg");
                 try {
                     coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, this), 400,
@@ -232,7 +232,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                 .addRelationShip(relationShip,new BmobListener(){
             @Override
             public void onSuccess(Object object) {
-                Util.toast(AddBookActivity.this,"添加成功 relationship");
+                Util.toast(AddBookActivity.this,"添加成功");
                 book.setOwnNumber(book.getOwnNumber()+buyType);
                 book.setReadNumber(book.getReadNumber()+readType);
                 requsetBuilder
@@ -241,7 +241,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                         .updateBook(book, new BmobListener() {
                             @Override
                             public void onSuccess(Object object) {
-                                Util.toast(AddBookActivity.this,"添加成功 end end");
+                                Util.toast(AddBookActivity.this,"添加成功");
                                 finishWithResult();
                             }
 
@@ -254,7 +254,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
 
             @Override
             public void onError(BmobException e) {
-                Util.toast(AddBookActivity.this,"添加失败 relationship");
+                Util.toast(AddBookActivity.this,"添加失败");
             }
         });
 
@@ -280,7 +280,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                         bmobServer.addBook(book, new BmobListener() {
                             @Override
                             public void onSuccess(Object object) {
-                                Util.toast(AddBookActivity.this, "添加成功 book");
+                                Util.toast(AddBookActivity.this, "添加成功");
                                 RelationShip relationShip = new RelationShip();
                                 relationShip.setBuyType(buyType);
                                 relationShip.setReadType(readType);
@@ -289,13 +289,13 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                                 bmobServer.addRelationShip(relationShip, new BmobListener() {
                                     @Override
                                     public void onSuccess(Object object) {
-                                        Util.toast(AddBookActivity.this, "添加成功 relationship");
+                                        Util.toast(AddBookActivity.this, "添加成功");
                                         finishWithResult();
                                     }
 
                                     @Override
                                     public void onError(BmobException e) {
-                                        Util.toast(AddBookActivity.this, "添加失败 relationship");
+                                        Util.toast(AddBookActivity.this, "添加失败");
                                     }
                                 });
 
@@ -317,7 +317,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                 bmobServer.addBook(book, new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
-                        Util.toast(AddBookActivity.this,"添加成功 book");
+                        Util.toast(AddBookActivity.this,"添加成功");
                         RelationShip relationShip = new RelationShip();
                         relationShip.setBuyType(buyType);
                         relationShip.setReadType(readType);
@@ -326,13 +326,13 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
                         bmobServer.addRelationShip(relationShip,new BmobListener(){
                             @Override
                             public void onSuccess(Object object) {
-                                Util.toast(AddBookActivity.this,"添加成功 relationship");
+                                Util.toast(AddBookActivity.this,"添加成功");
                                 finishWithResult();
                             }
 
                             @Override
                             public void onError(BmobException e) {
-                                Util.toast(AddBookActivity.this,"添加失败 relationship");
+                                Util.toast(AddBookActivity.this,"添加失败");
                             }
                         });
 

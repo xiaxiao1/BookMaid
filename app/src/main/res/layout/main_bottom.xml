@@ -34,7 +34,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/all_on"
-            android:padding="3dp"
+            android:padding="1dp"
             android:layout_gravity="center_horizontal"
             />
         <TextView
@@ -57,8 +57,8 @@
             android:id="@+id/tap2_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:padding="2dp"
-            android:src="@drawable/have_off2"
+            android:padding="1dp"
+            android:src="@drawable/zhi1_off"
             />
         <TextView
             android:id="@+id/tap2_label_tv"
@@ -79,7 +79,7 @@
             android:id="@+id/tap3_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/user_off"
+            android:src="@drawable/wo_off"
             />
         <TextView
             android:id="@+id/tap3_label_tv"
@@ -100,8 +100,8 @@
             android:id="@+id/tap4_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/user_off"
-            android:padding="3dp"
+            android:src="@drawable/wo_off"
+            android:padding="4dp"
             />
         <TextView
             android:id="@+id/tap4_label_tv"
