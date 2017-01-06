@@ -17,7 +17,7 @@ android:orientation="vertical"
             android:id="@+id/idea_item_book_cover_img"
             android:layout_width="60dp"
             android:layout_height="80dp"
-            android:src="@drawable/book"
+            android:src="@drawable/book_img"
             android:layout_alignParentLeft="true"
             />
         <LinearLayout

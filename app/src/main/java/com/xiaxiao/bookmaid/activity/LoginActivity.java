@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid.activity;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.MyUser;
 import com.xiaxiao.bookmaid.listener.BmobListener;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
 import cn.bmob.v3.BmobUser;
@@ -96,11 +98,16 @@ public class LoginActivity extends BaseActivity {
         super.onBackPressed();
     }
 
+    */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==event.KEYCODE_BACK) {
-            System.exit(0);
+			if(GlobalData.activity!=null){
+				GlobalData.activity.finish();
+			}
+            finish();
+//            System.exit(0);
         }
         return super.onKeyDown(keyCode, event);
-    }*/
+    }
 }

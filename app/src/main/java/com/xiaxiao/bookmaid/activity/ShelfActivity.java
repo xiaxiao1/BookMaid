@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.xiaxiao.bookmaid.R;
+import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
 public class ShelfActivity extends BaseActivity {
@@ -36,6 +37,7 @@ public class ShelfActivity extends BaseActivity {
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                GlobalData.findPageType=1;
                 Util.goFindBookPage(ShelfActivity.this);
             }
         });

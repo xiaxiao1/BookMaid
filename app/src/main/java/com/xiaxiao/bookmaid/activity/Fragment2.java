@@ -1,7 +1,10 @@
 package com.xiaxiao.bookmaid.activity;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +95,7 @@ public class Fragment2 extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Util.goBookInfoPage(getActivity(), datas.get(position).getBook());
+
             }
         });
     }

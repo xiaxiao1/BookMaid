@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.listener.BmobListener;
@@ -37,6 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
     UIDialog uiDialog;
+    TextView userName_tv;
     CircleImageView userHead_cimg;
 
     LinearLayout zhitiao_ll;
@@ -65,14 +67,16 @@ public class Fragment4 extends BaseFragment implements OnFragmentResultListener{
         View view= inflater.inflate(R.layout.fragment_fragment4, container, false);
         initViews(view);
         uiDialog = new UIDialog(getActivity());
-
-        GlideHelper.loadImage(getActivity(),Util.getUser().getHeadImage().getUrl(),userHead_cimg,R.drawable.app_head_gray);
-
+        if (Util.getUser().getHeadImage()!=null) {
+            GlideHelper.loadImage(getActivity(),Util.getUser().getHeadImage().getUrl(),userHead_cimg,R.drawable.app_head_gray);
+        }
+        userName_tv.setText(Util.getUser().getUsername());
         return view;
     }
 
 
     public void initViews(View view) {
+        userName_tv = (TextView) view.findViewById(R.id.usercenter_name_tv);
         userHead_cimg = (CircleImageView) view.findViewById(R.id.user_head);
         zhitiao_ll = (LinearLayout) view.findViewById(R.id.usercenter_zhitiao_ll);
         shujia_ll = (LinearLayout) view.findViewById(R.id.usercenter_shujia_ll);

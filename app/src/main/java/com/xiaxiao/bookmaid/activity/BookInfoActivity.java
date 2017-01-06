@@ -160,7 +160,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onSuccess(Object object) {
                         List<RelationShip> relationShipList = (List<RelationShip>) object;
-                        if (relationShipList == null) {
+                        if (relationShipList == null||relationShipList.size()==0) {
                             ableAddShelf();
                         } else {
                             for (RelationShip r:relationShipList) {
@@ -250,7 +250,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
             Util.goLoginPage(this);
             return;
         }
-        Util.toast(this,"add shelf");
+//        Util.toast(this,"add shelf");
 //        addShelf_ll.setEnabled(false);
         Util.goAddBookPage(this,false,REQUSET_CODE_SHELF);
     }
@@ -258,14 +258,14 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     public void enableAddShelf() {
         addShelf_ll.setEnabled(false);
         addShelf_tv.setText("已加入书架");
-        addShelf_tv.setTextColor(Color.parseColor("#aaaaaa"));
+        addShelf_tv.setTextColor(getResources().getColor(R.color.gray_light));
         addShelf_img.setImageResource(R.drawable.shujia_yijiaru);
     }
 
     public void ableAddShelf() {
         addShelf_ll.setEnabled(true);
         addShelf_tv.setText("加入书架");
-        addShelf_tv.setTextColor(Color.parseColor("#4a51f5"));
+        addShelf_tv.setTextColor(getResources().getColor(R.color.lan));
         addShelf_img.setImageResource(R.drawable.shujia_jiaru);
     }
 }
