@@ -5,7 +5,7 @@
         <attr name="foreGroundColor" format="color" />
         <attr name="circleWidth" format="dimension" />
         <attr name="percent" format="float" />
-        <attr name="title" format="string" />
+        <attr name="circletTitle" format="string" />
     </declare-styleable>
 
 </resources>

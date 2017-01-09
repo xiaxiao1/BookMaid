@@ -11,9 +11,11 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
+
 import com.xiaxiao.bookmaid.R;
 
 import java.text.DecimalFormat;
+
 
 /**
  * Created by xiaxiao on 2016/12/21.
@@ -32,6 +34,7 @@ public class RingView extends View {
     int circleWidth;
     int padding;
     DecimalFormat df;
+    String title;
 
     int radius=60;
     int rx;
@@ -75,12 +78,17 @@ public class RingView extends View {
                 case R.styleable.CircleLoading_percent:
                     fullAngle=(int)(360*a.getFloat(attr,0.0f));
                     break;
+                case R.styleable.CircleLoading_circletTitle:
+                    title = a.getString(attr);
+                    break;
 
             }
         }
 //        fullAngle=210;
         a.recycle();
-        runProgress();
+        if (fullAngle!=0) {
+            runProgress();
+        }
     }
 
     @Override
@@ -108,7 +116,7 @@ public class RingView extends View {
 
 
 
-    public void drawProgress(int sweepAngle,Canvas canvas) {
+    private void drawProgress(int sweepAngle,Canvas canvas) {
         this.paint.setStyle(Paint.Style.STROKE); //绘制空心圆
         paint.setColor(backGroundCircleColor);
         paint.setStrokeWidth(circleWidth);
@@ -138,15 +146,15 @@ public class RingView extends View {
 
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         String s=df.format(d).substring(0,5)+"%";
-        String read = "dfdf";
+
         paint.setTextSize(length/8);
         canvas.drawText(s,length/2-paint.measureText(s)/2,length/2,paint);
-        canvas.drawText(read,length/2-paint.measureText(read)/2,length/2+length/6,paint);
+        canvas.drawText(title,length/2-paint.measureText(title)/2,length/2+length/6,paint);
         this.paint.setStyle(Paint.Style.STROKE);
 
     }
 
-    public void runProgress() {
+    private void runProgress() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -203,5 +211,13 @@ public class RingView extends View {
         backgroundSweepAngle=0;
         sweepAngle=0;
         runProgress();
+    }
+
+    public void runPercent(float percent) {
+        runPercent((int)( 360*percent));
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

@@ -22,6 +22,7 @@ import com.xiaxiao.bookmaid.util.GlideHelper;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.UIDialog;
 import com.xiaxiao.bookmaid.util.Util;
+import com.xiaxiao.bookmaid.widget.RingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,8 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
     private TextView bookInfoIntroduceTv;
     private ListView listview;
     private View headerView;
+    private RingView buyCircle;
+    private RingView readCircle;
 
     private LinearLayout addNote_ll;
     /*private TextView addNote_tv;
@@ -81,6 +84,8 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         checkBookIsAdded();
 
 
+
+
     }
 
     public void initViews() {
@@ -93,6 +98,8 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         bookItemTuijianzheHeadCimg = (CircleImageView) headerView.findViewById(R.id.book_item_tuijianzhe_head_cimg);
         bookItemTuijianzheNameTv = (TextView) headerView.findViewById(R.id.book_item_tuijianzhe_name_tv);
         bookInfoIntroduceTv = (TextView) headerView.findViewById(R.id.book_info_introduce_tv);
+        buyCircle = (RingView) headerView.findViewById(R.id.buy_circle);
+        readCircle = (RingView) headerView.findViewById(R.id.read_circle);
 
         addNote_ll = (LinearLayout) findViewById(R.id.bookinfo_add_note_ll);
         addShelf_ll = (LinearLayout) findViewById(R.id.bookinfo_add_shelf_ll);
@@ -143,6 +150,8 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
                             bookNoteAdapter.updateDatas(notes);
                             bookNoteAdapter.notifyDataSetChanged();
                         }
+
+                        showCirclePercent();
                     }
 
                     @Override
@@ -267,5 +276,25 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
         addShelf_tv.setText("加入书架");
         addShelf_tv.setTextColor(getResources().getColor(R.color.lan));
         addShelf_img.setImageResource(R.drawable.shujia_jiaru);
+    }
+
+    public void showCirclePercent() {
+        requsetBuilder.build()
+                .countUsers(new BmobListener() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        buyCircle.setTitle("已买");
+                        buyCircle.runPercent(b.getOwnNumber()/(((int)object)*1.0f));
+
+                        readCircle.setTitle("已读");
+                        readCircle.runPercent(b.getReadNumber()/(((int)object)*1.0f));
+                    }
+
+                    @Override
+                    public void onError(BmobException e) {
+                        buyCircle.setTitle("加载失败");
+                        readCircle.setTitle("我加载失败了");
+                    }
+                });
     }
 }

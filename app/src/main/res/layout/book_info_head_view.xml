@@ -95,7 +95,7 @@
     <LinearLayout
         android:id="@+id/book_info_fenxi_ll"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="60dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="20dp"
@@ -110,14 +110,14 @@
             android:gravity="center_horizontal"
             >
             <com.xiaxiao.bookmaid.widget.RingView
-                android:id="@+id/buy_circle"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                circle:backGroundColor="@color/lan_light"
-                circle:foreGroundColor="@color/lan"
-                circle:percent="0.6"
-                circle:circleWidth="8dp"
-
+                android:id="@+id/read_circle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                circle:backGroundColor="@color/hong_light"
+                circle:foreGroundColor="@color/hong"
+                circle:percent="0.0"
+                circle:circleWidth="4dp"
+                circle:circletTitle="加载中..."
                 />
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent"
@@ -126,15 +126,18 @@
             android:gravity="center_horizontal"
             >
             <com.xiaxiao.bookmaid.widget.RingView
-                android:id="@+id/read_circle"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                circle:backGroundColor="@color/hong_light"
-                circle:foreGroundColor="@color/hong"
-                circle:percent="0.6"
-                circle:circleWidth="8dp"
+                android:id="@+id/buy_circle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                circle:backGroundColor="@color/lan_light"
+                circle:foreGroundColor="@color/lan"
+                circle:percent="0.0"
+                circle:circleWidth="4dp"
+                circle:circletTitle="加载中..."
+
                 />
         </LinearLayout>
+
 
 
     </LinearLayout>

@@ -20,6 +20,7 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -545,6 +546,22 @@ public class BmobServer {
                 if (e == null) {
                     handleSuccess(s);
                 } else {
+                    handleError(e);
+                }
+            }
+        });
+    }
+
+
+    public void countUsers(BmobListener bmobListener) {
+        addListener(bmobListener);
+        BmobQuery<MyUser> query = new BmobQuery<MyUser>();
+        query.count(MyUser.class, new CountListener() {
+            @Override
+            public void done(Integer count, BmobException e) {
+                if(e==null){
+                    handleSuccess(count);
+                }else{
                     handleError(e);
                 }
             }
