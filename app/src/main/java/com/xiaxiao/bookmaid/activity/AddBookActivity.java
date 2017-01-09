@@ -74,9 +74,9 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
         currentBuyType = getIntent().getIntExtra("buyType", 0);
         currentReadType = getIntent().getIntExtra("readType", 0);
         Util.setBuyLabelStyle(this,buyLabel_tv,currentBuyType==1);
-        buyType=1;
+        buyType=currentBuyType;
         Util.setReadLabelStyle(this,readLabel_tv,currentReadType==1);
-        readType=1;
+        readType=currentReadType;
 
         //如果是changebook   那么book一定是已经存在的了，所以这里两种跳转路径都可以使用bookIsNew来判断
         if (bookIsNew) {

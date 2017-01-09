@@ -12,7 +12,6 @@ import com.xiaxiao.bookmaid.listener.BmobListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
 /**
@@ -39,7 +38,7 @@ public class LoginActivity extends BaseActivity {
                     Util.toast(LoginActivity.this,"呼呼，密码和名字没写全吧");
                     return;
                 }
-                final BmobUser bu = new MyUser();
+                final MyUser bu = new MyUser();
                 bu.setUsername(nameStr);
                 bu.setPassword(mimaStr);
 
@@ -64,7 +63,8 @@ public class LoginActivity extends BaseActivity {
                                                 public void onSuccess(Object object) {
                                                     Util.toast(LoginActivity.this,"注册 成功");
                                                     Util.L("注册成功：");
-                                                    Util.setUser((BmobUser)object);
+                                                    Util.setUser((MyUser)object);
+
                                                    Util.goMainPage(LoginActivity.this);
                                                     LoginActivity.this.finish();
                                                 }
@@ -109,5 +109,13 @@ public class LoginActivity extends BaseActivity {
 //            System.exit(0);
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void finish() {
+        if(GlobalData.activity!=null){
+            GlobalData.activity.finish();
+        }
+        super.finish();
     }
 }

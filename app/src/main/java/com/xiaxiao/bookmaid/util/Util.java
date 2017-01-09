@@ -56,11 +56,11 @@ public class Util {
     }
 
     public static boolean isLogin(){
-        BmobUser bmobUser = BmobUser.getCurrentUser(MyUser.class);
-        return bmobUser!=null&&bmobUser.getObjectId()!=null;
+        MyUser bmobUser = BmobUser.getCurrentUser(MyUser.class);
+        return (bmobUser!=null&&bmobUser.getObjectId()!=null)||GlobalData.bmobUser!=null;
     }
 
-    public static BmobUser getUser2() {
+    public static MyUser getUser2() {
         if (isLogin()) {
             return BmobUser.getCurrentUser(MyUser.class);
         }
@@ -83,12 +83,16 @@ public class Util {
         GlobalData.userId=userId;
     }
 
-    public static void setUser(BmobUser bmobUser) {
+    public static void setUser(MyUser bmobUser) {
         GlobalData.bmobUser=bmobUser;
     }
 
     public static MyUser getUser() {
-        return BmobUser.getCurrentUser(MyUser.class);
+        MyUser myUser= BmobUser.getCurrentUser(MyUser.class);
+        if (myUser==null||myUser.getObjectId()==null||myUser.getObjectId().equals("")) {
+            return GlobalData.bmobUser;
+        }
+        return myUser;
     }
 
     public static void hideSoftInput(Context context,View view) {

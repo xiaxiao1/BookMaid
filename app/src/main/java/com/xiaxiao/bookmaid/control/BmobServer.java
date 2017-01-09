@@ -18,7 +18,6 @@ import java.io.File;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -369,7 +368,7 @@ public class BmobServer {
         });
     }
 
-    public void updateUserheadImage(File headfile, final BmobUser bmobUser, BmobListener bmobListener) {
+    public void updateUserheadImage(File headfile, final MyUser bmobUser, BmobListener bmobListener) {
         addListener(bmobListener);
         final BmobFile bmobFile = new BmobFile(headfile);
         showWaitDialog();
@@ -377,7 +376,7 @@ public class BmobServer {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    MyUser myUser=(MyUser)bmobUser;
+                    MyUser myUser=bmobUser;
                     myUser.setHeadImage(bmobFile);
                     myUser.update(myUser.getObjectId(), new UpdateListener() {
                         @Override
@@ -429,13 +428,12 @@ public class BmobServer {
         addRelationShip(relationShip);
     }
 
-    public void login(BmobUser bmobUser, BmobListener bmobListener) {
-        BmobUser b=bmobUser;
+    public void login(MyUser bmobUser, BmobListener bmobListener) {
         addListener(bmobListener);
         showWaitDialog();
-        bmobUser.login(new SaveListener<BmobUser>() {
+        bmobUser.login(new SaveListener<MyUser>() {
             @Override
-            public void done(BmobUser bmobUser, BmobException e) {
+            public void done(MyUser bmobUser, BmobException e) {
                 dismissWaitDialog();
                 if (e == null) {
                     Util.L("login ok");
@@ -448,12 +446,12 @@ public class BmobServer {
         });
     }
 
-    public void signUp(BmobUser bmobUser, BmobListener bmobListener) {
+    public void signUp(MyUser bmobUser, BmobListener bmobListener) {
         addListener(bmobListener);
         showWaitDialog();
-        bmobUser.signUp(new SaveListener<BmobUser>() {
+        bmobUser.signUp(new SaveListener<MyUser>() {
             @Override
-            public void done(BmobUser bmobUser, BmobException e) {
+            public void done(MyUser bmobUser, BmobException e) {
                 dismissWaitDialog();
                 if (e == null) {
                     handleSuccess(bmobUser);
@@ -464,7 +462,7 @@ public class BmobServer {
         });
     }
 
-    public void getShelf(BmobUser bmobUser, BmobListener bmobListener) {
+    public void getShelf(MyUser bmobUser, BmobListener bmobListener) {
         addListener(bmobListener);
         mBmobQuery = new BmobQuery<RelationShip>();
         mBmobQuery.addWhereEqualTo("owner", bmobUser);

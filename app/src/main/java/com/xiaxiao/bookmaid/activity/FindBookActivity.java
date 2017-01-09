@@ -101,6 +101,7 @@ public class FindBookActivity extends BaseActivity {
         noDataLl.setVisibility(View.GONE);
         datas.clear();
         BmobQuery<BookBean> query = new BmobQuery<>();
+        query.addWhereEqualTo("showType", 1);
         query.include("recommendPerson");
         requsetBuilder
                 .addBmobQuery(query)

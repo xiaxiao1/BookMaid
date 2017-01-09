@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.xiaxiao.bookmaid.bean.BookBean;
 import com.xiaxiao.bookmaid.bean.BookNote;
 import com.xiaxiao.bookmaid.bean.FamousWord;
+import com.xiaxiao.bookmaid.bean.MyUser;
 
 import java.util.List;
 
@@ -19,6 +20,6 @@ public class GlobalData {
     public static Activity activity;
     public static List<FamousWord> famousWords;
     public static String userId;
-    public static BmobUser bmobUser;
+    public static MyUser bmobUser;
     public static int findPageType=0;//0  search;1: add
 }
