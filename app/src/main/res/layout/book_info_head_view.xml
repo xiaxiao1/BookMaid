@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circle="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -94,14 +95,49 @@
     <LinearLayout
         android:id="@+id/book_info_fenxi_ll"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="120dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:background="#987345"
         android:layout_below="@id/book_info_introduce_tv"
-        android:visibility="invisible"
-        ></LinearLayout>
+        android:gravity="center_horizontal"
+        android:visibility="visible"
+        >
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+            <com.xiaxiao.bookmaid.widget.RingView
+                android:id="@+id/buy_circle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                circle:backGroundColor="@color/lan_light"
+                circle:foreGroundColor="@color/lan"
+                circle:percent="0.6"
+                circle:circleWidth="8dp"
+
+                />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+            <com.xiaxiao.bookmaid.widget.RingView
+                android:id="@+id/read_circle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                circle:backGroundColor="@color/hong_light"
+                circle:foreGroundColor="@color/hong"
+                circle:percent="0.6"
+                circle:circleWidth="8dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
     <include
         android:id="@+id/book_info_fenge_line"
         layout="@layout/view_split_line"
