@@ -138,9 +138,9 @@ public class RingView extends View {
 
         paint.setStrokeWidth(0);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(rx+radius*((float)Math.sin(sweepAngle*Math.PI/180)),ry-radius*((float)Math.cos(sweepAngle*Math.PI/180)),circleWidth/2,paint);
+        canvas.drawCircle((float)(rx+radius*(Math.sin(sweepAngle*Math.PI/180))),(float)(ry-radius*(Math.cos(sweepAngle*Math.PI/180))),circleWidth/2,paint);
         Log.i("radius","radius: "+((float)Math.sin(sweepAngle*Math.PI))+"     y:"+((float)Math.cos(sweepAngle*Math.PI))+"  sweep:"+sweepAngle);
-        paint.setStrokeWidth(1);
+//        paint.setStrokeWidth(1);
         paint.setTextSize(length/4);
         double d=sweepAngle/360d*100;
 
@@ -172,7 +172,7 @@ public class RingView extends View {
                     postInvalidate();
 
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

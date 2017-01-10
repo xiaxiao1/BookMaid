@@ -29,6 +29,7 @@ public class FeedBackActivity extends BaseActivity {
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Util.hideSoftInput(FeedBackActivity.this,et);
                 FeedBackActivity.this.finish();
             }
         });
@@ -45,12 +46,14 @@ public class FeedBackActivity extends BaseActivity {
                             @Override
                             public void onSuccess(Object object) {
                                 Util.toast(FeedBackActivity.this,"发送成功，谢谢");
+                                Util.hideSoftInput(FeedBackActivity.this,et);
                                 FeedBackActivity.this.finish();
                             }
 
                             @Override
                             public void onError(BmobException e) {
                                 Util.toast(FeedBackActivity.this,"发送失败,请重试");
+                                Util.hideSoftInput(FeedBackActivity.this,et);
                             }
                         });
             }

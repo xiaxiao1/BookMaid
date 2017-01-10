@@ -59,6 +59,12 @@ public class BookNoteAdapter extends MyBaseAdapter{
             holder.booknoteItemTowhoLl.setVisibility(View.GONE);
         }
         holder.booknoteItemContentTv.setText(bookNote.getContent());
+
+        if (bookNote.getNotePic() != null && bookNote.getNotePic().getUrl() != null) {
+            GlideHelper.loadImage(context, bookNote.getNotePic().getUrl(), holder.booknotePic);
+        } else {
+            
+        }
         holder.booknoteItemTimeTv.setText(bookNote.getCreatedAt());
 
 
@@ -80,7 +86,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
         private CircleImageView booknoteItemTowhoHeadCimg;
         private TextView booknoteItemTowhoNameTv;
         private TextView booknoteItemContentTv;
-        private ImageView booknoteItemRightimg;
+        private ImageView booknotePic;
         private TextView booknoteItemTimeTv;
 
 
@@ -91,7 +97,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
             booknoteItemTowhoHeadCimg = (CircleImageView) view.findViewById(R.id.booknote_item_towho_head_cimg);
             booknoteItemTowhoNameTv = (TextView) view.findViewById(R.id.booknote_item_towho_name_tv);
             booknoteItemContentTv = (TextView) view.findViewById(R.id.booknote_item_content_tv);
-            booknoteItemRightimg = (ImageView) view.findViewById(R.id.booknote_item_rightimg);
+            booknotePic = (ImageView) view.findViewById(R.id.note_pic_img);
             booknoteItemTimeTv = (TextView) view.findViewById(R.id.booknote_item_time_tv);
 
         }

@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid.bean;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by xiaxi on 2016/11/6.
@@ -16,6 +17,7 @@ public class BookNote extends BmobObject{
     MyUser whoWrite;
     MyUser replyWhos;
     BookBean book;
+    BmobFile notePic;
 
     public BookNote(String content, String id, String bookId, String userName) {
         this.content = content;
@@ -26,6 +28,14 @@ public class BookNote extends BmobObject{
 
     public BookNote() {
 
+    }
+
+    public BmobFile getNotePic() {
+        return notePic;
+    }
+
+    public void setNotePic(BmobFile notePic) {
+        this.notePic = notePic;
     }
 
     public BookBean getBook() {
