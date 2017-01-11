@@ -341,7 +341,7 @@ public class BitmapUtil {
 
 	public static Bitmap getThumbnail(Uri uri, Activity act) throws FileNotFoundException, IOException {
 		InputStream input = act.getContentResolver().openInputStream(uri);
-		int size = getXY(act)[0] > getXY(act)[1] ? getXY(act)[1] : getXY(act)[0];
+		/*int size = getXY(act)[0] > getXY(act)[1] ? getXY(act)[1] : getXY(act)[0];
 		BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
 		onlyBoundsOptions.inJustDecodeBounds = true;
 		onlyBoundsOptions.inDither = true;// optional
@@ -360,7 +360,8 @@ public class BitmapUtil {
 		bitmapOptions.inDither = true;// optional
 		bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
 		input = act.getContentResolver().openInputStream(uri);
-		Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
+		Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);*/
+		Bitmap bitmap = BitmapFactory.decodeStream(input);
 		input.close();
 		return bitmap;
 	}

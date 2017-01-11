@@ -39,6 +39,7 @@ public class RingView extends View {
     int radius=60;
     int rx;
     int ry;
+    boolean runOnetime=true;
 
     public RingView(Context context) {
 
@@ -100,8 +101,12 @@ public class RingView extends View {
 
 //        canvas.drawRect(0,0,getWidth(),getWidth(),paint);
 
-
-        drawProgress(sweepAngle,canvas);
+        if (runOnetime) {
+            drawProgress(sweepAngle, canvas);
+        } else {
+            backgroundSweepAngle=360;
+            drawProgress(fullAngle,canvas);
+        }
         super.onDraw(canvas);
     }
 
@@ -189,7 +194,9 @@ public class RingView extends View {
                     }
                 }
 
-
+                if (runOnetime) {
+                    runOnetime=false;
+                }
             }
         }).start();
     }
@@ -219,5 +226,9 @@ public class RingView extends View {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setRunOneTime(boolean time) {
+        runOnetime=time;
     }
 }

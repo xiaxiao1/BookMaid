@@ -215,6 +215,7 @@ public class BookInfoActivity extends BaseActivity implements View.OnClickListen
             if (requestCode==REQUSET_CODE_TIP) {//添加小纸条
                 getInfos();
                 listview.smoothScrollToPosition(0);
+                bookNoteAdapter.notifyDataSetChanged();
             }
             if (requestCode==REQUSET_CODE_SHELF) {//添加到书架
                 if (data.getBooleanExtra("ok", false)) {

@@ -3,8 +3,11 @@ package com.xiaxiao.bookmaid.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -177,6 +180,19 @@ public class Util {
             textView.setTextColor(context.getResources().getColor(R.color.lan));
             textView.setBackgroundResource(R.drawable.border_lan);
         }
+    }
+
+    public static int getSelfAdaptionHeight(int fixedWidth, Bitmap bitmap) {
+        return fixedWidth*bitmap.getHeight()/bitmap.getWidth();
+
+    }
+
+    public static Point getDisplay(Activity context) {
+        Display display=context.getWindowManager().getDefaultDisplay();
+
+        Point point=new Point();
+        display.getSize(point);
+        return point;
     }
 
 }
