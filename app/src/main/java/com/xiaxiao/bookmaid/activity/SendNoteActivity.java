@@ -2,6 +2,7 @@ package com.xiaxiao.bookmaid.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -113,6 +114,8 @@ public class SendNoteActivity extends BaseActivity {
                 hasCover=false;
                 showNoteImg_rl.setVisibility(View.GONE);
                 addNoteImg_img.setVisibility(View.VISIBLE);
+                coverBitmap.recycle();
+                coverBitmap=null;
             }
         });
     }
@@ -134,7 +137,8 @@ public class SendNoteActivity extends BaseActivity {
         if (noteFile!=null) {
             bookNote.setNotePic(noteFile);
         }
-        requsetBuilder.build()
+        requsetBuilder.enableDialog(false)
+                .build()
                 .addBookNote(bookNote, new BmobListener() {
                     @Override
                     public void onSuccess(Object object) {
@@ -155,7 +159,6 @@ public class SendNoteActivity extends BaseActivity {
     public void uploadNotePicAndSendNote(final String str1) {
         if (hasCover) {
             requsetBuilder
-                    .enableDialog(false)
                     .build()
                     .upFile(CropUtil.makeTempFile(coverBitmap, "notepic.jpg"), new BmobListener() {
                         @Override
@@ -189,8 +192,10 @@ public class SendNoteActivity extends BaseActivity {
 //                Util.toast(this,"从相册里选");
                 Uri photo_uri = data.getData();
                 try {
-                    coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(photo_uri, this),
-                            400, 400, true);
+                   /* Point point = Util.getDisplay(SendNoteActivity.this);
+                    coverBitmap = Bitmap.createScaledBitmap(tempb,
+                            point.x, (int)(point.x*((float)tempb.getHeight()/tempb.getWidth())), true);*/
+                    coverBitmap =BitmapUtil.getThumbnail(photo_uri, this);;
 
                     if (coverBitmap!=null) {
                         showNoteImg_rl.setVisibility(View.VISIBLE);
@@ -209,8 +214,10 @@ public class SendNoteActivity extends BaseActivity {
 //                Util.toast(this,"拍照的");
                 final File file = new File(BitmapUtil.HEAD_IMAGE_PATH + "temp.jpg");
                 try {
-                    coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, this), 400,
-                            400, true);
+                    Point point = Util.getDisplay(SendNoteActivity.this);
+                    /*coverBitmap = Bitmap.createScaledBitmap(BitmapUtil.getThumbnail(file, this), 400,
+                            (int)(400f*(point.y/point.x)), true);*/
+                    coverBitmap=BitmapUtil.getThumbnail(file, this);
                     if (coverBitmap!=null) {
                         showNoteImg_rl.setVisibility(View.VISIBLE);
                         addNoteImg_img.setVisibility(View.GONE);

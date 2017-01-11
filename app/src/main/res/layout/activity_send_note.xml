@@ -107,8 +107,8 @@
             />
         <RelativeLayout
             android:id="@+id/show_note_img_rl"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="4dp"
@@ -116,8 +116,9 @@
             >
             <ImageView
                 android:id="@+id/note_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
                 android:layout_centerInParent="true"
                 android:src="@drawable/app_icon_1"
                 />
@@ -127,15 +128,16 @@
                 android:layout_height="26dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="-4dp"
-                android:layout_marginRight="-4dp"
+                android:layout_marginTop="-2dp"
+                android:layout_marginRight="-2dp"
+                android:background="@drawable/white_soild_circle_bg"
                 android:src="@drawable/delete"
                 />
         </RelativeLayout>
         <ImageView
             android:id="@+id/add_note_img_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@drawable/border_gray"

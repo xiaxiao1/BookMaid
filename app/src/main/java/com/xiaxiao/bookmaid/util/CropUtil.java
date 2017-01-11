@@ -2,6 +2,7 @@ package com.xiaxiao.bookmaid.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Environment;
 
@@ -25,15 +26,21 @@ public class CropUtil {
 		int w = b.getWidth();
         int h = b.getHeight();
         float s;
-        if(w<len && h<len){
+        /*if(w<len && h<len){
         	s = 1;
         }
         if(w>h){
         	s = (float)len/w; 
         }else{
         	s = (float)len/h;
-        }
-    	Matrix matrix = new Matrix();
+        }*/
+		//只按宽度进行压缩
+		if (len < w) {
+			s = (float) len / w;
+		} else {
+			s=1;
+		}
+		Matrix matrix = new Matrix();
         matrix.postScale(s, s);  
         //压缩图片
         Bitmap newB = Bitmap.createBitmap(b , 0, 0, w, h, matrix, false);
@@ -80,7 +87,7 @@ public class CropUtil {
 		if(!status.equals(Environment.MEDIA_MOUNTED))
 			throw new RuntimeException("没有存储卡");
 		//等比例压缩图片，将较长的一边压缩到600px一下，最大容量不超过200K
-		byte[] tempData = CropUtil.compressPhotoByte(photo, 600, 200*1024);
+		byte[] tempData = CropUtil.compressPhotoByte(photo, 800, 200*1024);
 		//将压缩后的图片缓存到存储卡根目录下（权限）
 		File bFile = new File(BitmapUtil.HEAD_IMAGE_PATH + nameKey);
 		if (!bFile.getParentFile().exists())

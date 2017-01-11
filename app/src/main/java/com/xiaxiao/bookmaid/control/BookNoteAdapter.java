@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
 
     int type;
     int proirIndex=-2;
+    int imgWidth=0;
 
     public BookNoteAdapter(Context context, List list, int type) {
        super(context,list);
@@ -32,7 +34,7 @@ public class BookNoteAdapter extends MyBaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder;
+        final Holder holder;
         BookNote bookNote = (BookNote) list.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.booknote_item, null);
@@ -45,6 +47,17 @@ public class BookNoteAdapter extends MyBaseAdapter{
             GlideHelper.loadImage(context, bookNote.getWhoWrite().getHeadImage().getUrl(), holder.booknoteItemFromwhoHeadCmig);
         } else {
             holder.booknoteItemFromwhoHeadCmig.setImageResource(R.drawable.app_head_gray);
+        }
+        if (imgWidth==0) {
+            holder.booknotePic.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+
+
+                @Override
+                public boolean onPreDraw() {
+                    imgWidth = holder.booknotePic.getMeasuredWidth();
+                    return true;
+                }
+            });
         }
         holder.booknoteItemFromwhoNameTv.setText(bookNote.getWhoWrite().getUsername());
         if (bookNote.getReplyWhos()!=null&&!bookNote.getReplyWhos().getObjectId().equals("")) {
@@ -61,19 +74,21 @@ public class BookNoteAdapter extends MyBaseAdapter{
         holder.booknoteItemContentTv.setText(bookNote.getContent());
 
         if (bookNote.getNotePic() != null && bookNote.getNotePic().getUrl() != null) {
-            GlideHelper.loadImage(context, bookNote.getNotePic().getUrl(), holder.booknotePic);
+            holder.booknotePic.setVisibility(View.VISIBLE);
+//            GlideHelper.loadImage(context, bookNote.getNotePic().getUrl(), holder.booknotePic,R.drawable.book_img);
+            GlideHelper.loadImageWithFitHeight(context, bookNote.getNotePic().getUrl(), holder.booknotePic,R.drawable.book_img,imgWidth);
         } else {
-            
+            holder.booknotePic.setVisibility(View.GONE);
         }
         holder.booknoteItemTimeTv.setText(bookNote.getCreatedAt());
 
 
 
-        if (position > proirIndex) {
+       /* if (position > proirIndex) {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_fly));
         } else {
             convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_show_drop));
-        }
+        }*/
 //        convertView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.open_alpha));
         proirIndex=position;
         return convertView;
