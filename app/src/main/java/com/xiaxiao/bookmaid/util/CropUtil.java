@@ -46,7 +46,7 @@ public class CropUtil {
         Bitmap newB = Bitmap.createBitmap(b , 0, 0, w, h, matrix, false);
         //将压缩后的图片转换为字节数组，如果字节数组大小超过200K，继续压缩
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        int qt = 70;
+        int qt = 90;
         newB.compress(CompressFormat.JPEG, qt, bos);
         int size = bos.size();
         while(qt!=0 && size>maxSize){
