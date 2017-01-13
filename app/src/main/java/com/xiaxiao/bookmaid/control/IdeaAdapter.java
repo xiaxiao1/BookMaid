@@ -3,6 +3,10 @@ package com.xiaxiao.bookmaid.control;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.media.Image;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -90,8 +94,10 @@ public class IdeaAdapter extends MyBaseAdapter{
                 public boolean onPreDraw() {
                     if (picWidth==0) {
                         picWidth = holder.notePic_img.getMeasuredWidth();
+                        Util.L(picWidth+"  position:"+position);
                     }
 //                    viewTreeObserver.removeOnGlobalLayoutListener();
+                    holder.notePic_img.getViewTreeObserver().removeOnPreDrawListener(this);
                     return true;
                 }
             });
@@ -105,14 +111,18 @@ public class IdeaAdapter extends MyBaseAdapter{
 
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                    final int height_t = Util.getSelfAdaptionHeight(picWidth, resource);
                     holder.notePic_img.setImageBitmap(resource);
+                    final int height_t = Util.getSelfAdaptionHeight(picWidth, resource);
+                    ViewGroup.LayoutParams params = holder.notePic_img.getLayoutParams();
                     if (positionList.contains(position)) {
+                        params.width=picWidth;
+                        params.height=height_t;
+                        holder.notePic_img.setLayoutParams(params);
                         return;
                     }
 
-                    ViewGroup.LayoutParams params = holder.notePic_img.getLayoutParams();
                     params.width=100;
+                    params.height=100;
                     holder.notePic_img.setLayoutParams(params);
                     holder.notePic_img.setOnClickListener(new View.OnClickListener() {
                         @Override

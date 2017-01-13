@@ -79,7 +79,6 @@ public class BookNoteAdapter extends MyBaseAdapter{
 
         if (bookNote.getNotePic() != null && bookNote.getNotePic().getUrl() != null) {
             holder.booknotePic.setVisibility(View.VISIBLE);
-//            GlideHelper.loadImage(context, bookNote.getNotePic().getUrl(), holder.booknotePic,R.drawable.book_img);
             GlideHelper.loadImageWithFitHeight(context, bookNote.getNotePic().getUrl(), R.drawable.book_img, new OnGlideListener() {
 
                 @Override
