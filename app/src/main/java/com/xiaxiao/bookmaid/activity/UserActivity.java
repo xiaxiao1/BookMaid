@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.FamousWord;
 import com.xiaxiao.bookmaid.bean.FeedBack;
-import com.xiaxiao.bookmaid.control.BookServer;
 import com.xiaxiao.bookmaid.listener.OnResultListener;
 import com.xiaxiao.bookmaid.util.GlobalData;
 import com.xiaxiao.bookmaid.util.Util;
@@ -59,7 +58,6 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     int tuijianmingyanHeight=330;
     LinearLayout.LayoutParams params;
     LinearLayout.LayoutParams tuijianMingyan_params;
-    BookServer bookServer;
     FamousWord famousWord;
 
     @Override
@@ -67,7 +65,6 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         initViews();
-        bookServer = new BookServer(this);
         params = (LinearLayout.LayoutParams) jianjie_tv.getLayoutParams();
         tuijianMingyan_params = (LinearLayout.LayoutParams) tuijianmingyan_area_ll.getLayoutParams();
         showFamousWord();
@@ -293,28 +290,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
 
 
     public void loadMingyan() {
-        bookServer.getFamousWords(new OnResultListener() {
-            @Override
-            public void onResult(Object object) {
-            GlobalData.famousWords=(List<FamousWord>)object;
-                Util.L("famousword size:"+GlobalData.famousWords.size());
-                famousWord = Util.pickOneFrom(GlobalData.famousWords);
-                if (famousWord!=null) {
-                    showMingyan_tv.setText(famousWord.getContent());
-                    showMingyanWriter_tv.setText(famousWord.getWriter());
-                    showMingyanTuijianren_tv.setText(famousWord.getUsername());
-                }
-            }
-            @Override
-            public void onSuccess(String objectId) {
 
-            }
-
-            @Override
-            public void onError(BmobException e) {
-                Util.L("查名言 出错了"+e.getMessage()+e.getErrorCode());
-            }
-        });
     }
 
     public void showFamousWord() {

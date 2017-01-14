@@ -1,6 +1,7 @@
 package com.xiaxiao.bookmaid.control;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.xiaxiao.bookmaid.R;
 import com.xiaxiao.bookmaid.bean.BookNote;
+import com.xiaxiao.bookmaid.listener.OnGlideListener;
 import com.xiaxiao.bookmaid.util.GlideHelper;
+import com.xiaxiao.bookmaid.util.Util;
 
 import java.util.List;
 
@@ -75,8 +79,18 @@ public class BookNoteAdapter extends MyBaseAdapter{
 
         if (bookNote.getNotePic() != null && bookNote.getNotePic().getUrl() != null) {
             holder.booknotePic.setVisibility(View.VISIBLE);
-//            GlideHelper.loadImage(context, bookNote.getNotePic().getUrl(), holder.booknotePic,R.drawable.book_img);
-            GlideHelper.loadImageWithFitHeight(context, bookNote.getNotePic().getUrl(), holder.booknotePic,R.drawable.book_img,imgWidth);
+            GlideHelper.loadImageWithFitHeight(context, bookNote.getNotePic().getUrl(), R.drawable.book_img, new OnGlideListener() {
+
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                    ViewGroup.LayoutParams p=holder.booknotePic.getLayoutParams();
+//                p.width=w;
+                    p.height= Util.getSelfAdaptionHeight(imgWidth,resource);
+//重置ImageView的宽高度
+                    holder.booknotePic.setLayoutParams(p);
+                    holder.booknotePic.setImageBitmap(resource);
+                }
+            });
         } else {
             holder.booknotePic.setVisibility(View.GONE);
         }
